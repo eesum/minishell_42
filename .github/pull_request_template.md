@@ -12,8 +12,8 @@
   - [Fix]
 - [ ] Labels에는 해당 이슈의 성향을 잘 나타내나요?
  -->
-# Describe your changes
+# 변동 사항
 - 
 
-# Issue number and link
+# 이슈 번호
 - 
