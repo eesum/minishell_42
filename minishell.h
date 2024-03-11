@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/11 14:04:05 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/11 22:37:03 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <errno.h>
 # include "libft/libft.h"
 
 typedef struct s_token
@@ -50,5 +51,8 @@ char	*ft_strdup_err(const char *s1);
 char    *ft_strndup(char *origin, int count);
 t_token *ft_make_newtoken(char *str, int type);
 void	 parsing(char *str, t_list **head);
+char	*ft_strjoin_sep(char const *s1, char const *s2, char const *sep);
+char	*find_env(char *name, t_list *env);
+void	update_env(char *name, char *value, t_list *env);
 
 #endif
