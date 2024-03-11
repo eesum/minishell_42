@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/11 14:22:29 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:39:15 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**parse_delimiter(t_list *pipe, int doc_cnt)
 		}
 		pp_cur = pp_cur->next;
 	}
-	return (doc_cnt);
+	return (arr);
 }
 
 char	*create_tmpname(int i)
@@ -80,7 +80,7 @@ char	*create_tmpname(int i)
 	return (path);
 }
 
-void	here_document(t_execdata *data)
+void	here_document(t_execdata *data)  // 시그널 등 추후 고려 필요
 {
 	int	i;
 
