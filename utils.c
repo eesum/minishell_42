@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:16 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/11 14:02:15 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/11 23:03:17 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	error_exit(char *msg, char *cmd, char *arg, int code)
 {
 	if (msg != NULL)
 	{
-		ft_putstr_fd("pipex: ", 2);
+		ft_putstr_fd("minishell: ", 2);
 		if (cmd != NULL)
 		{
 			ft_putstr_fd(cmd, 2);
@@ -69,4 +69,23 @@ char	*ft_strdup_err(const char *s1)
 		dest = (char *)ft_malloc_err(sizeof(char) * (ft_strlen(s1) + 1));
 	ft_strcpy(dest, s1);
 	return (dest);
+}
+
+char	*ft_strndup(char *origin, int count)
+{
+	char 	*str;
+	size_t	i;
+	char	c;
+
+	str = (char *)ft_malloc_err(sizeof(char) + (count + 1));
+	str[count] = '\0';
+	i = 0;
+	while (count)
+	{
+			str[i] = *origin;
+			i++;
+			origin++;
+			count--;
+	}
+	return(str);
 }
