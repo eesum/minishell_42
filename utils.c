@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:16 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/10 17:16:31 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:02:15 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,10 @@ void	error_exit(char *msg, char *cmd, char *arg, int code)
 void	*ft_malloc_err(size_t size)
 {
 	unsigned char	*ptr;
-	size_t			i;
 
 	ptr = (unsigned char *)malloc(size);
 	if (ptr == NULL)
 		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
-	i = 0;
-	while (i < size)
-	{
-		ptr[i] = 0;
-		i++;
-	}
 	return ((void *)ptr);
 }
 
