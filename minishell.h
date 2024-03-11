@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/11 13:53:26 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/11 14:04:05 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,6 @@ typedef struct s_token
 	int				type;
 }				t_token;
 
-typedef struct s_env
-{
-	char			*str;
-	struct s_env	*next;
-}				t_env;
-
 typedef struct s_execdata
 {
 	int		cmd_cnt;
@@ -43,8 +37,11 @@ typedef struct s_execdata
 	pid_t	pid;
 	char	**path;
 	int		status;
-	t_pipe	pipe;
-	t_env	env;
+	t_list	*pipe;
+	t_list	*env;
+	int		doc_cnt;
+	int		*doc_fd;
+	char	**doc_arr;
 }				t_execdata;
 
 void	error_exit(char *msg, char *cmd, char *arg, int code);
