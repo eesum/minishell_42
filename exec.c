@@ -6,11 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/11 18:43:56 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/12 15:23:39 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "minishell.h"
+#include <stdlib.h>
 
 void	wait_childs(t_execdata *data)
 {
@@ -77,13 +79,14 @@ t_list *envp_to_lst(char **envp)
 	int		i;
 
 	i = 0;
-	env = ft_malloc_err(sizeof(t_list));
-	env->content = ft_strdup_err("?=0");
-	env->next = NULL;
-	while (envp[i])
+	env = ft_lstnew(ft_strdup_err("?=0"));
+	if (env == NULL)
+		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
+	while (envp && envp[i])
 	{
-		new = ft_malloc_err(sizeof(t_list));
-		new->content = ft_strdup_err(envp[i]);
+		new = ft_lstnew(ft_strdup_err(envp[i]));
+		if (env == NULL)
+			error_exit("malloc failed", 0, 0, EXIT_FAILURE);
 		ft_lstadd_back(&env, new);
 		i++;
 	}
