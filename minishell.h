@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/12 17:47:09 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/12 20:04:49 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ char	*ft_strjoin_sep(char const *s1, char const *s2, char const *sep);
 char	*find_env(char *name, t_list *env);
 void	update_env(char *name, char *value, t_list *env);
 void	check_cmd_option(char **cmd);
+int		check_valid_name(char *arg, char sep);
 
 #endif

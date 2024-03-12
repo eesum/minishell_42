@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/12 18:45:33 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/12 20:06:37 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	update_env(char *name, char *value, t_list *env)
 	name_len = ft_strlen(name);
 	while (cur != NULL)
 	{
-		if (ft_strncmp((char *)cur->content, name, name_len) == 0 \
+		if (ft_memcmp((char *)cur->content, name, name_len) == 0 \
 			&& ((char *)cur->content)[name_len] == '=' \
 			&& ((char *)cur->content)[name_len] != '\0')
 		{
@@ -96,4 +96,23 @@ void	check_cmd_option(char **cmd)
 		tmp[2] = '\0';
 		error_exit("invalid option", cmd[0], tmp, 2);
 	}
+}
+
+int	check_valid_name(char *arg, char sep)
+{
+	int	i;
+
+	if (arg && arg[0] != 95 && \
+		(arg[0] < 65 || (arg[0] > 90 && arg[0] < 97) || arg[0] > 122))
+		return (-1);
+	i = 1;
+	while (arg && arg[i] && arg[i] != sep)
+	{
+		if (arg[i] != 95 && \
+			(arg[i] < 48 || (arg[i] > 57 && arg[i] < 65) || \
+			(arg[i] > 90 && arg[i] < 97) || arg[i] > 122))
+			return (-1);
+		i++;
+	}
+	return (i);
 }

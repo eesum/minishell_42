@@ -6,30 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/12 18:43:33 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/12 20:05:11 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	check_valid_name(char *arg)
-{
-	int	i;
-
-	if (arg && arg[0] != 95 && \
-		(arg[0] < 65 || (arg[0] > 90 && arg[0] < 97) || arg[0] > 122))
-		return (-1);
-	i = 1;
-	while (arg && arg[i] && arg[i] != '=')
-	{
-		if (arg[i] != 95 && \
-			(arg[i] < 48 || (arg[i] > 57 && arg[i] < 65) || \
-			(arg[i] > 90 && arg[i] < 97) || arg[i] > 122))
-			return (-1);
-		i++;
-	}
-	return (i);
-}
 
 void	export_no_arg(t_list *env)
 {
@@ -66,7 +47,7 @@ void	exec_export(char **cmd, t_list *env)
 		export_no_arg(env);
 	while (cmd[++i])
 	{
-		name_len = check_valid_name(cmd[i]);
+		name_len = check_valid_name(cmd[i], '=');
 		if (name_len < 0)
 		{
 			err_flag = 1;
