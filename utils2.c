@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/11 22:36:54 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/12 18:45:33 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	update_env(char *name, char *value, t_list *env)
 	t_list	*cur;
 	size_t	name_len;
 	char	*env_content;
+	t_list	*new;
 
 	cur = env;
 	if (name == NULL)
@@ -77,5 +78,22 @@ void	update_env(char *name, char *value, t_list *env)
 			return ;
 		}
 		cur = cur->next;
+	}
+	new = ft_lstnew(ft_strjoin_sep(name, value, "="));
+	if (new == NULL)
+		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
+	ft_lstadd_back(&env, new);
+}
+
+void	check_cmd_option(char **cmd)
+{
+	char	tmp[3];
+
+	if (cmd[1] && cmd[1][0] == '-' && cmd[1][1] != '\0')
+	{
+		tmp[0] = '-';
+		tmp[1] = cmd[1][1];
+		tmp[2] = '\0';
+		error_exit("invalid option", cmd[0], tmp, 2);
 	}
 }

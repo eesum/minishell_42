@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:16 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/11 23:03:17 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:47:08 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,26 @@ void	error_exit(char *msg, char *cmd, char *arg, int code)
 		write(2, "\n", 1);
 	}
 	exit(code);
+}
+
+void	error_msg_only(char *msg, char *cmd, char *arg)
+{
+	if (msg != NULL)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		if (cmd != NULL)
+		{
+			ft_putstr_fd(cmd, 2);
+			ft_putstr_fd(": ", 2);
+		}
+		if (arg != NULL)
+		{
+			ft_putstr_fd(arg, 2);
+			ft_putstr_fd(": ", 2);
+		}
+		ft_putstr_fd(msg, 2);
+		write(2, "\n", 1);
+	}
 }
 
 void	*ft_malloc_err(size_t size)
