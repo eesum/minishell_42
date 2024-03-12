@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 20:14:04 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/12 17:01:48 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/12 17:08:05 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,8 @@ void	exec_cd(char **cmd, t_list *env)
 {
 	char	*path;
 	char	*dest_path;
-	char	tmp[3];
 
-	if (cmd[1] && cmd[1][0] == '-' && cmd[1][1] != '\0')
-	{
-		tmp[0] = '-';
-		tmp[1] = cmd[1][1];
-		tmp[2] = '\0';
-		error_exit("invalid option", cmd[0], tmp, 2);
-	}
+	check_cmd_option(cmd);
 	path = getcwd(NULL, 0);
 	if (path == NULL)
 		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
