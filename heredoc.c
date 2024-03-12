@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/11 17:39:15 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/12 18:24:17 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	here_document(t_execdata *data)  // 시그널 등 추후 고려 필요
 				write(data->doc_fd[i], buff, ft_strlen(buff));
 				write(data->doc_fd[i], "\n", 1);
 			}
+			free(buff);
 		}
 		i++;
 	}
