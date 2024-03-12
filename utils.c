@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:16 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/12 17:47:08 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/12 21:07:25 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	error_exit(char *msg, char *cmd, char *arg, int code)
 {
-	if (msg != NULL)
+	if (code != 0 && msg != NULL)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		if (cmd != NULL)
