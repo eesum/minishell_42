@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/13 17:20:20 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/13 22:55:01 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@
 
 typedef struct s_token
 {
-	char			*str;
-	int				type;
+	char	*str;
+	int		type;
+	int		hd_index;
 }				t_token;
 
 typedef struct s_execdata
@@ -41,6 +42,7 @@ typedef struct s_execdata
 	int		pipe_cnt;
 	int		index;
 	int		fd[2][2];
+	int		tmp_fd[2];
 	pid_t	pid;
 	char	**path;
 	t_list	*pipe;
@@ -58,15 +60,40 @@ char	*interpret_env(char *str, t_list *envlist);
 void	split_token(t_list **head, char *str);
 
 /*exec*/
+t_list *envp_to_lst(char **envp);
+int		count_pipe(t_execdata *data);
+int		check_file_open(t_list *pipe_cntnt);
+int		find_last_input(t_execdata *data);
+int		find_last_output(t_execdata *data);
+void	dup_fds(t_execdata *data, int input_fd, int output_fd);
+char	**cmd_to_arr(t_list *pipe);
+char	**lst_to_envp(t_list *env);
+char	**split_path(char **envp);
+char	*find_cmd(char **path, char *cmd);
+void	exec_general_cmd(char **cmd, t_list *env);
+int		exec_cmd(char **cmd, t_list *env);
+int		only_builtin(t_execdata *data);
 void	wait_and_update_exit_code(int doc_cnt, t_list *env);
 void	here_document(t_execdata *data);
 int		is_builtin(char *cmd);
+
+/*builtin*/
+int		exec_echo(char **cmd);
+int		exec_cd(char **cmd, t_list *env);
+int		exec_pwd(char **cmd);
+int		exec_export(char **cmd, t_list *env);
+int		exec_unset(char **cmd, t_list *env);
+void	exec_exit(char **cmd);
+
 
 /*error*/
 void	error_exit(char *msg, char *cmd, char *arg, int code);
 void	error_msg_only(char *msg, char *cmd, char *arg);
 void	*ft_malloc_err(size_t size);
 char	*ft_strdup_err(const char *s1);
+char	*ft_substr_err(char const *s, unsigned int start, size_t len);
+char	*ft_itoa_err(int n);
+char	*ft_strjoin_err(char const *s1, char const *s2);
 
 /*utils*/
 void	ft_strcpy(char *dest, const char *src);
