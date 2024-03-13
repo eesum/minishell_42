@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 19:40:13 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/12 20:13:43 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:56:50 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	remove_env(char *name, t_list *env)
 	}
 }
 
-void	exec_unset(char **cmd, t_list *env)
+int	exec_unset(char **cmd, t_list *env)
 {
 	int		i;
 	int		name_len;
@@ -53,12 +53,13 @@ void	exec_unset(char **cmd, t_list *env)
 			error_msg_only("not a valid identifier", cmd[0], cmd[i]);
 			continue ;
 		}
-		name = ft_substr(cmd[i], 0, name_len);
+		name = ft_substr_err(cmd[i], 0, name_len);
 		remove_env(name, env);
 		free(name);
 	}
 	if (err_flag == 1)
-		exit(EXIT_FAILURE);
+		return (-1);
+	return (0);
 }
 
 // t_list *envp_to_lst(char **envp)

@@ -6,13 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/12 20:05:11 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:55:03 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	export_no_arg(t_list *env)
+int	export_no_arg(t_list *env)
 {
 	t_list	*cur;
 	size_t	name_len;
@@ -27,13 +27,16 @@ void	export_no_arg(t_list *env)
 		while (((char *)cur->content)[name_len] != '=')
 			name_len++;
 		name = ft_substr((char *)cur->content, 0, name_len);
+		if (name == NULL)
+			return (-1);
 		printf("%s=\"%s\"\n", name, &((char *)cur->content)[name_len + 1]);
 		free(name);
 		cur = cur->next;
 	}
+	return (0);
 }
 
-void	exec_export(char **cmd, t_list *env)
+int	exec_export(char **cmd, t_list *env)
 {
 	int	i;
 	int	name_len;
@@ -44,7 +47,7 @@ void	exec_export(char **cmd, t_list *env)
 	i = 0;
 	err_flag = 0;
 	if (cmd[1] == NULL)
-		export_no_arg(env);
+		return (export_no_arg(env));
 	while (cmd[++i])
 	{
 		name_len = check_valid_name(cmd[i], '=');
@@ -54,12 +57,13 @@ void	exec_export(char **cmd, t_list *env)
 			error_msg_only("not a valid identifier", cmd[0], cmd[i]);
 			continue ;
 		}
-		name = ft_substr(cmd[i], 0, name_len);
+		name = ft_substr_err(cmd[i], 0, name_len);
 		update_env(name, &cmd[i][name_len + 1], env);
 		free(name);
 	}
 	if (err_flag == 1)
-		exit(EXIT_FAILURE);
+		return (-1);
+	return (0);
 }
 
 // t_list *envp_to_lst(char **envp)

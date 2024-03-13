@@ -6,13 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:52:58 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/12 17:08:12 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/13 21:26:52 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	exec_pwd(char **cmd)
+int	exec_pwd(char **cmd)
 {
 	char	*path;
 	char	tmp[3];
@@ -23,4 +23,5 @@ void	exec_pwd(char **cmd)
 		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
 	printf("%s\n", path);
 	free(path);
+	return (0);
 }

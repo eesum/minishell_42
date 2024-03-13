@@ -6,39 +6,38 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/12 21:13:13 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/13 21:45:53 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	exit_after_print(int exit_code, t_list *env)
+void	exit_after_print(int exit_code)
 {
 	char	*exit_code_char;
 
-	exit_code_char = ft_itoa(exit_code);
+	exit_code_char = ft_itoa_err(exit_code);
 	printf("exit\n");
-	update_env("?", exit_code_char, env);
 	exit(exit_code);
 }
 
-void	exec_exit(char **cmd, t_list *env)
+void	exec_exit(char **cmd) 
 {
 	int	i;
 	int exit_code;
 
 	if (cmd[1] == NULL)
-		exit_after_print(EXIT_SUCCESS, env);
+		exit_after_print(EXIT_SUCCESS);
 	i = 0;
 	while (cmd[1][i])
 	{
 		if (cmd[1][i] < 48 || cmd[1][i] > 57)
 		{
 			error_msg_only("numeric argument required", cmd[0], cmd[1]);
-			exit_after_print(EXIT_FAILURE, env);
+			exit_after_print(EXIT_FAILURE);
 		}
 		i++;
 	}
 	exit_code = ft_atoi(cmd[1]);
-	exit_after_print(exit_code, env);
+	exit_after_print(exit_code);
 }

@@ -6,48 +6,60 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 20:14:04 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/12 17:08:05 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/13 21:26:08 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	change_dir(char *dest_path, char *current_path, char *arg, t_list *env)
+int	change_dir(char *dest_path, char *current_path, char *arg, t_list *env)
 {
 	char	*new_pwd;
 
 	if (chdir(dest_path) < 0)
 	{
 		if (errno == EACCES || errno == EFAULT)
-			error_exit("Permission denied", "cd", arg, 2);
+			error_msg_only("Permission denied", "cd", arg);
 		else if (errno == ENOENT)
-			error_exit("No such file or directory", "cd", arg, 2);
+			error_msg_only("No such file or directory", "cd", arg);
 		else if (errno == ENOTDIR)
-			error_exit("Not a directory", "cd", arg, 2);
+			error_msg_only("Not a directory", "cd", arg);
 		else
-			error_exit("Error occured", "cd", arg, 2);
+			error_msg_only("Error occured", "cd", arg);
+		return (-1);
 	}
 	new_pwd = getcwd(NULL, 0);
 	update_env("OLDPWD", current_path, env);
 	update_env("PWD", new_pwd, env);
 	free(new_pwd);
+	return (0);
 }
 
-void	to_directory(char *path, char *current_path, char **cmd, t_list *env)
+int	to_directory(char *path, char *current_path, char **cmd, t_list *env)
 {
 	char	*dest_path;
 
 	dest_path = find_env(path, env);
 	if (dest_path == NULL)
-		error_exit("not set", cmd[0], path, 2);
-	change_dir(dest_path, current_path, 0, env);
+	{
+		error_msg_only("Environment variables not set", 0, 0);
+		return (-1);
+	}
+	if (dest_path && dest_path[0] == '\0')
+	{
+		free(dest_path);
+		error_msg_only("not set", cmd[0], path);
+		return (-1);
+	}
+	if (change_dir(dest_path, current_path, 0, env) < 0)
+		return (-1);
 	if (ft_memcmp(path, "OLDPWD", 7) == 0)
 		printf("%s\n", dest_path);
 	free(dest_path);
-	return ;
+	return (0);
 }
 
-void	exec_cd(char **cmd, t_list *env)
+int	exec_cd(char **cmd, t_list *env)
 {
 	char	*path;
 	char	*dest_path;
@@ -55,18 +67,23 @@ void	exec_cd(char **cmd, t_list *env)
 	check_cmd_option(cmd);
 	path = getcwd(NULL, 0);
 	if (path == NULL)
+	{
 		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
+		return (-1);
+	}
 	if (cmd[1] == NULL) // || ft_memcmp("~", cmd[1], 2) ==0 이거만 뺄지 아래것도 뺄지..!
-		to_directory("HOME", path, cmd, env);
+		return (to_directory("HOME", path, cmd, env));
 	else if (ft_memcmp("-", cmd[1], 2) == 0)
-		to_directory("OLDPWD", path, cmd, env);
+		return (to_directory("OLDPWD", path, cmd, env));
 	else
 	{
 		dest_path = ft_strjoin_sep(path, cmd[1], "/");
-		change_dir(dest_path, path, cmd[1], env);
+		if (change_dir(dest_path, path, cmd[1], env) < 0)
+			return (-1);
 		free(dest_path);
 	}
 	free(path);
+	return (0);
 }
 
 // int	main(int argc, char **argv, char **envp)
