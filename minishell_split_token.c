@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:23:20 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/11 19:03:02 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:28:35 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static int	check_type(char *str)
 {
-	if (*str == '|')
+	if (*str == '<' && *(str + 1) == '<')
 		return (1);
 	else if (*str == '<' && *(str + 1) != '<')
 		return (2);
 	else if (*str == '>' && *(str + 1) != '>')
 		return (3);
-	else if (*str == '<' && *(str + 1) == '<')
-		return (4);
 	else if (*str == '>' && *(str + 1) == '>')
+		return (4);
+	else if (ft_ispipe(*str))
 		return (5);
 	else
 	 	return (0);
@@ -45,19 +45,19 @@ static void	make_token(t_list **head, char *str, int *i, int *cnt)
 	(*cnt) = 0;
 }
 
-static void	make_pipe_redirection_token(t_list **head, char *str, int *i, int *cnt)
+static void	make_pipe_redirect_token(t_list **head, char *str, int *i, int *cnt)
 {
 	char	c;
 	
 	make_token(head, str, i, cnt);
 	(*cnt)++;
-	if (str[*i] == '|')
+	if (ft_ispipe(str[*i]))
 	{
 		(*i)++;
-		if (str[*i] == '|' || str[*i] == '\0')
+		if (ft_ispipe(str[*i]) || str[*i] == '\0')
 			error_exit ("syntax error", 0, 0, 1);
 	}
-	else if (str[*i] == '<' || str[*i] == '>')
+	else if (ft_isredirect(str[*i]))
 	{
 		c = str[*i];
 		(*i)++;
@@ -65,10 +65,10 @@ static void	make_pipe_redirection_token(t_list **head, char *str, int *i, int *c
 		{
 			(*i)++;
 			(*cnt)++;
-			if (str[*i] == '|' || str[*i] == '<' || str[*i] == '>' || str[*i] == '\0')
+			if (ft_ispipe(str[*i]) || ft_isredirect(str[*i]) || str[*i] == '\0')
 				error_exit ("syntax error", 0, 0, 1);
 		}
-		else if (str[*i] == '|' || str[*i] == '<' || str[*i] == '>' || str[*i] == '\0')
+		else if (ft_ispipe(str[*i]) || ft_isredirect(str[*i]) || str[*i] == '\0')
 			error_exit ("syntax error", 0, 0, 1);
 	}
 	make_token(head, str, i, cnt);
@@ -79,7 +79,7 @@ static void	count_quote(char *str, int *i, int *cnt)
 {
 	char	c;
 	
-	while (str[*i] == '\'' || str[*i] == '"')
+	while (ft_isquote(str[*i]))
 	{
 		c = str[(*i)];
 		(*i)++;
@@ -108,13 +108,13 @@ void	split_token(t_list **head, char *str)
 	cnt = 0;
 	while (str[i])
 	{
-		if (str[i] == ' ')
+		if (ft_isspace(str[i]))
 		{
 			make_token(head, str, &i, &cnt);
 			i++;
 		}
-		else if (str[i] == '|' || str[i] == '<' || str[i] == '>')
-			make_pipe_redirection_token(head, str, &i, &cnt);
+		else if (ft_ispipe(str[i]) || ft_isredirect(str[i]))
+			make_pipe_redirect_token(head, str, &i, &cnt);
 		else if (str[i] == '\'' || str[i] == '"')
 			count_quote(str, &i, &cnt);
 		else
