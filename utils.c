@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:16 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/12 21:07:25 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/13 17:14:09 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	*ft_malloc_err(size_t size)
 	return ((void *)ptr);
 }
 
-static char	*ft_strcpy(char *dest, const char *src)
+void	ft_strcpy(char *dest, const char *src)
 {
 	size_t	i;
 	size_t	src_len;
@@ -77,7 +77,6 @@ static char	*ft_strcpy(char *dest, const char *src)
 		dest[i] = src[i];
 		i++;
 	}
-	return (dest);
 }
 
 char	*ft_strdup_err(const char *s1)
@@ -89,23 +88,4 @@ char	*ft_strdup_err(const char *s1)
 		dest = (char *)ft_malloc_err(sizeof(char) * (ft_strlen(s1) + 1));
 	ft_strcpy(dest, s1);
 	return (dest);
-}
-
-char	*ft_strndup(char *origin, int count)
-{
-	char 	*str;
-	size_t	i;
-	char	c;
-
-	str = (char *)ft_malloc_err(sizeof(char) + (count + 1));
-	str[count] = '\0';
-	i = 0;
-	while (count)
-	{
-			str[i] = *origin;
-			i++;
-			origin++;
-			count--;
-	}
-	return(str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/13 15:52:49 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/13 17:20:20 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,34 @@ typedef struct s_execdata
 	char	**file_arr;
 }				t_execdata;
 
+/*parse*/
+char	*get_env_name(char *str);
+void	change_env(char *str, t_list *envlist, char *new_str);
+char	*interpret_env(char *str, t_list *envlist);
+void	split_token(t_list **head, char *str);
+
+/*exec*/
+void	wait_and_update_exit_code(int doc_cnt, t_list *env);
+void	here_document(t_execdata *data);
+int		is_builtin(char *cmd);
+
+/*error*/
 void	error_exit(char *msg, char *cmd, char *arg, int code);
 void	error_msg_only(char *msg, char *cmd, char *arg);
 void	*ft_malloc_err(size_t size);
 char	*ft_strdup_err(const char *s1);
-char    *ft_strndup(char *origin, int count);
-t_token *ft_make_newtoken(char *str, int type);
-void	 parsing(char *str, t_list **head);
+
+/*utils*/
+void	ft_strcpy(char *dest, const char *src);
 char	*ft_strjoin_sep(char const *s1, char const *s2, char const *sep);
 char	*find_env(char *name, t_list *env);
 void	update_env(char *name, char *value, t_list *env);
 void	check_cmd_option(char **cmd);
 int		check_valid_name(char *arg, char sep);
-void	wait_and_update_exit_code(int doc_cnt, t_list *env);
-void	here_document(t_execdata *data);
-int		is_builtin(char *cmd);
+int		ft_ispipe(char c);
+int		ft_isspace(char c);
+int 	ft_isredirect(char c);
+int		ft_isquote(char c);
+char    *ft_strndup(char *origin, int count);
 
 #endif
