@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/13 23:07:11 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/14 17:55:21 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,13 @@ int	count_pipe(t_execdata *data)
 
 void	dup_fds(t_execdata *data, int input_fd, int output_fd)
 {
-	if (input_fd > 0)
-	{
+	// if (input_fd > 0)
+	// {
 		data->tmp_fd[0] = dup(0);
+		printf("in_fd: %d\n", data->tmp_fd[0]);
 		dup2(input_fd, 0);
 		close(input_fd);
-	}
+	// }
 	if (output_fd > 0)
 	{
 		data->tmp_fd[1] = dup(1);
@@ -120,7 +121,12 @@ int	find_last_input(t_execdata *data)
 	while (cur != NULL)
 	{
 		if (((t_token *)cur->content)->type == TYPE_INPUT)
+		{
 			in = ((t_token *)cur->content)->str;
+			hd_flag = 0;
+
+			printf("input\n");
+		}
 		else if (((t_token *)cur->content)->type == TYPE_HEREDOC)
 		{
 			in = ((t_token *)cur->content)->str;
@@ -129,9 +135,16 @@ int	find_last_input(t_execdata *data)
 		cur = cur->next;
 	}
 	if (hd_flag == 0)
+	{
 		fd = open(in, O_RDONLY);
+		printf("no hd fd: %d\n", fd);
+	}
 	else
-		fd = open(data->file_arr[hd_flag], O_RDONLY);
+	{
+		printf("heredoc file name: %s\n", data->file_arr[hd_flag - 1]);
+		fd = open(data->file_arr[hd_flag - 1], O_RDONLY);
+		printf("hd fd: %d\n", fd);
+	}
 	if (in == NULL)
 		return (-1);
 	return (fd);
@@ -193,8 +206,15 @@ int	only_builtin(t_execdata *data)
 	}
 	dup2(data->tmp_fd[0], 0);
 	dup2(data->tmp_fd[1], 1);
-	close(data->tmp_fd[0]);
-	close(data->tmp_fd[1]);
+	int s[2];
+
+	pipe(s);
+
+	printf("data: %d %d\n", data->tmp_fd[0], data->tmp_fd[1]);
+
+	printf("s: %d %d\n", s[0], s[1]);
+	// close(data->tmp_fd[0]);
+	// close(data->tmp_fd[1]);
 	update_env("?", "0", data->env);
 	return (0);
 }
@@ -252,6 +272,11 @@ t_list *envp_to_lst(char **envp)
 		i++;
 	}
 	return (env);
+}
+
+void	debug_print(char *file, int line, const char *func)
+{
+	printf("=======FILE: %s / LINE: %d / FUNC: %s=======\n", file, line, func);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -318,7 +343,7 @@ int	main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
-		buff = readline("minishell: ");
+		buff = readline("minishell$ ");
 		exec(&data);
 		free (buff);
 		buff = NULL;

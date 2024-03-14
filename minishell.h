@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/14 15:56:36 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:58:38 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,8 @@ int		ft_isspace(char c);
 int 	ft_isredirect(char c);
 int		ft_isquote(char c);
 char    *ft_strndup(char *origin, int count);
+
+/////////////////임시
+void	debug_print(char *file, int line, const char *func);
 
 #endif
