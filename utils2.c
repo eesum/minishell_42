@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/13 21:17:16 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/14 14:33:11 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@ char	*find_env(char *name, t_list *env)
 		}
 		cur = cur->next;
 	}
+	if (value == NULL)
+		value = ft_malloc_err(1);
+	value[0] = '\0';
 	return (value);
 }
 
