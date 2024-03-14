@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/14 14:33:11 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:00:28 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,9 @@ int	is_builtin(char *cmd)
 		return (4);
 	if (!ft_memcmp("unset", cmd, 6))
 		return (5);
-	if (!ft_memcmp("exit", cmd, 5))
+	if (!ft_memcmp("env", cmd, 4))
 		return (6);
+	if (!ft_memcmp("exit", cmd, 5))
+		return (7);
 	return (0);
 }

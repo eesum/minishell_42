@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/14 17:55:21 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/14 22:02:28 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,12 @@ int	count_pipe(t_execdata *data)
 
 void	dup_fds(t_execdata *data, int input_fd, int output_fd)
 {
-	// if (input_fd > 0)
-	// {
+	if (input_fd > 0)
+	{
 		data->tmp_fd[0] = dup(0);
-		printf("in_fd: %d\n", data->tmp_fd[0]);
 		dup2(input_fd, 0);
 		close(input_fd);
-	// }
+	}
 	if (output_fd > 0)
 	{
 		data->tmp_fd[1] = dup(1);
@@ -95,13 +94,15 @@ int	exec_cmd(char **cmd, t_list *env)
 		return (exec_echo(cmd));
 	else if (ft_memcmp(cmd[0], "cd", 3) == 0)
 		return (exec_cd(cmd, env));
-	else if (ft_memcmp(cmd[0], "pwd", 3) == 0)
+	else if (ft_memcmp(cmd[0], "pwd", 4) == 0)
 		return (exec_pwd(cmd));
-	else if (ft_memcmp(cmd[0], "export", 3) == 0)
+	else if (ft_memcmp(cmd[0], "export", 7) == 0)
 		return (exec_export(cmd, env));
-	else if (ft_memcmp(cmd[0], "unset", 3) == 0)
+	else if (ft_memcmp(cmd[0], "unset", 6) == 0)
 		return (exec_unset(cmd, env));
-	else if (ft_memcmp(cmd[0], "exit", 3) == 0)
+	else if (ft_memcmp(cmd[0], "env", 4) == 0)
+		return (exec_env(cmd, env));
+	else if (ft_memcmp(cmd[0], "exit", 5) == 0)
 		exec_exit(cmd);
 	else
 		exec_general_cmd(cmd, env);
@@ -124,8 +125,6 @@ int	find_last_input(t_execdata *data)
 		{
 			in = ((t_token *)cur->content)->str;
 			hd_flag = 0;
-
-			printf("input\n");
 		}
 		else if (((t_token *)cur->content)->type == TYPE_HEREDOC)
 		{
@@ -135,16 +134,9 @@ int	find_last_input(t_execdata *data)
 		cur = cur->next;
 	}
 	if (hd_flag == 0)
-	{
 		fd = open(in, O_RDONLY);
-		printf("no hd fd: %d\n", fd);
-	}
 	else
-	{
-		printf("heredoc file name: %s\n", data->file_arr[hd_flag - 1]);
 		fd = open(data->file_arr[hd_flag - 1], O_RDONLY);
-		printf("hd fd: %d\n", fd);
-	}
 	if (in == NULL)
 		return (-1);
 	return (fd);
@@ -206,15 +198,8 @@ int	only_builtin(t_execdata *data)
 	}
 	dup2(data->tmp_fd[0], 0);
 	dup2(data->tmp_fd[1], 1);
-	int s[2];
-
-	pipe(s);
-
-	printf("data: %d %d\n", data->tmp_fd[0], data->tmp_fd[1]);
-
-	printf("s: %d %d\n", s[0], s[1]);
-	// close(data->tmp_fd[0]);
-	// close(data->tmp_fd[1]);
+	close(data->tmp_fd[0]);
+	close(data->tmp_fd[1]);
 	update_env("?", "0", data->env);
 	return (0);
 }
@@ -222,10 +207,13 @@ int	only_builtin(t_execdata *data)
 void	exec(t_execdata *data)
 {
 	here_document(data);
+	
 	if (count_pipe(data) == 0 || data->pipe_cnt == 1)
 	{
 		if (data->pipe_cnt == 1)
+		{
 			only_builtin(data);
+		}
 		return ;
 	}
 	// data->index = 0;
@@ -323,17 +311,17 @@ int	main(int argc, char **argv, char **envp)
 	// ft_lstadd_back(&first_token, new);
 
 	t1->str = "a";
-	t1->type=TYPE_INPUT;
+	t1->type=TYPE_HEREDOC;
 
 	t2->str = "eof";
 	t2->type=TYPE_HEREDOC;
 
-	t3->str = "pwd";
+	t3->str = "export";
 	t3->type=TYPE_DEFAULT;
-	t4->str = "out_a";
-	t4->type=TYPE_OUTPUT_A;
-	t5->str = "out_t";
-	t5->type=TYPE_OUTPUT_T;
+	t4->str = "out_t";
+	t4->type=TYPE_OUTPUT_T;
+	t5->str = "out_a";
+	t5->type=TYPE_OUTPUT_A;
 	// t6->str = "eof";
 	// t6->type=TYPE_HEREDOC;
 	// t7->str = "eof";
@@ -345,6 +333,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		buff = readline("minishell$ ");
 		exec(&data);
+		
 		free (buff);
 		buff = NULL;
 	}

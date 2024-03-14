@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:36:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/13 22:39:58 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/14 18:12:00 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_file_open(t_list *pipe_cntnt)
 		}
 		if (((t_token *)cur->content)->type == TYPE_OUTPUT_A)
 		{
-			fd = open(((t_token *)cur->content)->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			fd = open(((t_token *)cur->content)->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (fd < 0)
 			{
 				error_msg_only("Permission denied", ((t_token *)cur->content)->str, 0);
@@ -45,7 +45,7 @@ int	check_file_open(t_list *pipe_cntnt)
 		}
 		if (((t_token *)cur->content)->type == TYPE_OUTPUT_T)
 		{
-			fd = open(((t_token *)cur->content)->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			fd = open(((t_token *)cur->content)->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (fd < 0)
 			{
 				error_msg_only("Permission denied", ((t_token *)cur->content)->str, 0);
