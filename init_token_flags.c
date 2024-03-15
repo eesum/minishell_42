@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 12:51:25 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 13:03:18 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 14:54:40 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	count_heredoc(t_list *pipe)
 		((t_token *)cur->content)->hd_index = -1;
 		if (((t_token *)cur->content)->type == TYPE_HEREDOC)
 		{
-			doc_cnt++;
 			((t_token *)cur->content)->hd_index = doc_cnt;
+			doc_cnt++;
 		}
 		cur = cur->next;
 	}
