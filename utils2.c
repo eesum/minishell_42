@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 14:55:12 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 18:46:40 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 int	is_builtin(char *cmd)
 {
 	if (cmd == NULL)
-		return (0);
+		return (-1);
 	if (!ft_memcmp("echo", cmd, 5))
 		return (1);
 	if (!ft_memcmp("cd", cmd, 3))
@@ -213,7 +213,24 @@ t_list	*ft_findlst_by_index(t_list *lst, int i)
 
 	index = 0;
 	cur = lst;
-	while (index < i && cur != NULL)
+	while (index < i && cur->next != NULL)
+	{
+		index ++;
 		cur = cur->next;
+	}
 	return (cur);
+}
+
+void	restore_fds(t_execdata *data, int input_fd, int output_fd)
+{
+	if (input_fd > 0)
+	{
+		dup2(data->tmp_fd[0], 0);
+		close(data->tmp_fd[0]);
+	}
+	if (output_fd > 0)
+	{
+		dup2(data->tmp_fd[1], 1);
+		close(data->tmp_fd[1]);
+	}
 }

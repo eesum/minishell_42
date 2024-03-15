@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 14:56:52 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 18:49:49 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	count_pipe(t_execdata *data)
 		}
 		cur = cur->next;
 	}
-	if (data->pipe_cnt == 1 && is_builtin(cmd) != 0)
+	if (data->pipe_cnt == 1 && is_builtin(cmd) > 0 && is_builtin(cmd) < 8)
 		return (1);
 	return (0);
 }
@@ -51,7 +51,7 @@ char	**cmd_to_arr(t_list *pipe)
 	cur = pipe;
 	while (cur != NULL)
 	{
-		if (((t_token *)cur->content)->type == 0)
+		if (((t_token *)cur->content)->type == TYPE_DEFAULT)
 			cnt++;
 		cur = cur->next;
 	}
@@ -98,29 +98,22 @@ int	only_builtin(t_execdata *data)
 	int	input;
 	int	output;
 	char	**cmd;
-	char	*exit_code;
 
-	if (check_file_open(data->pipe->content) < 0)
+	cmd = cmd_to_arr(data->pipe->content);
+	if (check_file_open(data->pipe->content) < 0 || cmd == NULL)
 		return (-1);
 	input = open_last_input(data->pipe, data->file_arr);
 	output = open_last_output(data->pipe);
 	dup_fds(data, input, output);
-	cmd = cmd_to_arr(data->pipe->content);
 	if (exec_cmd(cmd, data->env) < 0)
+	{
+		restore_fds(data, input, output);
 		return (-1);
-	dup2(data->tmp_fd[0], 0);
-	dup2(data->tmp_fd[1], 1);
-	close(data->tmp_fd[0]);
-	close(data->tmp_fd[1]);
+	}
+	restore_fds(data, input, output);
 	return (0);
 }
 
-void	exec_in_child(t_execdata *data)
-{
-	if (check_file_open(data->pipe->content) < 0)
-		exit(EXIT_FAILURE);
-	
-}
 
 void	exec_multiple_pipe(t_execdata *data)
 {
@@ -134,7 +127,9 @@ void	exec_multiple_pipe(t_execdata *data)
 		if (data->pid < 0)
 			error_exit("fork failed.", 0, 0, EXIT_FAILURE);
 		else if (data->pid == 0)
-			exec_in_child(data);
+		{
+			exec_in_child(data, data->index);
+		}
 		else
 		{
 			if (data->index < data->pipe_cnt - 1)
@@ -145,25 +140,23 @@ void	exec_multiple_pipe(t_execdata *data)
 		data->index++;
 	}
 	wait_and_update_exit_code(data->pipe_cnt, data->env);
+	// heredoc 파일들 다 지우기??????
 }
 
 void	exec(t_execdata *data)
 {
 	init_token_flags(data);
 	here_document(data);
-	if (count_pipe(data) == 0 || data->pipe_cnt == 1)
+	if (count_pipe(data) == 1)
 	{
-		if (data->pipe_cnt == 1)
-		{
-			if (only_builtin(data) < 0)
-				update_env("?", "1", data->env);
-			else
-			 	update_env("?", "0", data->env);
-		}
+		if (only_builtin(data) < 0)
+			update_env("?", "1", data->env);
+		else
+			update_env("?", "0", data->env);
+		// heredoc 파일들 다 지우기??????
 		return ;
 	}
 	exec_multiple_pipe(data);
-	// heredoc 파일들 다 지우기??????
 }
 
 
@@ -220,20 +213,8 @@ int	main(int argc, char **argv, char **envp)
 	new = ft_lstnew(t4);
 	ft_lstadd_back(&first_token, new);
 	
-	t_token *t5 = ft_malloc_err(sizeof(t_token));
-	new = ft_lstnew(t5);
-	ft_lstadd_back(&first_token, new);
-	
-	// t_token *t6 = ft_malloc_err(sizeof(t_token));
-	// new = ft_lstnew(t6);
-	// ft_lstadd_back(&first_token, new);
-	
-	// t_token *t7 = ft_malloc_err(sizeof(t_token));
-	// new = ft_lstnew(t7);
-	// ft_lstadd_back(&first_token, new);
-	
-	// t_token *t8 = ft_malloc_err(sizeof(t_token));
-	// new = ft_lstnew(t8);
+	// t_token *t5 = ft_malloc_err(sizeof(t_token));
+	// new = ft_lstnew(t5);
 	// ft_lstadd_back(&first_token, new);
 
 	t1->str = "a";
@@ -242,18 +223,55 @@ int	main(int argc, char **argv, char **envp)
 	t2->str = "eof";
 	t2->type=TYPE_HEREDOC;
 
-	t3->str = "export";
+	t3->str = "ls";
 	t3->type=TYPE_DEFAULT;
-	t4->str = "out_t";
-	t4->type=TYPE_OUTPUT_T;
-	t5->str = "out_a";
-	t5->type=TYPE_OUTPUT_A;
-	// t6->str = "eof";
-	// t6->type=TYPE_HEREDOC;
-	// t7->str = "eof";
-	// t7->type=TYPE_HEREDOC;
-	// t8->str = "eof";
-	// t8->type=TYPE_HEREDOC;
+
+	t4->str = "-al";
+	t4->type=TYPE_DEFAULT;
+	// t5->str = "out_a";
+	// t5->type=TYPE_OUTPUT_A;
+
+
+	t_list		*new_pipe;
+	t_list		*sec_first_token;
+	
+
+	new_pipe = ft_malloc_err(sizeof(t_list));
+
+	t_token *t21 = ft_malloc_err(sizeof(t_token));
+	sec_first_token = ft_lstnew(t21);
+	new_pipe->content = sec_first_token;
+	new_pipe->next = NULL;
+	ft_lstadd_back(&data.pipe, new_pipe);
+
+	t_token *t22 = ft_malloc_err(sizeof(t_token));
+	new = ft_lstnew(t22);
+	ft_lstadd_back(&sec_first_token, new);
+	
+	// t_token *t23 = ft_malloc_err(sizeof(t_token));
+	// new = ft_lstnew(t23);
+	// ft_lstadd_back(&sec_first_token, new);
+	
+	t_token *t24 = ft_malloc_err(sizeof(t_token));
+	new = ft_lstnew(t24);
+	ft_lstadd_back(&sec_first_token, new);
+	
+	t_token *t25 = ft_malloc_err(sizeof(t_token));
+	new = ft_lstnew(t25);
+	ft_lstadd_back(&sec_first_token, new);
+
+	t21->str = "grep";
+	t21->type=TYPE_DEFAULT;
+
+	t22->str = "minishell";
+	t22->type=TYPE_DEFAULT;
+
+	// t23->str = "grep";
+	// t23->type=TYPE_DEFAULT;
+	t24->str = "out_t";
+	t24->type=TYPE_OUTPUT_T;
+	t25->str = "out_a";
+	t25->type=TYPE_OUTPUT_A;
 
 	while (1)
 	{

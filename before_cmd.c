@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:36:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 14:54:00 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 18:50:46 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	open_last_input(t_list *pipe, char **file_arr)
 		return (-1);
 	fd = open(in, O_RDONLY);
 	if (fd < 0)
-		error_msg_only("file open failed", in, 0);
+		error_exit("file open failed", in, 0, EXIT_FAILURE);
 	return (fd);
 }
 
@@ -114,7 +114,7 @@ int	open_last_output(t_list *pipe)
 	else
 		fd = open(out, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
-		error_msg_only("file open failed", out, 0);
+		error_exit("file open failed", out, 0, EXIT_FAILURE);
 	return (fd);
 }
 
