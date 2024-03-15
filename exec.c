@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/14 22:02:28 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:03:39 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,6 @@ int	count_pipe(t_execdata *data)
 	if (data->pipe_cnt == 1 && is_builtin(cmd) != 0)
 		return (1);
 	return (0);
-}
-
-void	dup_fds(t_execdata *data, int input_fd, int output_fd)
-{
-	if (input_fd > 0)
-	{
-		data->tmp_fd[0] = dup(0);
-		dup2(input_fd, 0);
-		close(input_fd);
-	}
-	if (output_fd > 0)
-	{
-		data->tmp_fd[1] = dup(1);
-		dup2(output_fd, 1);
-		close(output_fd);
-	}
 }
 
 char	**cmd_to_arr(t_list *pipe)
@@ -109,72 +93,6 @@ int	exec_cmd(char **cmd, t_list *env)
 	return (0);
 }
 
-int	find_last_input(t_execdata *data)
-{
-	t_list	*cur;
-	char	*in;
-	char	hd_flag;
-	char	fd;
-
-	hd_flag = 0;
-	in = NULL;
-	cur = data->pipe->content;
-	while (cur != NULL)
-	{
-		if (((t_token *)cur->content)->type == TYPE_INPUT)
-		{
-			in = ((t_token *)cur->content)->str;
-			hd_flag = 0;
-		}
-		else if (((t_token *)cur->content)->type == TYPE_HEREDOC)
-		{
-			in = ((t_token *)cur->content)->str;
-			hd_flag = ((t_token *)cur->content)->hd_index;
-		}
-		cur = cur->next;
-	}
-	if (hd_flag == 0)
-		fd = open(in, O_RDONLY);
-	else
-		fd = open(data->file_arr[hd_flag - 1], O_RDONLY);
-	if (in == NULL)
-		return (-1);
-	return (fd);
-}
-
-int	find_last_output(t_execdata *data)
-{
-	t_list	*cur;
-	char	*out;
-	char	append_flag;
-	char	fd;
-
-	append_flag = 0;
-	out = NULL;
-	cur = data->pipe->content;
-	while (cur != NULL)
-	{
-		if (((t_token *)cur->content)->type == TYPE_OUTPUT_T)
-		{
-			out = ((t_token *)cur->content)->str;
-			append_flag = 0;
-		}
-		else if (((t_token *)cur->content)->type == TYPE_OUTPUT_A)
-		{
-			out = ((t_token *)cur->content)->str;
-			append_flag = 1;
-		}
-		cur = cur->next;
-	}
-	if (append_flag == 0)
-		fd = open(out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else
-		fd = open(out, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (out == NULL)
-		return (-1);
-	return (fd);
-}
-
 int	only_builtin(t_execdata *data)
 {
 	int	input;
@@ -183,36 +101,32 @@ int	only_builtin(t_execdata *data)
 	char	*exit_code;
 
 	if (check_file_open(data->pipe->content) < 0)
-	{
-		update_env("?", "1", data->env);
 		return (-1);
-	}
-	input = find_last_input(data);
-	output = find_last_output(data);
+	input = open_last_input(data->pipe, data->file_arr);
+	output = open_last_output(data->pipe);
 	dup_fds(data, input, output);
 	cmd = cmd_to_arr(data->pipe->content);
 	if (exec_cmd(cmd, data->env) < 0)
-	{
-		update_env("?", "1", data->env);
 		return (-1);
-	}
 	dup2(data->tmp_fd[0], 0);
 	dup2(data->tmp_fd[1], 1);
 	close(data->tmp_fd[0]);
 	close(data->tmp_fd[1]);
-	update_env("?", "0", data->env);
 	return (0);
 }
 
 void	exec(t_execdata *data)
 {
+	init_token_flags(data);
 	here_document(data);
-	
 	if (count_pipe(data) == 0 || data->pipe_cnt == 1)
 	{
 		if (data->pipe_cnt == 1)
 		{
-			only_builtin(data);
+			if (only_builtin(data) < 0)
+				update_env("?", "1", data->env);
+			else
+			 	update_env("?", "0", data->env);
 		}
 		return ;
 	}

@@ -6,37 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/14 19:41:13 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:50:39 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	count_heredoc(t_list *pipe)
-{
-	t_list	*pp_cur;
-	t_list	*tk_cur;
-	int		doc_cnt;
-
-	pp_cur = pipe;
-	doc_cnt = 0;
-	while (pp_cur != NULL)
-	{
-		tk_cur = pp_cur->content;
-		while (tk_cur != NULL)
-		{
-			((t_token *)tk_cur->content)->hd_index = -1;
-			if (((t_token *)tk_cur->content)->type == TYPE_HEREDOC)
-			{
-				doc_cnt++;
-				((t_token *)tk_cur->content)->hd_index = doc_cnt;
-			}
-			tk_cur = tk_cur->next;
-		}
-		pp_cur = pp_cur->next;
-	}
-	return (doc_cnt);
-}
 
 char	**parse_delimiter(t_list *pipe, int doc_cnt)
 {
@@ -90,7 +64,6 @@ void	before_heredoc(t_execdata *data)
 	int	i;
 
 	i = 0;
-	data->doc_cnt = count_heredoc(data->pipe);
 	if (data->doc_cnt == 0)
 		return ;
 	data->eof_arr = parse_delimiter(data->pipe, data->doc_cnt);
@@ -140,9 +113,6 @@ void	here_document(t_execdata *data)  // 시그널 등 추후 고려 필요
 
 	i = 0;
 	before_heredoc(data);
-	// pid = ft_malloc_err(sizeof(pid_t) * (data->doc_cnt + 1));
-	// pid[data->doc_cnt] = 0;
-	
 	pid = fork();
 	if (pid < 0)
 		error_exit("fork failed", 0, 0, EXIT_FAILURE);

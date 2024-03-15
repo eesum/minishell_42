@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/14 22:05:43 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:56:02 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_token
 	char	*str;
 	int		type;
 	int		hd_index;
+	int		redirect_flag;
 }				t_token;
 
 typedef struct s_execdata
@@ -62,11 +63,12 @@ void	delete_quote(t_list **head);
 void	check_token(t_list **head, t_list **pipe);
 
 /*exec*/
+void	init_token_flags(t_execdata *data);
 t_list *envp_to_lst(char **envp);
 int		count_pipe(t_execdata *data);
 int		check_file_open(t_list *pipe_cntnt);
-int		find_last_input(t_execdata *data);
-int		find_last_output(t_execdata *data);
+int		open_last_input(t_list *pipe, char **file_arr);
+int		open_last_output(t_list *pipe);
 void	dup_fds(t_execdata *data, int input_fd, int output_fd);
 char	**cmd_to_arr(t_list *pipe);
 char	**lst_to_envp(t_list *env);
