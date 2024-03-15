@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 19:51:51 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/14 20:13:37 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:04:58 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	exec_env(char **cmd, t_list *env)
 	cur = env;
 	while (cur != NULL)
 	{
-		printf("%s\n", ((char *)cur->content));
+		if (((char *)cur->content)[0] != '?')
+			printf("%s\n", ((char *)cur->content));
 		cur = cur->next;
 	}
 	return (0);

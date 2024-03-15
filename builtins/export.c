@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/13 20:55:03 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:06:06 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,18 @@ int	export_no_arg(t_list *env)
 	cur = env;
 	while (cur != NULL)
 	{
-		printf("declare -x ");
-		name_len = 0;
-		while (((char *)cur->content)[name_len] != '=')
-			name_len++;
-		name = ft_substr((char *)cur->content, 0, name_len);
-		if (name == NULL)
-			return (-1);
-		printf("%s=\"%s\"\n", name, &((char *)cur->content)[name_len + 1]);
-		free(name);
+		if (((char *)cur->content)[0] != '?')
+		{
+			printf("declare -x ");
+			name_len = 0;
+			while (((char *)cur->content)[name_len] != '=')
+				name_len++;
+			name = ft_substr((char *)cur->content, 0, name_len);
+			if (name == NULL)
+				return (-1);
+			printf("%s=\"%s\"\n", name, &((char *)cur->content)[name_len + 1]);
+			free(name);
+		}
 		cur = cur->next;
 	}
 	return (0);
