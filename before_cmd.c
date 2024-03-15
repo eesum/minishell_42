@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:36:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 12:56:32 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 14:54:00 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,18 @@ int	open_last_input(t_list *pipe, char **file_arr)
 	{
 		if (((t_token *)cur->content)->redirect_flag == 1)
 		{
-			hd_flag += ((t_token *)cur->content)->hd_index;
-			in = ((t_token *)cur->content)->str;
-			break ;
+			if (((t_token *)cur->content)->type == TYPE_INPUT)
+				in = ((t_token *)cur->content)->str;
+			else
+				in = file_arr[((t_token *)cur->content)->hd_index];
 		}
 		cur = cur->next;
 	}
 	if (in == NULL)
 		return (-1);
-	if (hd_flag < 0)
-		fd = open(in, O_RDONLY);
-	else
-		fd = open(file_arr[hd_flag - 1], O_RDONLY);
+	fd = open(in, O_RDONLY);
+	if (fd < 0)
+		error_msg_only("file open failed", in, 0);
 	return (fd);
 }
 
@@ -113,6 +113,8 @@ int	open_last_output(t_list *pipe)
 		fd = open(out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
 		fd = open(out, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd < 0)
+		error_msg_only("file open failed", out, 0);
 	return (fd);
 }
 
