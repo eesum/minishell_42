@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 13:03:39 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 14:56:52 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,38 @@ int	only_builtin(t_execdata *data)
 	return (0);
 }
 
+void	exec_in_child(t_execdata *data)
+{
+	if (check_file_open(data->pipe->content) < 0)
+		exit(EXIT_FAILURE);
+	
+}
+
+void	exec_multiple_pipe(t_execdata *data)
+{
+	data->index = 0;
+	while (data->index < data->pipe_cnt)
+	{
+		if (data->index < data->pipe_cnt - 1)
+			if (pipe(data->fd[data->index % 2]) < 0)
+				error_exit("pipe failed.", 0, 0, EXIT_FAILURE);
+		data->pid = fork();
+		if (data->pid < 0)
+			error_exit("fork failed.", 0, 0, EXIT_FAILURE);
+		else if (data->pid == 0)
+			exec_in_child(data);
+		else
+		{
+			if (data->index < data->pipe_cnt - 1)
+				close(data->fd[data->index % 2][1]);
+			if (data->index > 0)
+				close(data->fd[(data->index + 1) % 2][0]);
+		}
+		data->index++;
+	}
+	wait_and_update_exit_code(data->pipe_cnt, data->env);
+}
+
 void	exec(t_execdata *data)
 {
 	init_token_flags(data);
@@ -130,27 +162,7 @@ void	exec(t_execdata *data)
 		}
 		return ;
 	}
-	// data->index = 0;
-	// while (data->index < data->pipe_cnt)
-	// {
-	// 	if (data->index < data->pipe_cnt - 1)
-	// 		if (pipe(data->fd[data->index % 2]) < 0)
-	// 			error_exit("pipe failed.", 0, 0, EXIT_FAILURE);
-	// 	data->pid = fork();
-	// 	if (data->pid < 0)
-	// 		error_exit("fork failed.", 0, 0, EXIT_FAILURE);
-	// 	else if (data->pid == 0)
-	// 		exec_in_child(data);
-	// 	else
-	// 	{
-	// 		if (data->index < data->pipe_cnt - 1)
-	// 			close(data->fd[data->index % 2][1]);
-	// 		if (data->index > 0)
-	// 			close(data->fd[(data->index + 1) % 2][0]);
-	// 	}
-	// 	data->index++;
-	// }
-	// wait_childs(data);
+	exec_multiple_pipe(data);
 	// heredoc 파일들 다 지우기??????
 }
 
