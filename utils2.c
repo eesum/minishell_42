@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/14 20:00:28 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 14:55:12 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int	check_valid_name(char *arg, char sep)
 	return (i);
 }
 
-void	wait_and_update_exit_code(int doc_cnt, t_list *env)
+void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 {
 	int		i;
 	int		status;
@@ -168,7 +168,7 @@ void	wait_and_update_exit_code(int doc_cnt, t_list *env)
 	int		sig_code;
 
 	i = 0;
-	while(i < doc_cnt)
+	while(i < wait_cnt)
 	{
 		wait_pid = wait(&status);
 		if (wait_pid < 0)
@@ -204,4 +204,16 @@ int	is_builtin(char *cmd)
 	if (!ft_memcmp("exit", cmd, 5))
 		return (7);
 	return (0);
+}
+
+t_list	*ft_findlst_by_index(t_list *lst, int i)
+{
+	t_list *cur;
+	int	index;
+
+	index = 0;
+	cur = lst;
+	while (index < i && cur != NULL)
+		cur = cur->next;
+	return (cur);
 }

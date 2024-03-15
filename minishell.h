@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 12:56:02 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/15 14:33:00 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*find_cmd(char **path, char *cmd);
 void	exec_general_cmd(char **cmd, t_list *env);
 int		exec_cmd(char **cmd, t_list *env);
 int		only_builtin(t_execdata *data);
-void	wait_and_update_exit_code(int doc_cnt, t_list *env);
+void	wait_and_update_exit_code(int wait_cnt, t_list *env);
 void	here_document(t_execdata *data);
 int		is_builtin(char *cmd);
 
@@ -114,6 +114,7 @@ int		ft_isspace(char c);
 int 	ft_isredirect(char c);
 int		ft_isquote(char c);
 char    *ft_strndup(char *origin, int count);
+t_list	*ft_findlst_by_index(t_list *lst, int i);
 
 /////////////////임시
 void	debug_print(char *file, int line, const char *func);
