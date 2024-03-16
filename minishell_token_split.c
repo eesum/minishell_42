@@ -6,27 +6,11 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:23:20 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/14 16:34:09 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/16 23:06:09 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	check_type(char *str)
-{
-	if (*str == '<' && *(str + 1) == '<')
-		return (1);
-	else if (*str == '<' && *(str + 1) != '<')
-		return (2);
-	else if (*str == '>' && *(str + 1) != '>')
-		return (3);
-	else if (*str == '>' && *(str + 1) == '>')
-		return (4);
-	else if (ft_ispipe(*str))
-		return (5);
-	else
-	 	return (0);
-}
 
 static void	make_token(t_list **head, char *str, int *i, int *cnt)
 {
@@ -35,8 +19,8 @@ static void	make_token(t_list **head, char *str, int *i, int *cnt)
 	t_token	*token;
 
 	if (*cnt == 0)
-		return;
-	type = check_type(str + *i - *cnt);
+		return ;
+	type = check_token_type(str + *i - *cnt);
 	token_str = ft_strndup(str + *i - *cnt, *cnt);
 	token = (t_token *)ft_malloc_err(sizeof(t_token));
 	token->str = token_str;
@@ -45,40 +29,39 @@ static void	make_token(t_list **head, char *str, int *i, int *cnt)
 	(*cnt) = 0;
 }
 
-static void	make_pipe_redirect_token(t_list **head, char *str, int *i, int *cnt)
+static int	make_pipe_redirect_token(t_list **head, char *str, int *i, int *cnt)
 {
 	char	c;
-	
+
 	make_token(head, str, i, cnt);
 	(*cnt)++;
 	if (ft_ispipe(str[*i]))
 	{
 		(*i)++;
-		if (ft_ispipe(str[*i]) || str[*i] == '\0')
-			error_exit ("syntax error", 0, 0, 1);
+		if (ft_ispipe(str[*i]) || !str[*i])
+			return (1);
 	}
 	else if (ft_isredirect(str[*i]))
 	{
-		c = str[*i];
-		(*i)++;
+		c = str[(*i)++];
 		if (str[*i] == c)
 		{
 			(*i)++;
 			(*cnt)++;
-			if (ft_ispipe(str[*i]) || ft_isredirect(str[*i]) || str[*i] == '\0')
-				error_exit ("syntax error", 0, 0, 1);
+			if (ft_ispipe(str[*i]) || ft_isredirect(str[*i]) || !str[*i])
+				return (1);
 		}
-		else if (ft_ispipe(str[*i]) || ft_isredirect(str[*i]) || str[*i] == '\0')
-			error_exit ("syntax error", 0, 0, 1);
+		else if (ft_ispipe(str[*i]) || ft_isredirect(str[*i]) || !str[*i])
+			return (1);
 	}
 	make_token(head, str, i, cnt);
+	return (0);
 }
-	
 
-static void	count_quote(char *str, int *i, int *cnt)
+static int	count_quote(char *str, int *i, int *cnt)
 {
 	char	c;
-	
+
 	while (ft_isquote(str[*i]))
 	{
 		c = str[(*i)];
@@ -90,13 +73,35 @@ static void	count_quote(char *str, int *i, int *cnt)
 			(*cnt)++;
 		}
 		if (str[*i] == '\0')
-			error_exit ("syntax error", 0, 0, 1);
+			return (1);
 		else
 		{
 			(*i)++;
 			(*cnt)++;
 		}
 	}
+	return (0);
+}
+
+static int	split_loop(t_list **head, char *str, int *i, int *cnt)
+{
+	if (ft_ispipe(str[*i]) || ft_isredirect(str[*i]))
+	{
+		if (make_pipe_redirect_token(head, str, i, cnt))
+		{
+			ft_tokenlst_free(head);
+			return (1);
+		}
+	}	
+	else if (ft_isquote(str[*i]))
+	{
+		if (count_quote(str, i, cnt))
+		{
+			ft_tokenlst_free(head);
+			return (1);
+		}
+	}
+	return (0);
 }
 
 void	split_token(t_list **head, char *str)
@@ -113,10 +118,12 @@ void	split_token(t_list **head, char *str)
 			make_token(head, str, &i, &cnt);
 			i++;
 		}
-		else if (ft_ispipe(str[i]) || ft_isredirect(str[i]))
-			make_pipe_redirect_token(head, str, &i, &cnt);
-		else if (str[i] == '\'' || str[i] == '"')
-			count_quote(str, &i, &cnt);
+		else if (ft_isquote(str[i]) || ft_ispipe(str[i])
+			|| ft_isredirect(str[i]))
+		{
+			if (split_loop(head, str, &i, &cnt))
+				return ;
+		}
 		else
 		{
 			i++;

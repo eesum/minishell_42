@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 17:50:01 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/16 23:25:48 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ typedef struct s_token
 	int		redirect_flag;
 }				t_token;
 
+typedef struct s_parsedata
+{
+	char	*str;
+	char	*env_str;
+	t_list	*token_head;
+}				t_parsedata;
+
 typedef struct s_execdata
 {
 	int		pipe_cnt;
@@ -54,17 +61,20 @@ typedef struct s_execdata
 	char	**file_arr;
 }				t_execdata;
 
+void	exec(t_execdata *data);
+
 /*parse*/
 char	*get_env_name(char *str);
-void	change_env(char *str, t_list *envlist, char *new_str);
-char	*parsing_env(char *str, t_list *envlist);
+void	change_env(char *str, t_list *env, char *new_str);
+char	*parsing_env(char *str, t_list *env);
+int		check_token_type(char *str);
 void	split_token(t_list **head, char *str);
 void	delete_quote(t_list **head);
-void	check_token(t_list **head, t_list **pipe);
+void	beautify_token(t_list **head, t_list **pipe);
 
 /*exec*/
 void	init_token_flags(t_execdata *data);
-t_list *envp_to_lst(char **envp);
+t_list	*envp_to_lst(char **envp);
 int		count_pipe(t_execdata *data);
 int		check_file_open(t_list *pipe_cntnt);
 int		open_last_input(t_list *pipe, char **file_arr);
@@ -92,7 +102,9 @@ int		exec_env(char **cmd, t_list *env);
 void	exec_exit(char **cmd);
 
 /*free*/
-void	ft_free_tokenlst(t_list *node);
+void	ft_token_free(t_list *node);
+void	ft_tokenlst_free(t_list **lst);
+void	ft_cmd_free(t_list **cmdlst);
 
 /*error*/
 void	error_exit(char *msg, char *cmd, char *arg, int code);
@@ -112,13 +124,15 @@ void	check_cmd_option(char **cmd);
 int		check_valid_name(char *arg, char sep);
 int		ft_ispipe(char c);
 int		ft_isspace(char c);
-int 	ft_isredirect(char c);
+int		ft_isredirect(char c);
 int		ft_isquote(char c);
-char    *ft_strndup(char *origin, int count);
+char	*ft_strndup(char *origin, int count);
 t_list	*ft_findlst_by_index(t_list *lst, int i);
 void	restore_fds(t_execdata *data, int input_fd, int output_fd);
 
 /////////////////임시
 void	debug_print(char *file, int line, const char *func);
+void	print_lst(t_list *head);
+void	print_lstlst(t_list *head);
 
 #endif

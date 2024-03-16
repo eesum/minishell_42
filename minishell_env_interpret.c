@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_interpret_env.c                          :+:      :+:    :+:   */
+/*   minishell_env_interpret.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:34:51 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/14 15:33:33 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:12:22 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_env_name(char *str)
 
 	i = 0;
 	size = 0;
-	while(ft_isalnum(str[i]) || str[i] == '_')
+	while (ft_isalnum(str[i]) || str[i] == '_')
 	{
 		i++;
 		size++;
@@ -36,7 +36,7 @@ char	*get_env_name(char *str)
 	return (name);
 }
 
-static void interpret_env(char *str, t_list *env, size_t *len, size_t *index)
+static void	interpret_env(char *str, t_list *env, size_t *len, size_t *index)
 {
 	char	*name;
 	char	*value;
@@ -49,7 +49,8 @@ static void interpret_env(char *str, t_list *env, size_t *len, size_t *index)
 	i = 0;
 	while (value[i])
 	{
-		if (ft_isquote(value[i]) || ft_ispipe(value[i]) || ft_isredirect(value[i]))
+		if (ft_isquote(value[i]) || ft_ispipe(value[i])
+			|| ft_isredirect(value[i]))
 			meta++;
 		i++;
 	}
@@ -67,7 +68,7 @@ static void	no_interpret_env(char *str, size_t *i)
 		(*i)++;
 }
 
-static void	count_total_len(char *str, t_list *envlist, size_t *len)
+static void	count_total_len(char *str, t_list *env, size_t *len)
 {
 	size_t	i;
 
@@ -78,7 +79,7 @@ static void	count_total_len(char *str, t_list *envlist, size_t *len)
 		{
 			i++;
 			if (ft_isalpha(str[i]) || str[i] == '_')
-				interpret_env(str, envlist, len, &i);
+				interpret_env(str, env, len, &i);
 		}
 		else if (str[i] == '\'')
 			no_interpret_env(str + i, &i);
@@ -87,18 +88,17 @@ static void	count_total_len(char *str, t_list *envlist, size_t *len)
 	}
 }
 
-char *parsing_env(char *str, t_list *envlist)
+char	*parsing_env(char *str, t_list *env)
 {
 	size_t	total_len;
 	char	*new;
-	
+
 	if (str == NULL)
 		return (NULL);
 	total_len = ft_strlen(str);
-	count_total_len(str, envlist, &total_len);
-	//printf("total_len: %zu\n", total_len); //print
+	count_total_len(str, env, &total_len);
 	new = (char *)ft_malloc_err(sizeof(char) * (total_len + 1));
 	new[total_len] = '\0';
-	change_env(str, envlist, new);
+	change_env(str, env, new);
 	return (new);
 }

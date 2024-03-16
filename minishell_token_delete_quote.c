@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_delete_quote.c                           :+:      :+:    :+:   */
+/*   minishell_token_delete_quote.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:37:49 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/14 18:37:03 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:07:51 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void count_without_quote(char *str, size_t *len)
+static void	count_without_quote(char *str, size_t *len, int *flag)
 {
 	size_t	i;
 	char	c;
-	
+
 	i = 0;
 	while (str[i])
 	{
 		if (ft_isquote(str[i]))
 		{
 			c = str[i++];
+			*flag = 1;
 			while (str[i] != c && str[i])
 			{
 				len++;
@@ -39,7 +40,7 @@ static void count_without_quote(char *str, size_t *len)
 	}
 }
 
-static char *realloc_without_quote(char *origin, size_t size)
+static char	*realloc_without_quote(char *origin, size_t size)
 {
 	size_t	i;
 	size_t	j;
@@ -73,14 +74,16 @@ void	delete_quote(t_list **head)
 	size_t	len;
 	t_token	*token;
 	t_list	*curr;
+	int		flag;
 
 	curr = *head;
 	while (curr)
 	{
 		len = 0;
+		flag = 0;
 		token = (t_token *)curr->content;
-		count_without_quote(token->str, &len);
-		if (ft_strlen(token->str) != len)
+		count_without_quote(token->str, &len, &flag);
+		if (flag)
 			token->str = realloc_without_quote(token->str, len);
 		curr = curr->next;
 	}
