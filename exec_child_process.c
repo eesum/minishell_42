@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 13:32:08 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 18:49:00 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/16 19:05:24 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exec_in_child(t_execdata *data, int i)
 	cmd = cmd_to_arr(cur_pipe->content);
 	if (cmd == NULL)
 		exit(EXIT_SUCCESS);
-	if (check_file_open(data->pipe->content) < 0)
+	if (check_file_open(cur_pipe->content) < 0)
 		exit(EXIT_FAILURE);
 	if (data->index < data->pipe_cnt - 1)
 		close(data->fd[i % 2][0]);
