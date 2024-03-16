@@ -6,53 +6,71 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:36:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 18:50:46 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/16 19:05:21 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_file_open(t_list *pipe_cntnt)
+int	check_input_file(char *file)
+{
+	if (access(file, F_OK) != 0)
+	{
+		error_msg_only("No such file or directory", file, 0);
+		return (-1);
+	}
+	else if (access(file, R_OK) != 0)
+	{
+		error_msg_only("Permission denied", file, 0);
+		return (-1);
+	}
+	return (0);
+}
+
+int	check_output_file(char *file, char mode)
+{
+	int	fd;
+
+	if (mode == 'a')
+	{
+		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (fd < 0)
+		{
+			error_msg_only("Permission denied", file, 0);
+			return (-1);
+		}
+		close(fd);
+	}
+	else if (mode == 't')
+	{
+		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (fd < 0)
+		{
+			error_msg_only("Permission denied", file, 0);
+			return (-1);
+		}
+		close(fd);
+	}
+	return (0);
+}
+
+int	check_file_open(t_list *pipe_tokens)
 {
 	t_list	*cur;
 	int		fd;
 
-	cur = pipe_cntnt;
+	cur = pipe_tokens;
 	while (cur != NULL)
 	{
 		if (((t_token *)cur->content)->type == TYPE_INPUT)
-		{
-			if (access(((t_token *)cur->content)->str, F_OK) != 0)
-			{
-				error_msg_only("No such file or directory", ((t_token *)cur->content)->str, 0);
+			if (check_input_file(((t_token *)cur->content)->str) < 0)
 				return (-1);
-			}
-			else if (access(((t_token *)cur->content)->str, R_OK) != 0)
-			{
-				error_msg_only("Permission denied", ((t_token *)cur->content)->str, 0);
-				return (-1);
-			}
-		}
 		if (((t_token *)cur->content)->type == TYPE_OUTPUT_A)
-		{
-			fd = open(((t_token *)cur->content)->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (fd < 0)
-			{
-				error_msg_only("Permission denied", ((t_token *)cur->content)->str, 0);
+			if (check_output_file(((t_token *)cur->content)->str, 'a') < 0)
 				return (-1);
-			}
-			close(fd);
-		}
 		if (((t_token *)cur->content)->type == TYPE_OUTPUT_T)
-		{
-			fd = open(((t_token *)cur->content)->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fd < 0)
-			{
-				error_msg_only("Permission denied", ((t_token *)cur->content)->str, 0);
+			if (check_output_file(((t_token *)cur->content)->str, 't') < 0)
 				return (-1);
-			}
-			close(fd);
-		}
 		cur = cur->next;
 	}
 	return (0);

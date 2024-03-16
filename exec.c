@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 18:49:49 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/16 19:05:07 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ int	count_pipe(t_execdata *data)
 	return (0);
 }
 
-char	**cmd_to_arr(t_list *pipe)
+char	**cmd_to_arr(t_list *pipe_tokens)
 {
 	t_list *cur;
 	int		cnt;
 	char	**cmd;
 
 	cnt = 0;
-	cur = pipe;
+	cur = pipe_tokens;
 	while (cur != NULL)
 	{
 		if (((t_token *)cur->content)->type == TYPE_DEFAULT)
@@ -60,7 +60,7 @@ char	**cmd_to_arr(t_list *pipe)
 	cmd = ft_malloc_err(sizeof(char *) * (cnt + 1));
 	cmd[cnt] = NULL;
 	cnt = -1;
-	cur = pipe;
+	cur = pipe_tokens;
 	while (cur != NULL)
 	{
 		if (((t_token *)cur->content)->type == 0)
