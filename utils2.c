@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 18:46:40 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 01:23:30 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 			exit_code_char = ft_itoa_err(sig_code);
 		}
 		update_env("?", exit_code_char, env);
+		free(exit_code_char);
 		i++;
 	}
 }
@@ -233,4 +234,19 @@ void	restore_fds(t_execdata *data, int input_fd, int output_fd)
 		dup2(data->tmp_fd[1], 1);
 		close(data->tmp_fd[1]);
 	}
+}
+
+void	free_arr(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		printf("pid: %d, free --- arr[i]: %p\n", getpid(), arr[i]);
+		free(arr[i]);
+		i++;
+	}
+	printf("pid: %d, free --- arr: %p\n", getpid(), arr);
+	free(arr);
 }

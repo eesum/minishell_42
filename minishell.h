@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 17:50:01 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/17 20:39:30 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	exec_exit(char **cmd);
 
 /*free*/
 void	ft_free_tokenlst(t_list *node);
+void	free_arr(char **arr);
 
 /*error*/
 void	error_exit(char *msg, char *cmd, char *arg, int code);

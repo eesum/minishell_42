@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/16 19:34:07 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 01:10:10 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,14 @@ void	exec(t_execdata *data)
 		return ;
 	}
 	exec_multiple_pipe(data);
+	printf("data->eof_arr: %p\n", data->eof_arr);
+		free_arr(data->eof_arr);
+		printf("data->file_arr: %p\n", data->file_arr);
+		free_arr(data->file_arr);
+		printf("data->env: %p\n", data->env);
+		ft_lstclear(&data->env, free);
+		printf("data->doc_fd: %p\n", data->doc_fd);
+		free(data->doc_fd);
 }
 
 
@@ -193,9 +201,14 @@ t_list *envp_to_lst(char **envp)
 	return (env);
 }
 
-void	debug_print(char *file, int line, const char *func)
+// void	debug_print(char *file, int line, const char *func)
+// {
+// 	printf("=======FILE: %s / LINE: %d / FUNC: %s=======\n", file, line, func);
+// }
+
+void check()
 {
-	printf("=======FILE: %s / LINE: %d / FUNC: %s=======\n", file, line, func);
+	system("leaks --list a.out");
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -205,11 +218,17 @@ int	main(int argc, char **argv, char **envp)
 	t_list		*first_token;
 	char		*buff;
 	
+	atexit(check);
+	printf("parent pid: %d\n", getpid()); ////
 	data.env = envp_to_lst(envp);
+	// printf("data.env: %p\n", data.env);
 	data.pipe = ft_malloc_err(sizeof(t_list));
+	// printf("data.pipe: %p\n", data.pipe);
 
 	t_token *t1 = ft_malloc_err(sizeof(t_token));
+	// printf("t1: %p\n", t1);
 	first_token = ft_lstnew(t1);
+	// printf("first_token: %p\n", first_token);
 	data.pipe->content = first_token;
 	data.pipe->next = NULL;
 	
@@ -230,7 +249,7 @@ int	main(int argc, char **argv, char **envp)
 	// ft_lstadd_back(&first_token, new);
 
 	t1->str = "a";
-	t1->type=TYPE_HEREDOC;
+	t1->type=TYPE_INPUT;
 
 	t2->str = "eof";
 	t2->type=TYPE_HEREDOC;
@@ -249,9 +268,11 @@ int	main(int argc, char **argv, char **envp)
 	
 
 	new_pipe = ft_malloc_err(sizeof(t_list));
-
+	// printf("new_pipe: %p\n", new_pipe);
 	t_token *t21 = ft_malloc_err(sizeof(t_token));
+	// printf("t21: %p\n", t21);
 	sec_first_token = ft_lstnew(t21);
+	// printf("sec_first_token: %p\n", sec_first_token);
 	new_pipe->content = sec_first_token;
 	new_pipe->next = NULL;
 	ft_lstadd_back(&data.pipe, new_pipe);
@@ -265,11 +286,15 @@ int	main(int argc, char **argv, char **envp)
 	// ft_lstadd_back(&sec_first_token, new);
 	
 	t_token *t24 = ft_malloc_err(sizeof(t_token));
+	// printf("t24: %p\n", t24);
 	new = ft_lstnew(t24);
+	// printf("new: %p\n", new);
 	ft_lstadd_back(&sec_first_token, new);
 	
 	t_token *t25 = ft_malloc_err(sizeof(t_token));
+	// printf("t25: %p\n", t25);
 	new = ft_lstnew(t25);
+	// printf("new: %p\n", new);
 	ft_lstadd_back(&sec_first_token, new);
 
 	t21->str = "grep";
@@ -285,19 +310,21 @@ int	main(int argc, char **argv, char **envp)
 	t25->str = "out_a";
 	t25->type=TYPE_OUTPUT_A;
 
-	while (1)
-	{
+	// while (1)
+	// {
 		buff = readline("minishell$ ");
-		exec(&data);
-		
 		free (buff);
 		buff = NULL;
-	}
+		// printf("main_buff: %p\n", buff);
+		exec(&data);
+	// }
 
 	// while (data.env != NULL)
 	// {
 	// 	printf("%s\n", data.env->content);
 	// 	data.env = data.env->next;
 	// }
+
+	exit(EXIT_SUCCESS);
 	return (0);
 }
