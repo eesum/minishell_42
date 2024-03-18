@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 19:51:51 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 13:04:58 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:05:34 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	exec_env(char **cmd, t_list *env)
 {
-	int	i;
-	int	name_len;
+	int		i;
+	int		name_len;
 	char	*name;
 	t_list	*cur;
 
@@ -35,47 +35,3 @@ int	exec_env(char **cmd, t_list *env)
 	}
 	return (0);
 }
-// t_list *envp_to_lst(char **envp)
-// {
-// 	t_list	*env;
-// 	t_list	*new;
-// 	int		i;
-
-// 	i = 0;
-// 	env = ft_lstnew(ft_strdup_err("?=0"));
-// 	if (env == NULL)
-// 		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
-// 	while (envp && envp[i])
-// 	{
-// 		new = ft_lstnew(ft_strdup_err(envp[i]));
-// 		if (env == NULL)
-// 			error_exit("malloc failed", 0, 0, EXIT_FAILURE);
-// 		ft_lstadd_back(&env, new);
-// 		i++;
-// 	}
-// 	return (env);
-// }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	t_execdata	data;
-// 	t_list *cur;
-	
-// 	data.env = envp_to_lst(envp);
-
-// 	cur = data.env;
-// 	while (cur != NULL)
-// 	{
-// 		printf("%s\n", cur->content);
-// 		cur = cur->next;
-// 	}
-// 	exec_env(&argv[1], data.env);
-	
-// 	cur = data.env;
-// 	while (cur != NULL)
-// 	{
-// 		printf("%s\n", cur->content);
-// 		cur = cur->next;
-// 	}
-// 	return (0);
-// }

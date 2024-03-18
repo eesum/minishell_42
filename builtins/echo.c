@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:44:34 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 12:42:56 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:05:00 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	flag_echo_option(char *cmd)
 			else
 			{
 				flag = 0;
-				break;
+				break ;
 			}
 			i++;
 		}
