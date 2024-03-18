@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:12:00 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:21:47 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ void	delete_quote(t_list **head);
 void	check_token(t_list **head, t_list **pipe);
 
 /*exec*/
+void	exec(t_execdata *data);
 void	init_token_flags(t_execdata *data);
-t_list *envp_to_lst(char **envp);
+t_list	*envp_to_lst(char **envp);
 int		count_pipe(t_execdata *data);
 int		check_file_open(t_list *pipe_cntnt);
 int		open_last_input(t_list *pipe, char **file_arr);
@@ -113,9 +114,9 @@ void	check_cmd_option(char **cmd);
 int		check_valid_name(char *cmd, char *arg, char sep);
 int		ft_ispipe(char c);
 int		ft_isspace(char c);
-int 	ft_isredirect(char c);
+int		ft_isredirect(char c);
 int		ft_isquote(char c);
-char    *ft_strndup(char *origin, int count);
+char	*ft_strndup(char *origin, int count);
 t_list	*ft_findlst_by_index(t_list *lst, int i);
 void	restore_fds(t_execdata *data, int input_fd, int output_fd);
 

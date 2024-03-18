@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 13:32:08 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/16 19:25:33 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:17:43 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	output_fd(t_execdata *data, t_list *cur_pipe, int i)
 void	exec_in_child(t_execdata *data, int i)
 {
 	t_list	*cur_pipe;
-	int	input;
-	int	output;
+	int		input;
+	int		output;
 	char	**cmd;
 
 	cur_pipe = ft_findlst_by_index(data->pipe, i);

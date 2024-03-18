@@ -6,13 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:21:29 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:12:46 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:18:44 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list *envp_to_lst(char **envp)
+t_list	*envp_to_lst(char **envp)
 {
 	t_list	*env;
 	t_list	*new;
@@ -79,7 +79,7 @@ void	update_env(char *name, char *value, t_list *env)
 			&& ((char *)cur->content)[name_len] != '\0')
 		{
 			free(cur->content);
-			cur->content= ft_strjoin_sep(name, value, "=");
+			cur->content = ft_strjoin_sep(name, value, "=");
 			return ;
 		}
 		cur = cur->next;

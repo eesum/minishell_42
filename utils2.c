@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 13:56:40 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:22:31 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 	int		sig_code;
 
 	i = 0;
-	while(i < wait_cnt)
+	while (i < wait_cnt)
 	{
 		wait_pid = wait(&status);
 		if (wait_pid < 0)
@@ -99,8 +99,8 @@ void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 
 t_list	*ft_findlst_by_index(t_list *lst, int i)
 {
-	t_list *cur;
-	int	index;
+	t_list	*cur;
+	int		index;
 
 	index = 0;
 	cur = lst;

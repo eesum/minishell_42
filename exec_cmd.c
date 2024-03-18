@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:40:55 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 13:55:02 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:18:18 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	**cmd_to_arr(t_list *pipe_tokens)
 {
-	t_list *cur;
+	t_list	*cur;
 	int		cnt;
 	char	**cmd;
 
@@ -65,7 +65,7 @@ int	is_builtin(char *cmd)
 int	exec_cmd(char **cmd, t_list *env)
 {
 	if (cmd == NULL)
-		return (0) ;
+		return (0);
 	else if (is_builtin(cmd[0]) == 1)
 		return (exec_echo(cmd));
 	else if (is_builtin(cmd[0]) == 2)

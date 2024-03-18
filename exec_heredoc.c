@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 12:46:44 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:23:23 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	before_heredoc(t_execdata *data)
 	}
 }
 
-
 void	input_to_heredoc(t_execdata *data, char *file_name, int i)
 {
 	char	*buff;
@@ -94,7 +93,8 @@ void	input_to_heredoc(t_execdata *data, char *file_name, int i)
 				break ;
 		if (buff != NULL)
 		{
-			if (ft_memcmp(data->eof_arr[i], buff, ft_strlen(data->eof_arr[i]) + 1) == 0)
+			if (ft_memcmp(data->eof_arr[i], buff, \
+				ft_strlen(data->eof_arr[i]) + 1) == 0)
 			{
 				free(buff);
 				break ;
@@ -109,9 +109,9 @@ void	input_to_heredoc(t_execdata *data, char *file_name, int i)
 	//시그널 받는거...
 }
 
-void	here_document(t_execdata *data)  // 시그널 등 추후 고려 필요
+void	here_document(t_execdata *data)// 시그널 등 추후 고려 필요
 {
-	int	i;
+	int		i;
 	pid_t	pid;
 
 	i = 0;
