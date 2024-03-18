@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include <stdlib.h>
 
 void check()
 {
@@ -98,10 +99,15 @@ int	main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
-		buff = readline("minishell$ ");
-		free (buff);
-		buff = NULL;
-		exec(&data);
+		buff = readline("~ ");
+		if (buff == NULL)
+			exit(EXIT_SUCCESS);
+		if(buff)
+		{
+			add_history(buff);
+			exec(&data);
+		}
+		free(buff);
 	}
 
 	// while (data.env != NULL)

@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:23:23 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:49:02 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ void	input_to_heredoc(t_execdata *data, char *file_name, int i)
 	{
 		buff = readline("> ");
 		if (buff == NULL)
-			if (data->eof_arr[i][0] == '\0')
-				break ;
+			break ;
 		if (buff != NULL)
 		{
 			if (ft_memcmp(data->eof_arr[i], buff, \

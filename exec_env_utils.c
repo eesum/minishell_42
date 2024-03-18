@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:21:29 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:18:44 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:53:20 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void	update_env(char *name, char *value, t_list *env)
 		}
 		cur = cur->next;
 	}
-	new = ft_lstnew(ft_strjoin_sep(name, value, "="));
+	env_content = ft_strjoin_sep(name, value, "=");
+	new = ft_lstnew(env_content);
 	if (new == NULL)
 		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
 	ft_lstadd_back(&env, new);
