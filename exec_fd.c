@@ -1,80 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   before_cmd.c                                       :+:      :+:    :+:   */
+/*   exec_fd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:36:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/16 19:05:21 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 13:51:11 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	check_input_file(char *file)
-{
-	if (access(file, F_OK) != 0)
-	{
-		error_msg_only("No such file or directory", file, 0);
-		return (-1);
-	}
-	else if (access(file, R_OK) != 0)
-	{
-		error_msg_only("Permission denied", file, 0);
-		return (-1);
-	}
-	return (0);
-}
-
-int	check_output_file(char *file, char mode)
-{
-	int	fd;
-
-	if (mode == 'a')
-	{
-		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (fd < 0)
-		{
-			error_msg_only("Permission denied", file, 0);
-			return (-1);
-		}
-		close(fd);
-	}
-	else if (mode == 't')
-	{
-		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd < 0)
-		{
-			error_msg_only("Permission denied", file, 0);
-			return (-1);
-		}
-		close(fd);
-	}
-	return (0);
-}
-
-int	check_file_open(t_list *pipe_tokens)
-{
-	t_list	*cur;
-	int		fd;
-
-	cur = pipe_tokens;
-	while (cur != NULL)
-	{
-		if (((t_token *)cur->content)->type == TYPE_INPUT)
-			if (check_input_file(((t_token *)cur->content)->str) < 0)
-				return (-1);
-		if (((t_token *)cur->content)->type == TYPE_OUTPUT_A)
-			if (check_output_file(((t_token *)cur->content)->str, 'a') < 0)
-				return (-1);
-		if (((t_token *)cur->content)->type == TYPE_OUTPUT_T)
-			if (check_output_file(((t_token *)cur->content)->str, 't') < 0)
-				return (-1);
-		cur = cur->next;
-	}
-	return (0);
-}
 
 int	open_last_input(t_list *pipe, char **file_arr)
 {
@@ -149,5 +85,19 @@ void	dup_fds(t_execdata *data, int input_fd, int output_fd)
 		data->tmp_fd[1] = dup(1);
 		dup2(output_fd, 1);
 		close(output_fd);
+	}
+}
+
+void	restore_fds(t_execdata *data, int input_fd, int output_fd)
+{
+	if (input_fd > 0)
+	{
+		dup2(data->tmp_fd[0], 0);
+		close(data->tmp_fd[0]);
+	}
+	if (output_fd > 0)
+	{
+		dup2(data->tmp_fd[1], 1);
+		close(data->tmp_fd[1]);
 	}
 }

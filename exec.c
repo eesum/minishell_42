@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 01:10:10 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 13:52:05 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,58 +38,6 @@ int	count_pipe(t_execdata *data)
 	}
 	if (data->pipe_cnt == 1 && is_builtin(cmd) > 0 && is_builtin(cmd) < 8)
 		return (1);
-	return (0);
-}
-
-char	**cmd_to_arr(t_list *pipe_tokens)
-{
-	t_list *cur;
-	int		cnt;
-	char	**cmd;
-
-	cnt = 0;
-	cur = pipe_tokens;
-	while (cur != NULL)
-	{
-		if (((t_token *)cur->content)->type == TYPE_DEFAULT)
-			cnt++;
-		cur = cur->next;
-	}
-	if (cnt == 0)
-		return (NULL);
-	cmd = ft_malloc_err(sizeof(char *) * (cnt + 1));
-	cmd[cnt] = NULL;
-	cnt = -1;
-	cur = pipe_tokens;
-	while (cur != NULL)
-	{
-		if (((t_token *)cur->content)->type == 0)
-			cmd[++cnt] = ft_strdup_err(((t_token *)cur->content)->str);
-		cur = cur->next;
-	}
-	return (cmd);
-}
-
-int	exec_cmd(char **cmd, t_list *env)
-{
-	if (cmd == NULL)
-		return (0) ;
-	else if (ft_memcmp(cmd[0], "echo", 5) == 0)
-		return (exec_echo(cmd));
-	else if (ft_memcmp(cmd[0], "cd", 3) == 0)
-		return (exec_cd(cmd, env));
-	else if (ft_memcmp(cmd[0], "pwd", 4) == 0)
-		return (exec_pwd(cmd));
-	else if (ft_memcmp(cmd[0], "export", 7) == 0)
-		return (exec_export(cmd, env));
-	else if (ft_memcmp(cmd[0], "unset", 6) == 0)
-		return (exec_unset(cmd, env));
-	else if (ft_memcmp(cmd[0], "env", 4) == 0)
-		return (exec_env(cmd, env));
-	else if (ft_memcmp(cmd[0], "exit", 5) == 0)
-		exec_exit(cmd);
-	else
-		exec_general_cmd(cmd, env);
 	return (0);
 }
 
@@ -169,42 +117,12 @@ void	exec(t_execdata *data)
 		return ;
 	}
 	exec_multiple_pipe(data);
-	printf("data->eof_arr: %p\n", data->eof_arr);
-		free_arr(data->eof_arr);
-		printf("data->file_arr: %p\n", data->file_arr);
-		free_arr(data->file_arr);
-		printf("data->env: %p\n", data->env);
-		ft_lstclear(&data->env, free);
-		printf("data->doc_fd: %p\n", data->doc_fd);
-		free(data->doc_fd);
+	free_arr(data->eof_arr);
+	free_arr(data->file_arr);
+	ft_lstclear(&data->env, free);
+	free(data->doc_fd);
 }
 
-
-t_list *envp_to_lst(char **envp)
-{
-	t_list	*env;
-	t_list	*new;
-	int		i;
-
-	i = 0;
-	env = ft_lstnew(ft_strdup_err("?=0"));
-	if (env == NULL)
-		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
-	while (envp && envp[i])
-	{
-		new = ft_lstnew(ft_strdup_err(envp[i]));
-		if (env == NULL)
-			error_exit("malloc failed", 0, 0, EXIT_FAILURE);
-		ft_lstadd_back(&env, new);
-		i++;
-	}
-	return (env);
-}
-
-// void	debug_print(char *file, int line, const char *func)
-// {
-// 	printf("=======FILE: %s / LINE: %d / FUNC: %s=======\n", file, line, func);
-// }
 
 void check()
 {
@@ -219,16 +137,11 @@ int	main(int argc, char **argv, char **envp)
 	char		*buff;
 	
 	atexit(check);
-	printf("parent pid: %d\n", getpid()); ////
 	data.env = envp_to_lst(envp);
-	// printf("data.env: %p\n", data.env);
 	data.pipe = ft_malloc_err(sizeof(t_list));
-	// printf("data.pipe: %p\n", data.pipe);
 
 	t_token *t1 = ft_malloc_err(sizeof(t_token));
-	// printf("t1: %p\n", t1);
 	first_token = ft_lstnew(t1);
-	// printf("first_token: %p\n", first_token);
 	data.pipe->content = first_token;
 	data.pipe->next = NULL;
 	
@@ -268,11 +181,8 @@ int	main(int argc, char **argv, char **envp)
 	
 
 	new_pipe = ft_malloc_err(sizeof(t_list));
-	// printf("new_pipe: %p\n", new_pipe);
 	t_token *t21 = ft_malloc_err(sizeof(t_token));
-	// printf("t21: %p\n", t21);
 	sec_first_token = ft_lstnew(t21);
-	// printf("sec_first_token: %p\n", sec_first_token);
 	new_pipe->content = sec_first_token;
 	new_pipe->next = NULL;
 	ft_lstadd_back(&data.pipe, new_pipe);
@@ -310,14 +220,13 @@ int	main(int argc, char **argv, char **envp)
 	t25->str = "out_a";
 	t25->type=TYPE_OUTPUT_A;
 
-	// while (1)
-	// {
+	while (1)
+	{
 		buff = readline("minishell$ ");
 		free (buff);
 		buff = NULL;
-		// printf("main_buff: %p\n", buff);
 		exec(&data);
-	// }
+	}
 
 	// while (data.env != NULL)
 	// {

@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 01:14:46 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 12:46:44 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	input_to_heredoc(t_execdata *data, char *file_name, int i)
 	while (1)
 	{
 		buff = readline("> ");
-		// printf("buff: %p\n", buff);
 		if (buff == NULL)
 			if (data->eof_arr[i][0] == '\0')
 				break ;
