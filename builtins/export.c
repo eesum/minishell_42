@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:12:02 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:36:11 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	exec_export(char **cmd, t_list *env)
 	int		err_flag;
 	char	*name;
 
-	check_cmd_option(cmd);
+	if (check_cmd_option(cmd) < 0)
+		return (-1);
 	i = 0;
 	err_flag = 0;
 	if (cmd[1] == NULL)

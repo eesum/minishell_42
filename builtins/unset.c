@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 19:40:13 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 14:55:23 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:27:47 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	remove_env(char *name, t_list *env)
 			ft_lstdelone(tmp, free);
 		}
 		cur = cur->next;
+		if (cur == NULL)
+			return ;
 	}
 }
 
@@ -41,7 +43,8 @@ int	exec_unset(char **cmd, t_list *env)
 	int		err_flag;
 	char	*name;
 
-	check_cmd_option(cmd);
+	if (check_cmd_option(cmd) < 0)
+		return (-1);
 	i = 0;
 	err_flag = 0;
 	while (cmd[++i])
@@ -52,10 +55,7 @@ int	exec_unset(char **cmd, t_list *env)
 			err_flag = 1;
 			continue ;
 		}
-		printf("dd\n");
-		name = ft_substr_err(cmd[i], 0, name_len);
-		remove_env(name, env);
-		free(name);
+		remove_env(cmd[i], env);
 	}
 	if (err_flag == 1)
 		return (-1);
