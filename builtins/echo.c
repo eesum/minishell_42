@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:44:34 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 14:35:43 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:32:23 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	exec_echo(char **cmd)
 			if (cmd[content_index])
 				printf(" ");
 		}
-		if (n_flag == 0)
-			printf("\n");
 	}
+	if (n_flag == 0)
+		printf("\n");
 	return (0);
 }
