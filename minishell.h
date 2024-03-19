@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 18:21:37 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 21:04:43 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,11 @@ int		exec_env(char **cmd, t_list *env);
 void	exec_exit(char **cmd);
 
 /*free*/
+void	free_token(void *token);
+void	free_tokens_in_pipe(void *node);
+void	free_arr(char **arr);
 void	ft_token_free(t_list *node);
 void	ft_tokenlst_free(t_list **lst);
-void	ft_free_t(t_token **t);
-void	ft_free_p(t_list **pipe);
-void	free_arr(char **arr);
 
 /*error*/
 void	error_exit(char *msg, char *cmd, char *arg, int code);

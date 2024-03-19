@@ -33,29 +33,6 @@ void	handler(int signum, struct __siginfo *info, void *s)
 		return ;
 }
 
-void	free_token(void *node)
-{
-	t_list	*nd;
-	t_token	*token;
-
-	nd = (t_list *)node;
-	token = (t_token *)nd->content;
-	free(token->str);
-	free(token);
-	free(node);
-}
-
-void	free_tokens_in_pipe(void *node)
-{
-	t_list	*pipe_tokens;
-
-	pipe_tokens = (t_list *)node;
-	if (pipe_tokens != NULL)
-		ft_lstclear(&pipe_tokens, free_token);
-}
-
-
-
 int main(int argc, char **argv, char **envp)
 {
 	t_execdata	data;
@@ -91,7 +68,7 @@ int main(int argc, char **argv, char **envp)
 			else
 				exec(&data);
 		}
-		// ft_lstclear(&data.pipe, free_tokens_in_pipe);
+		ft_lstclear(&data.pipe, free_tokens_in_pipe);
 	}
 	return (0);
 }
