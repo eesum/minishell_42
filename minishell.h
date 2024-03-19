@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 14:06:40 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:24:56 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	ft_strcpy(char *dest, const char *src);
 char	*ft_strjoin_sep(char const *s1, char const *s2, char const *sep);
 char	*find_env(char *name, t_list *env);
 void	update_env(char *name, char *value, t_list *env);
-void	check_cmd_option(char **cmd);
+int		check_cmd_option(char **cmd);
 int		check_valid_name(char *cmd, char *arg, char sep);
 int		ft_ispipe(char c);
 int		ft_isspace(char c);
