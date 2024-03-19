@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:34:33 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 20:40:14 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 23:04:41 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,13 @@ char	*find_cmd(char **path, char *cmd)
 	return (path_join);
 }
 
-void	exec_general_cmd(char **cmd, t_list *env)
+void	exec_pathjoin(char **cmd, char **envp)
 {
-	char	**envp;
 	char	**path;
 	char	*path_join;
 	int		i;
 
 	path_join = NULL;
-	envp = lst_to_envp(env);
 	path = split_path(envp);
 	if (cmd[0] != NULL && path != NULL)
 		path_join = find_cmd(path, cmd[0]);
@@ -106,4 +104,15 @@ void	exec_general_cmd(char **cmd, t_list *env)
 	}
 	if (execve(path_join, cmd, envp) < 0)
 		error_exit("exec failed.", 0, 0, 126);
+}
+
+void	exec_general_cmd(char **cmd, t_list *env)
+{
+	char	**envp;
+
+	envp = lst_to_envp(env);
+	if (access(cmd[0], X_OK) == 0 && execve(cmd[0], cmd, envp) < 0)
+		error_exit("exec failed.", 0, 0, 126);
+	else
+		exec_pathjoin(cmd, envp);
 }
