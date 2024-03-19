@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:05:49 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:49:11 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	exec_exit(char **cmd)
 	int	i;
 	int	exit_code;
 
-	if (cmd[1] == NULL)
+	if (cmd == NULL || cmd[1] == NULL)
 		exit_after_print(EXIT_SUCCESS);
 	i = 0;
 	while (cmd[1][i])

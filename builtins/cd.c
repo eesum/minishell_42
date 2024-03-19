@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 20:14:04 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 15:25:41 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:32:37 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	change_dir(char *dest_path, char *current_path, char *arg, t_list *env)
 			error_msg_only("Not a directory", "cd", arg);
 		else
 			error_msg_only("Error occured", "cd", arg);
+		free(dest_path);
+		free(current_path);
 		return (-1);
 	}
 	new_pwd = getcwd(NULL, 0);

@@ -1,25 +1,87 @@
+#include "libft/libft.h"
 #include "minishell.h"
-#include <stdlib.h>
+#include <sys/_types/_sigset_t.h>
+#include <sys/signal.h>
+
+volatile sig_atomic_t g_sig;
 
 void	parsing(t_parsedata *parse, t_execdata *exec)
 {
 	parse->token_head = NULL;
-	parse->env_str = parsing_env(parse->str, exec->env); //env parsing
+	parsing_env(parse, exec->env); //env parsing
 	split_token(&(parse->token_head), parse->env_str); //make token linked list
-	exec->pipe = NULL;
-	beautify_token(&(parse->token_head), &(exec->pipe)); //split pipe
+	if (parse->token_head != NULL)
+	{
+		exec->pipe = NULL;
+		beautify_token(&(parse->token_head), &(exec->pipe)); //split pipe
+	}
 	free(parse->str);
 	free(parse->env_str);
 }
+
+void	handler(int signum, struct __siginfo *info, void *s)
+{
+	if (signum == SIGINT)
+	{
+		printf("\n");
+		if (rl_on_new_line() < 0)
+			error_exit("readline error", 0, 0, EXIT_FAILURE);
+		rl_replace_line("", 1);
+		rl_redisplay();
+	}
+	else
+		return ;
+}
+
+void	free_token(void *node)
+{
+	t_list	*nd;
+	t_token	*token;
+
+	nd = (t_list *)node;
+	token = (t_token *)nd->content;
+	free(token->str);
+	free(token);
+	free(node);
+}
+
+void	free_tokens_in_pipe(void *node)
+{
+	t_list	*pipe_tokens;
+
+	pipe_tokens = (t_list *)node;
+	if (pipe_tokens != NULL)
+		ft_lstclear(&pipe_tokens, free_token);
+}
+
+
+
 int main(int argc, char **argv, char **envp)
 {
 	t_execdata	data;
 	t_parsedata	parse;
+	struct sigaction	act;
 	
 	data.env = envp_to_lst(envp);
+	// signal(SIGINT, &handler);
+	// signal(SIGQUIT, &handler);
+	sigemptyset(&act.sa_mask);
+	sigaddset(&act.sa_mask, SIGINT);
+	sigaddset(&act.sa_mask, SIGQUIT);
+	// sigaddset(&act.sa_mask, SIGSTOP);
+	act.sa_flags = SA_SIGINFO;
+	act.sa_sigaction = &handler;
+	if (sigaction(SIGINT, &act, NULL) == -1)
+		return (1);
+	if (sigaction(SIGQUIT, &act, NULL) == -1)
+		return (1);
+	// if (sigaction(SIGSTOP, &act, NULL) == -1)
+	// 	return (1);
 	while (1)
 	{
 		parse.str = readline("~ ");
+		if (parse.str == NULL)
+			exit_after_print(EXIT_SUCCESS);
 		if(*parse.str)
 		{
 			add_history(parse.str);
@@ -29,6 +91,7 @@ int main(int argc, char **argv, char **envp)
 			else
 				exec(&data);
 		}
+		// ft_lstclear(&data.pipe, free_tokens_in_pipe);
 	}
 	return (0);
 }
