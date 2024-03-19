@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 14:06:40 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:54:10 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	exec(t_execdata *data);
 
 /*parse*/
 char	*get_env_name(char *str);
-void	change_env(char *str, t_list *env, char *new_str);
-char	*parsing_env(char *str, t_list *env);
+void	change_env(t_parsedata *data, t_list *env);
+void	parsing_env(t_parsedata *data, t_list *env);
 int		check_token_type(char *str);
 void	split_token(t_list **head, char *str);
 void	delete_quote(t_list **head);
@@ -106,7 +106,8 @@ void	exec_exit(char **cmd);
 /*free*/
 void	ft_token_free(t_list *node);
 void	ft_tokenlst_free(t_list **lst);
-void    ft_free_p(t_list *p);
+void	ft_free_t(t_token **t);
+void	ft_free_p(t_list **pipe);
 void	free_arr(char **arr);
 
 /*error*/

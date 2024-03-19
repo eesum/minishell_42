@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 19:18:56 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/19 14:07:49 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:02:09 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,37 @@ void	ft_tokenlst_free(t_list **lst)
 		cur = cur->next;
 		ft_token_free(tmp);
 	}
+	*lst = NULL;
 }
 
-void	ft_free_t(t_token *t)
+void	ft_free_t(t_token **t)
 {
-	free(t->str);
-	free(t);
+	free((*t)->str);
+	free(*t);
 }
 
-void	ft_free_l(t_list *l)
+void	ft_free_l(t_list **lst)
 {
-	t_list	*t;
+	t_list	*tmp;
 
-	while (l)
+	while (*lst)
 	{
-		t = l;
-		l = l->next;
-		ft_free_t(t->content);
-		free(t);
+		tmp = *lst;
+		*lst = (*lst)->next;
+		ft_free_t(tmp->content);
+		free(tmp);
 	}
 }
 
-void	ft_free_p(t_list *p)
+void	ft_free_p(t_list **pipe)
 {
-	t_list	*t;
+	t_list	*tmp;
 
-	while (p)
+	while (*pipe)
 	{
-		t = p;
-		p = p->next;
-		ft_free_l(t->content);
-		free(t);
+		tmp = *pipe;
+		*pipe = (*pipe)->next;
+		ft_free_l(tmp->content);
+		free(tmp);
 	}
 }
