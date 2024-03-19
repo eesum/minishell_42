@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:34:33 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:19:40 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 20:40:14 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ void	exec_general_cmd(char **cmd, t_list *env)
 	if (cmd[0] != NULL && path != NULL)
 		path_join = find_cmd(path, cmd[0]);
 	if (cmd[0] == NULL)
-		error_exit("command not found", 0, 0, EXIT_FAILURE);
+		error_exit("command not found", 0, 0, 127);
 	if (path_join == NULL)
-		error_exit("command not found", cmd[0], 0, EXIT_FAILURE);
+		error_exit("command not found", cmd[0], 0, 127);
 	i = 0;
 	while (path[i])
 	{
@@ -105,5 +105,5 @@ void	exec_general_cmd(char **cmd, t_list *env)
 		i++;
 	}
 	if (execve(path_join, cmd, envp) < 0)
-		error_exit("exec failed.", 0, 0, EXIT_FAILURE);
+		error_exit("exec failed.", 0, 0, 126);
 }

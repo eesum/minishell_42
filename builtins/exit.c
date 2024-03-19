@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 15:49:11 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 20:42:59 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	exec_exit(char **cmd)
 		if (cmd[1][i] < 48 || cmd[1][i] > 57)
 		{
 			error_msg_only("numeric argument required", cmd[0], cmd[1]);
-			exit_after_print(EXIT_FAILURE);
+			exit_after_print(128);
 		}
 		i++;
 	}
