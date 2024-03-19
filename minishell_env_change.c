@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:34:51 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/20 03:55:53 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 04:54:20 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	change_default_loop(t_parsedata *data, char *src, size_t *j)
 	k = 0;
 	while (src[k])
 	{
-		if (ft_isquote(src[k]) || ft_ispipe(src[k]) || ft_isredirect(src[k]))
+		if (ft_isquote(src[k]) || ft_ispipe(src[k]) || ft_isredi(src[k]))
 		{
 			quote = '"';
 			if (ft_isquote(src[k]) == 2)
@@ -56,7 +56,7 @@ void	change_default(t_parsedata *data, size_t *i, size_t *j, t_list *env)
 	m_flag = 0;
 	while (src[k])
 	{
-		if (ft_isquote(src[k]) || ft_ispipe(src[k]) || ft_isredirect(src[k]))
+		if (ft_isquote(src[k]) || ft_ispipe(src[k]) || ft_isredi(src[k]))
 			m_flag = 1;
 		k++;
 	}
@@ -79,7 +79,7 @@ static void	change_quote_loop(t_parsedata *data, char *src, size_t *j)
 	while (src[k])
 	{
 		if (ft_isquote(src[k]) || ft_ispipe(src[k])
-			|| ft_isredirect(src[k]) || ft_isspace(src[k]))
+			|| ft_isredi(src[k]) || ft_isspace(src[k]))
 		{
 			quote = '"';
 			if (ft_isquote(src[k]) == 2)
@@ -108,7 +108,7 @@ void	change_quote(t_parsedata *data, size_t *i, size_t *j, t_list *env)
 	while (src[k])
 	{
 		if (ft_isquote(src[k]) || ft_ispipe(src[k])
-			|| ft_isredirect(src[k]) || ft_isspace(src[k]))
+			|| ft_isredi(src[k]) || ft_isspace(src[k]))
 			m_flag = 1;
 		k++;
 	}

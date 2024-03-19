@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:43:31 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/20 03:56:11 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 04:54:29 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_isspace(char c)
 	return (0);
 }
 
-int	ft_isredirect(char c)
+int	ft_isredi(char c)
 {
 	if (c == '<' || c == '>')
 		return (1);
@@ -62,7 +62,6 @@ char	*ft_strndup(char *origin, int count)
 {
 	char	*str;
 	size_t	i;
-	char	c;
 
 	str = (char *)ft_malloc_err(sizeof(char) + (count + 1));
 	str[count] = '\0';

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 20:14:04 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 22:44:10 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/20 04:51:07 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_current_path()
+char	*get_current_path(void)
 {
 	char	*path;
 

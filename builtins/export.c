@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 20:11:52 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/20 04:49:59 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	exec_export(char **cmd, t_list *env)
 	if (cmd[1] == NULL)
 		return (export_no_arg(env));
 	else
-	 	export_with_arg(cmd, env, &err_flag);
+		export_with_arg(cmd, env, &err_flag);
 	if (err_flag == 1)
 		return (-1);
 	return (0);

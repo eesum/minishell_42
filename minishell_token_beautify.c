@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:51:53 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/20 03:56:05 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 04:15:04 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	delete_redirection(t_list **head)
 	t_token	*token;
 	t_list	*cur;
 	t_list	*pre;
-	t_list	*tmp;
 
 	cur = *head;
 	while (cur)

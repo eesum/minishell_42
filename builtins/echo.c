@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:44:34 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 15:32:23 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/20 04:50:18 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	flag_echo_option(char *cmd)
 int	check_echo_option(char **cmd, int *n_flag)
 {
 	int	i;
-	int	j;
 
 	if (flag_echo_option(cmd[1]) == 0)
 		return (1);
@@ -56,7 +55,6 @@ int	check_echo_option(char **cmd, int *n_flag)
 
 int	exec_echo(char **cmd)
 {
-	int	i;
 	int	n_flag;
 	int	content_index;
 

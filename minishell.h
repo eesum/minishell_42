@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 03:55:05 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 04:54:15 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int		check_cmd_option(char **cmd);
 int		check_valid_name(char *cmd, char *arg, char sep);
 int		ft_ispipe(char c);
 int		ft_isspace(char c);
-int		ft_isredirect(char c);
+int		ft_isredi(char c);
 int		ft_isquote(char c);
 char	*ft_strndup(char *origin, int count);
 t_list	*ft_findlst_by_index(t_list *lst, int i);

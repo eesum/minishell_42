@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:23:20 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/20 03:56:09 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 04:54:12 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ static int	make_pipe_redirect_token(t_list **head, char *str, int *i, int *cnt)
 		if (ft_ispipe(str[*i]) || !str[*i])
 			return (1);
 	}
-	else if (ft_isredirect(str[*i]))
+	else if (ft_isredi(str[*i]))
 	{
 		c = str[(*i)++];
 		if (str[*i] == c)
 		{
 			(*i)++;
 			(*cnt)++;
-			if (ft_ispipe(str[*i]) || ft_isredirect(str[*i]) || !str[*i])
+			if (ft_ispipe(str[*i]) || ft_isredi(str[*i]) || !str[*i])
 				return (SYNTAX_ERROR);
 		}
-		else if (ft_ispipe(str[*i]) || ft_isredirect(str[*i]) || !str[*i])
+		else if (ft_ispipe(str[*i]) || ft_isredi(str[*i]) || !str[*i])
 			return (SYNTAX_ERROR);
 	}
 	make_token(head, str, i, cnt);
@@ -85,7 +85,7 @@ static int	count_quote(char *str, int *i, int *cnt)
 
 static int	split_loop(t_list **head, char *str, int *i, int *cnt)
 {
-	if (ft_ispipe(str[*i]) || ft_isredirect(str[*i]))
+	if (ft_ispipe(str[*i]) || ft_isredi(str[*i]))
 	{
 		if (make_pipe_redirect_token(head, str, i, cnt))
 		{
@@ -118,8 +118,7 @@ int	split_token(t_list **head, char *str)
 			make_token(head, str, &i, &cnt);
 			i++;
 		}
-		else if (ft_isquote(str[i]) || ft_ispipe(str[i])
-			|| ft_isredirect(str[i]))
+		else if (ft_isquote(str[i]) || ft_ispipe(str[i]) || ft_isredi(str[i]))
 		{
 			if (split_loop(head, str, &i, &cnt))
 				return (1);

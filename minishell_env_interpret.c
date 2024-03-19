@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:34:51 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/20 03:55:57 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 04:54:06 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static size_t	interpret_default(char *s, t_list *env, size_t *len, size_t *i)
 	while (src[index])
 	{
 		if (ft_isquote(src[index]) || ft_ispipe(src[index])
-			|| ft_isredirect(src[index]))
+			|| ft_isredi(src[index]))
 			meta++;
 		index++;
 	}
@@ -79,7 +79,7 @@ static size_t	interpret_quote(char *str, t_list *env, size_t *len, size_t *i)
 	while (src[index])
 	{
 		if (ft_isquote(src[index]) || ft_ispipe(src[index])
-			|| ft_isredirect(src[index]) || ft_isspace(src[index]))
+			|| ft_isredi(src[index]) || ft_isspace(src[index]))
 			meta++;
 		index++;
 	}

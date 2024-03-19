@@ -1,22 +1,30 @@
-#include "libft/libft.h"
 #include "minishell.h"
-#include <sys/_types/_sigset_t.h>
-#include <sys/signal.h>
 
 volatile sig_atomic_t g_sig;
 
-void	parsing(t_parsedata *parse, t_execdata *exec)
+int	parsing(t_parsedata *parse, t_execdata *exec)
 {
 	parse->token_head = NULL;
-	parsing_env(parse, exec->env); //env parsing
-	split_token(&(parse->token_head), parse->env_str); //make token linked list
-	if (parse->token_head != NULL)
+	parsing_env(parse, exec->env);
+	if (split_token(&(parse->token_head), parse->env_str))
 	{
-		exec->pipe = NULL;
-		beautify_token(&(parse->token_head), &(exec->pipe)); //split pipe
+		error_msg_only("syntax error", 0, 0);
+		free(parse->str);
+		free(parse->env_str);
+		return (1);
 	}
 	free(parse->str);
 	free(parse->env_str);
+	exec->pipe = NULL;
+	if (parse->token_head != NULL)
+	{
+		if (beautify_token(&(parse->token_head), &(exec->pipe)))
+		{
+			error_msg_only("syntax error", 0, 0);
+			return (1);
+		}
+	}
+	return (0);
 }
 
 void	handler(int signum, struct __siginfo *info, void *s)
@@ -62,11 +70,8 @@ int main(int argc, char **argv, char **envp)
 		if(*parse.str)
 		{
 			add_history(parse.str);
-			parsing(&parse, &data);
-			if (parse.token_head == NULL)
-				printf("syntax error\n");
-			else
-				exec(&data);
+			if (parsing(&parse, &data) == 0)
+				exec(&data);	
 		}
 		ft_lstclear(&data.pipe, free_tokens_in_pipe);
 	}
