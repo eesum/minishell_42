@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 19:40:13 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:12:43 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 14:55:23 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	exec_unset(char **cmd, t_list *env)
 			err_flag = 1;
 			continue ;
 		}
+		printf("dd\n");
 		name = ft_substr_err(cmd[i], 0, name_len);
 		remove_env(name, env);
 		free(name);

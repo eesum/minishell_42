@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:44:34 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:05:00 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 14:35:43 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	flag_echo_option(char *cmd)
 	int	i;
 	int	flag;
 
+	flag = 0;
 	if (cmd[0] == '-')
 	{
 		i = 1;
@@ -40,8 +41,9 @@ int	check_echo_option(char **cmd, int *n_flag)
 	int	i;
 	int	j;
 
-	if (flag_echo_option(cmd[1]) == 1)
-		*n_flag = 1;
+	if (flag_echo_option(cmd[1]) == 0)
+		return (1);
+	*n_flag = 1;
 	i = 2;
 	while (cmd[i])
 	{
@@ -49,7 +51,7 @@ int	check_echo_option(char **cmd, int *n_flag)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (i);
 }
 
 int	exec_echo(char **cmd)

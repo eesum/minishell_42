@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:17:17 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 14:29:35 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	delete_tmpfile(t_execdata *data)
 	int	i;
 
 	i = 0;
-	while (data->file_arr[i])
+	while (data->file_arr && data->file_arr[i])
 	{
 		if (unlink(data->file_arr[i]) < 0)
 			error_msg_only("file unlink failed", data->file_arr[i], 0);
@@ -103,8 +103,14 @@ void	exec_multiple_pipe(t_execdata *data)
 	delete_tmpfile(data);
 }
 
+// void	c_handler(int sig)
+// {
+
+// }
+
 void	exec(t_execdata *data)
 {
+	data->file_arr = NULL;
 	init_token_flags(data);
 	here_document(data);
 	if (count_pipe(data) == 1)
