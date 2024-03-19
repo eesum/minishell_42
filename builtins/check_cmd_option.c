@@ -6,13 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:56:19 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 13:56:31 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:24:17 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	check_cmd_option(char **cmd)
+int	check_cmd_option(char **cmd)
 {
 	char	tmp[3];
 
@@ -21,6 +21,8 @@ void	check_cmd_option(char **cmd)
 		tmp[0] = '-';
 		tmp[1] = cmd[1][1];
 		tmp[2] = '\0';
-		error_exit("invalid option", cmd[0], tmp, 2);
+		error_msg_only("invalid option", cmd[0], tmp);
+		return (-1);
 	}
+	return (0);
 }

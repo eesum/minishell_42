@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 20:14:04 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:07:15 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:25:41 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int	exec_cd(char **cmd, t_list *env)
 	char	*path;
 	char	*dest_path;
 
-	check_cmd_option(cmd);
+	if (check_cmd_option(cmd) < 0)
+		return (-1);
 	path = getcwd(NULL, 0);
 	if (path == NULL)
 	{

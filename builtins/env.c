@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 19:51:51 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:05:34 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:26:17 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	exec_env(char **cmd, t_list *env)
 	char	*name;
 	t_list	*cur;
 
-	check_cmd_option(cmd);
+	if (check_cmd_option(cmd) < 0)
+		return (-1);
 	i = 0;
 	if (cmd[1] != NULL)
 	{

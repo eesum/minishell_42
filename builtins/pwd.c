@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:52:58 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/13 21:26:52 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:27:20 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	exec_pwd(char **cmd)
 	char	*path;
 	char	tmp[3];
 
-	check_cmd_option(cmd);
+	if (check_cmd_option(cmd) < 0)
+		return (-1);
 	path = getcwd(NULL, 0);
 	if (path == NULL)
 		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
