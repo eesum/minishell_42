@@ -6,16 +6,28 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 20:14:04 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 16:32:37 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 22:44:10 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	change_dir(char *dest_path, char *current_path, char *arg, t_list *env)
+char	*get_current_path()
 {
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	if (path == NULL)
+		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
+	return (path);
+}
+
+int	change_dir(char *dest_path, char *arg, t_list *env)
+{
+	char	*current_path;
 	char	*new_pwd;
 
+	current_path = get_current_path();
 	if (chdir(dest_path) < 0)
 	{
 		if (errno == EACCES || errno == EFAULT)
@@ -26,18 +38,17 @@ int	change_dir(char *dest_path, char *current_path, char *arg, t_list *env)
 			error_msg_only("Not a directory", "cd", arg);
 		else
 			error_msg_only("Error occured", "cd", arg);
-		free(dest_path);
-		free(current_path);
 		return (-1);
 	}
-	new_pwd = getcwd(NULL, 0);
 	update_env("OLDPWD", current_path, env);
+	free(current_path);
+	new_pwd = get_current_path();
 	update_env("PWD", new_pwd, env);
 	free(new_pwd);
 	return (0);
 }
 
-int	to_directory(char *path, char *current_path, char **cmd, t_list *env)
+int	to_directory(char *path, char **cmd, t_list *env)
 {
 	char	*dest_path;
 
@@ -53,38 +64,45 @@ int	to_directory(char *path, char *current_path, char **cmd, t_list *env)
 		error_msg_only("not set", cmd[0], path);
 		return (-1);
 	}
-	if (change_dir(dest_path, current_path, 0, env) < 0)
+	if (change_dir(dest_path, 0, env) < 0)
+	{
+		free(dest_path);
 		return (-1);
+	}
 	if (ft_memcmp(path, "OLDPWD", 7) == 0)
 		printf("%s\n", dest_path);
 	free(dest_path);
 	return (0);
 }
 
+int	relative_change_dir(char *arg, t_list *env)
+{
+	char	*dest_path;
+	char	*current_path;
+
+	current_path = get_current_path();
+	dest_path = ft_strjoin_sep(current_path, arg, "/");
+	free(current_path);
+	if (change_dir(dest_path, arg, env) < 0)
+	{
+		free(dest_path);
+		return (-1);
+	}
+	free(dest_path);
+	return (0);
+}
+
 int	exec_cd(char **cmd, t_list *env)
 {
-	char	*path;
-	char	*dest_path;
-
 	if (check_cmd_option(cmd) < 0)
 		return (-1);
-	path = getcwd(NULL, 0);
-	if (path == NULL)
-	{
-		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
-		return (-1);
-	}
 	if (cmd[1] == NULL)
-		return (to_directory("HOME", path, cmd, env));
-	else if (ft_memcmp("-", cmd[1], 2) == 0)
-		return (to_directory("OLDPWD", path, cmd, env));
+		return (to_directory("HOME", cmd, env));
 	else
 	{
-		dest_path = ft_strjoin_sep(path, cmd[1], "/");
-		if (change_dir(dest_path, path, cmd[1], env) < 0)
-			return (-1);
-		free(dest_path);
+		if (cmd[1][0] == '/')
+			return (change_dir(cmd[1], cmd[1], env));
+		else
+			return (relative_change_dir(cmd[1], env));
 	}
-	free(path);
-	return (0);
 }

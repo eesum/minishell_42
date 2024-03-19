@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:21:29 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 16:37:16 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 21:04:51 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	update_env(char *name, char *value, t_list *env)
 {
 	t_list	*cur;
 	size_t	name_len;
-	// char	*env_content;
 	t_list	*new;
 
 	cur = env;

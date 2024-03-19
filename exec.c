@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 15:16:42 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 20:25:56 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ int	only_builtin(t_execdata *data)
 	if (exec_cmd(cmd, data->env) < 0)
 	{
 		restore_fds(data, input, output);
+		free_arr(cmd);
 		return (-1);
 	}
 	restore_fds(data, input, output);
+	free_arr(cmd);
 	return (0);
 }
 
@@ -102,11 +104,6 @@ void	exec_multiple_pipe(t_execdata *data)
 	wait_and_update_exit_code(data->pipe_cnt, data->env);
 	delete_tmpfile(data);
 }
-
-// void	c_handler(int sig)
-// {
-
-// }
 
 void	exec(t_execdata *data)
 {

@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 03:35:11 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 03:55:05 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,11 @@ int		exec_env(char **cmd, t_list *env);
 void	exec_exit(char **cmd);
 
 /*free*/
+void	free_token(void *token);
+void	free_tokens_in_pipe(void *node);
+void	free_arr(char **arr);
 void	ft_token_free(t_list *node);
 void	ft_tokenlst_free(t_list **lst);
-void	ft_free_t(t_token **t);
-void	ft_free_p(t_list **pipe);
-void	free_arr(char **arr);
 
 /*error*/
 void	error_exit(char *msg, char *cmd, char *arg, int code);
@@ -140,7 +140,5 @@ void	exit_after_print(int exit_code);
 
 /////////////////임시
 void	debug_print(char *file, int line, const char *func);
-void	print_lst(t_list *head);
-void	print_lstlst(t_list *head);
 
 #endif

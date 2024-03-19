@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 15:42:55 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 20:11:52 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	export_with_arg(char **cmd, t_list *env, int *err_flag)
 		if (name_len < 0)
 		{
 			*err_flag = 1;
+			i++;
 			continue ;
 		}
 		name = ft_substr_err(cmd[i], 0, name_len);

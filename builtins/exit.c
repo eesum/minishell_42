@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 15:49:11 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 23:06:30 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,37 @@
 
 void	exit_after_print(int exit_code)
 {
-	char	*exit_code_char;
-
-	exit_code_char = ft_itoa_err(exit_code);
+	if (exit_code < 0)
+		exit_code = 256 + (exit_code % 256);
+	else if (exit_code > 255)
+		exit_code = exit_code % 256;
 	printf("exit\n");
 	exit(exit_code);
+}
+
+int	exit_atoi(char **cmd)
+{
+	int	i;
+	int	sign;
+	int	result;
+
+	i = 0;
+	sign = 1;
+	result = 0;
+	if (cmd[1][i] && (cmd[1][i] == '-' || cmd[1][i] == '+'))
+	{
+		if (cmd[1][i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (cmd[1][i] && (cmd[1][i] >= '0' && cmd[1][i] <= '9'))
+		result = result * 10 + (cmd[1][i++] - '0');
+	if (cmd[1][i] != '\0' && (cmd[1][i] < '0' || cmd[1][i] > '9'))
+	{
+		error_msg_only("numeric argument required", cmd[0], cmd[1]);
+		exit_after_print(255);
+	}
+	return (sign * result);
 }
 
 void	exec_exit(char **cmd)
@@ -29,15 +55,6 @@ void	exec_exit(char **cmd)
 	if (cmd == NULL || cmd[1] == NULL)
 		exit_after_print(EXIT_SUCCESS);
 	i = 0;
-	while (cmd[1][i])
-	{
-		if (cmd[1][i] < 48 || cmd[1][i] > 57)
-		{
-			error_msg_only("numeric argument required", cmd[0], cmd[1]);
-			exit_after_print(EXIT_FAILURE);
-		}
-		i++;
-	}
-	exit_code = ft_atoi(cmd[1]);
+	exit_code = exit_atoi(cmd);
 	exit_after_print(exit_code);
 }
