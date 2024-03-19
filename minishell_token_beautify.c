@@ -6,13 +6,13 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:51:53 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/19 14:11:17 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:53:06 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	delete_redirection_loop(t_list **head, t_list **cur, t_list **pre)
+static int	delete_redirection_node(t_list **head, t_list **cur, t_list **pre)
 {
 	t_token	*token;
 	t_list	*tmp;
@@ -21,7 +21,7 @@ static int	delete_redirection_loop(t_list **head, t_list **cur, t_list **pre)
 	if (((t_token *)(*cur)->next->content)->type != 0)
 	{
 		ft_tokenlst_free(head);
-		return (1);
+		return (SYNTAX_ERROR);
 	}
 	((t_token *)(*cur)->next->content)->type = token->type;
 	if ((*cur) == *head)
@@ -47,8 +47,8 @@ static int	delete_redirection(t_list **head)
 		token = (t_token *)cur->content;
 		if (1 <= token->type && token->type <= 4)
 		{
-			if (delete_redirection_loop(head, &cur, &pre))
-				return (1);
+			if (delete_redirection_node(head, &cur, &pre))
+				return (SYNTAX_ERROR);
 		}
 		pre = cur;
 		cur = cur->next;

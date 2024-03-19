@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:34:51 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/19 14:11:20 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:32:56 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,15 @@ char	*get_env_name(char *str)
 
 	i = 0;
 	size = 0;
-	while (ft_isalnum(str[i]) || str[i] == '_')
-	{
-		i++;
+	if (str[i] == '?')
 		size++;
+	else
+	{
+		while (ft_isalnum(str[i]) || str[i] == '_')
+		{
+			i++;
+			size++;
+		}
 	}
 	name = (char *)ft_malloc_err(sizeof(char) * (size + 1));
 	name[size] = '\0';
@@ -59,11 +64,18 @@ static void	interpret_env(char *str, t_list *env, size_t *len, size_t *index)
 	free(value);
 }
 
-static void	no_interpret_env(char *str, size_t *i)
+static void	count_quote_len(char *str, t_list *env, size_t *len, size_t *i)
 {
 	(*i)++;
-	while (str[*i] != '\'' && str[*i])
+	while (ft_isquote(str[*i]) != 2 && str[*i])
+	{
+		if (str[*i] == '$')
+		{
+			interpret_env(str, env, len, i);
+			(*len) += 2;
+		}
 		(*i)++;
+	}
 	if (str[*i])
 		(*i)++;
 }
@@ -78,27 +90,33 @@ static void	count_total_len(char *str, t_list *env, size_t *len)
 		if (str[i] == '$')
 		{
 			i++;
-			if (ft_isalpha(str[i]) || str[i] == '_')
+			if (ft_isalpha(str[i]) || str[i] == '_' || str[i] == '?')
 				interpret_env(str, env, len, &i);
 		}
-		else if (str[i] == '\'')
-			no_interpret_env(str + i, &i);
+		else if (ft_isquote(str[i]) == 2)
+			count_quote_len(str, env, len, &i);
+		else if (ft_isquote(str[i]) == 1)
+		{
+			i++;
+			while (str[i] != '\'' && str[i])
+				i++;
+			if (str[i])
+				i++;
+		}
 		else
 			i++;
 	}
 }
 
-char	*parsing_env(char *str, t_list *env)
+void	parsing_env(t_parsedata *data, t_list *env)
 {
 	size_t	total_len;
-	char	*new;
 
-	if (str == NULL)
-		return (NULL);
-	total_len = ft_strlen(str);
-	count_total_len(str, env, &total_len);
-	new = (char *)ft_malloc_err(sizeof(char) * (total_len + 1));
-	new[total_len] = '\0';
-	change_env(str, env, new);
-	return (new);
+	if (data->str == NULL)
+		return ;
+	total_len = ft_strlen(data->str);
+	count_total_len(data->str, env, &total_len);
+	data->env_str = (char *)ft_malloc_err(sizeof(char) * (total_len + 1));
+	data->env_str[total_len] = '\0';
+	change_env(data, env);
 }
