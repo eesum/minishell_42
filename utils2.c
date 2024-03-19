@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:22:31 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:15:41 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ void	free_arr(char **arr)
 	int	i;
 
 	i = 0;
+	if (arr == NULL)
+		return ;
 	while (arr[i])
 	{
 		free(arr[i]);

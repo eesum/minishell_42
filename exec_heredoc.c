@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:49:02 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:15:39 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,12 @@ void	before_heredoc(t_execdata *data)
 
 	i = 0;
 	if (data->doc_cnt == 0)
+	{
+		data->eof_arr = NULL;
+		data->doc_fd = NULL;
+		data->file_arr = NULL;
 		return ;
+	}
 	data->eof_arr = parse_delimiter(data->pipe, data->doc_cnt);
 	data->doc_fd = ft_malloc_err(sizeof(int *) * data->doc_cnt + 1);
 	data->doc_fd[data->doc_cnt] = 0;

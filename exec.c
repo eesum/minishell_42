@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 14:29:35 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:16:42 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void	exec_multiple_pipe(t_execdata *data)
 
 void	exec(t_execdata *data)
 {
-	data->file_arr = NULL;
 	init_token_flags(data);
 	here_document(data);
 	if (count_pipe(data) == 1)
@@ -125,6 +124,6 @@ void	exec(t_execdata *data)
 	exec_multiple_pipe(data);
 	free_arr(data->eof_arr);
 	free_arr(data->file_arr);
-	ft_lstclear(&data->env, free);
-	free(data->doc_fd);
+	if (data->doc_fd != NULL)
+		free(data->doc_fd);
 }
