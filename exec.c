@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/16 19:34:07 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:17:17 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,62 +41,10 @@ int	count_pipe(t_execdata *data)
 	return (0);
 }
 
-char	**cmd_to_arr(t_list *pipe_tokens)
-{
-	t_list *cur;
-	int		cnt;
-	char	**cmd;
-
-	cnt = 0;
-	cur = pipe_tokens;
-	while (cur != NULL)
-	{
-		if (((t_token *)cur->content)->type == TYPE_DEFAULT)
-			cnt++;
-		cur = cur->next;
-	}
-	if (cnt == 0)
-		return (NULL);
-	cmd = ft_malloc_err(sizeof(char *) * (cnt + 1));
-	cmd[cnt] = NULL;
-	cnt = -1;
-	cur = pipe_tokens;
-	while (cur != NULL)
-	{
-		if (((t_token *)cur->content)->type == 0)
-			cmd[++cnt] = ft_strdup_err(((t_token *)cur->content)->str);
-		cur = cur->next;
-	}
-	return (cmd);
-}
-
-int	exec_cmd(char **cmd, t_list *env)
-{
-	if (cmd == NULL)
-		return (0) ;
-	else if (ft_memcmp(cmd[0], "echo", 5) == 0)
-		return (exec_echo(cmd));
-	else if (ft_memcmp(cmd[0], "cd", 3) == 0)
-		return (exec_cd(cmd, env));
-	else if (ft_memcmp(cmd[0], "pwd", 4) == 0)
-		return (exec_pwd(cmd));
-	else if (ft_memcmp(cmd[0], "export", 7) == 0)
-		return (exec_export(cmd, env));
-	else if (ft_memcmp(cmd[0], "unset", 6) == 0)
-		return (exec_unset(cmd, env));
-	else if (ft_memcmp(cmd[0], "env", 4) == 0)
-		return (exec_env(cmd, env));
-	else if (ft_memcmp(cmd[0], "exit", 5) == 0)
-		exec_exit(cmd);
-	else
-		exec_general_cmd(cmd, env);
-	return (0);
-}
-
 int	only_builtin(t_execdata *data)
 {
-	int	input;
-	int	output;
+	int		input;
+	int		output;
 	char	**cmd;
 
 	cmd = cmd_to_arr(data->pipe->content);
@@ -169,135 +117,8 @@ void	exec(t_execdata *data)
 		return ;
 	}
 	exec_multiple_pipe(data);
-}
-
-
-t_list *envp_to_lst(char **envp)
-{
-	t_list	*env;
-	t_list	*new;
-	int		i;
-
-	i = 0;
-	env = ft_lstnew(ft_strdup_err("?=0"));
-	if (env == NULL)
-		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
-	while (envp && envp[i])
-	{
-		new = ft_lstnew(ft_strdup_err(envp[i]));
-		if (env == NULL)
-			error_exit("malloc failed", 0, 0, EXIT_FAILURE);
-		ft_lstadd_back(&env, new);
-		i++;
-	}
-	return (env);
-}
-
-void	debug_print(char *file, int line, const char *func)
-{
-	printf("=======FILE: %s / LINE: %d / FUNC: %s=======\n", file, line, func);
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_execdata	data;
-	t_list		*new;
-	t_list		*first_token;
-	char		*buff;
-	
-	data.env = envp_to_lst(envp);
-	data.pipe = ft_malloc_err(sizeof(t_list));
-
-	t_token *t1 = ft_malloc_err(sizeof(t_token));
-	first_token = ft_lstnew(t1);
-	data.pipe->content = first_token;
-	data.pipe->next = NULL;
-	
-	t_token *t2 = ft_malloc_err(sizeof(t_token));
-	new = ft_lstnew(t2);
-	ft_lstadd_back(&first_token, new);
-	
-	t_token *t3 = ft_malloc_err(sizeof(t_token));
-	new = ft_lstnew(t3);
-	ft_lstadd_back(&first_token, new);
-	
-	t_token *t4 = ft_malloc_err(sizeof(t_token));
-	new = ft_lstnew(t4);
-	ft_lstadd_back(&first_token, new);
-	
-	// t_token *t5 = ft_malloc_err(sizeof(t_token));
-	// new = ft_lstnew(t5);
-	// ft_lstadd_back(&first_token, new);
-
-	t1->str = "a";
-	t1->type=TYPE_HEREDOC;
-
-	t2->str = "eof";
-	t2->type=TYPE_HEREDOC;
-
-	t3->str = "ls";
-	t3->type=TYPE_DEFAULT;
-
-	t4->str = "-al";
-	t4->type=TYPE_DEFAULT;
-	// t5->str = "out_a";
-	// t5->type=TYPE_OUTPUT_A;
-
-
-	t_list		*new_pipe;
-	t_list		*sec_first_token;
-	
-
-	new_pipe = ft_malloc_err(sizeof(t_list));
-
-	t_token *t21 = ft_malloc_err(sizeof(t_token));
-	sec_first_token = ft_lstnew(t21);
-	new_pipe->content = sec_first_token;
-	new_pipe->next = NULL;
-	ft_lstadd_back(&data.pipe, new_pipe);
-
-	t_token *t22 = ft_malloc_err(sizeof(t_token));
-	new = ft_lstnew(t22);
-	ft_lstadd_back(&sec_first_token, new);
-	
-	// t_token *t23 = ft_malloc_err(sizeof(t_token));
-	// new = ft_lstnew(t23);
-	// ft_lstadd_back(&sec_first_token, new);
-	
-	t_token *t24 = ft_malloc_err(sizeof(t_token));
-	new = ft_lstnew(t24);
-	ft_lstadd_back(&sec_first_token, new);
-	
-	t_token *t25 = ft_malloc_err(sizeof(t_token));
-	new = ft_lstnew(t25);
-	ft_lstadd_back(&sec_first_token, new);
-
-	t21->str = "grep";
-	t21->type=TYPE_DEFAULT;
-
-	t22->str = "minishell";
-	t22->type=TYPE_DEFAULT;
-
-	// t23->str = "grep";
-	// t23->type=TYPE_DEFAULT;
-	t24->str = "out_t";
-	t24->type=TYPE_OUTPUT_T;
-	t25->str = "out_a";
-	t25->type=TYPE_OUTPUT_A;
-
-	while (1)
-	{
-		buff = readline("minishell$ ");
-		exec(&data);
-		
-		free (buff);
-		buff = NULL;
-	}
-
-	// while (data.env != NULL)
-	// {
-	// 	printf("%s\n", data.env->content);
-	// 	data.env = data.env->next;
-	// }
-	return (0);
+	free_arr(data->eof_arr);
+	free_arr(data->file_arr);
+	ft_lstclear(&data->env, free);
+	free(data->doc_fd);
 }

@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 18:46:40 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:22:31 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,95 +70,6 @@ char	*ft_strjoin_sep(char const *s1, char const *s2, char const *sep)
 	return (arr);
 }
 
-char	*find_env(char *name, t_list *env)
-{
-	char	*value;
-	t_list	*cur;
-	size_t	name_len;
-
-	value = NULL;
-	cur = env;
-	if (name == NULL)
-		return (NULL);
-	name_len = ft_strlen(name);
-	while (cur != NULL)
-	{
-		if (ft_strncmp((char *)cur->content, name, name_len) == 0 \
-			&& ((char *)cur->content)[name_len] == '=' \
-			&& ((char *)cur->content)[name_len] != '\0')
-		{
-			value = ft_strdup_err(&((char *)cur->content)[name_len + 1]);
-			return (value);
-		}
-		cur = cur->next;
-	}
-	if (value == NULL)
-		value = ft_malloc_err(1);
-	value[0] = '\0';
-	return (value);
-}
-
-void	update_env(char *name, char *value, t_list *env)
-{
-	t_list	*cur;
-	size_t	name_len;
-	char	*env_content;
-	t_list	*new;
-
-	cur = env;
-	if (name == NULL)
-		return ;
-	name_len = ft_strlen(name);
-	while (cur != NULL)
-	{
-		if (ft_memcmp((char *)cur->content, name, name_len) == 0 \
-			&& ((char *)cur->content)[name_len] == '=' \
-			&& ((char *)cur->content)[name_len] != '\0')
-		{
-			free(cur->content);
-			cur->content= ft_strjoin_sep(name, value, "=");
-			return ;
-		}
-		cur = cur->next;
-	}
-	new = ft_lstnew(ft_strjoin_sep(name, value, "="));
-	if (new == NULL)
-		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
-	ft_lstadd_back(&env, new);
-}
-
-void	check_cmd_option(char **cmd)
-{
-	char	tmp[3];
-
-	if (cmd[1] && cmd[1][0] == '-' && cmd[1][1] != '\0')
-	{
-		tmp[0] = '-';
-		tmp[1] = cmd[1][1];
-		tmp[2] = '\0';
-		error_exit("invalid option", cmd[0], tmp, 2);
-	}
-}
-
-int	check_valid_name(char *arg, char sep)
-{
-	int	i;
-
-	if (arg && arg[0] != 95 && \
-		(arg[0] < 65 || (arg[0] > 90 && arg[0] < 97) || arg[0] > 122))
-		return (-1);
-	i = 1;
-	while (arg && arg[i] && arg[i] != sep)
-	{
-		if (arg[i] != 95 && \
-			(arg[i] < 48 || (arg[i] > 57 && arg[i] < 65) || \
-			(arg[i] > 90 && arg[i] < 97) || arg[i] > 122))
-			return (-1);
-		i++;
-	}
-	return (i);
-}
-
 void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 {
 	int		i;
@@ -168,7 +79,7 @@ void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 	int		sig_code;
 
 	i = 0;
-	while(i < wait_cnt)
+	while (i < wait_cnt)
 	{
 		wait_pid = wait(&status);
 		if (wait_pid < 0)
@@ -181,35 +92,15 @@ void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 			exit_code_char = ft_itoa_err(sig_code);
 		}
 		update_env("?", exit_code_char, env);
+		free(exit_code_char);
 		i++;
 	}
 }
 
-int	is_builtin(char *cmd)
-{
-	if (cmd == NULL)
-		return (-1);
-	if (!ft_memcmp("echo", cmd, 5))
-		return (1);
-	if (!ft_memcmp("cd", cmd, 3))
-		return (2);
-	if (!ft_memcmp("pwd", cmd, 4))
-		return (3);
-	if (!ft_memcmp("export", cmd, 7))
-		return (4);
-	if (!ft_memcmp("unset", cmd, 6))
-		return (5);
-	if (!ft_memcmp("env", cmd, 4))
-		return (6);
-	if (!ft_memcmp("exit", cmd, 5))
-		return (7);
-	return (0);
-}
-
 t_list	*ft_findlst_by_index(t_list *lst, int i)
 {
-	t_list *cur;
-	int	index;
+	t_list	*cur;
+	int		index;
 
 	index = 0;
 	cur = lst;
@@ -221,16 +112,15 @@ t_list	*ft_findlst_by_index(t_list *lst, int i)
 	return (cur);
 }
 
-void	restore_fds(t_execdata *data, int input_fd, int output_fd)
+void	free_arr(char **arr)
 {
-	if (input_fd > 0)
+	int	i;
+
+	i = 0;
+	while (arr[i])
 	{
-		dup2(data->tmp_fd[0], 0);
-		close(data->tmp_fd[0]);
+		free(arr[i]);
+		i++;
 	}
-	if (output_fd > 0)
-	{
-		dup2(data->tmp_fd[1], 1);
-		close(data->tmp_fd[1]);
-	}
+	free(arr);
 }

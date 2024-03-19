@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 20:14:04 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/13 21:26:08 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:07:15 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	exec_cd(char **cmd, t_list *env)
 		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
 		return (-1);
 	}
-	if (cmd[1] == NULL) // || ft_memcmp("~", cmd[1], 2) ==0 이거만 뺄지 아래것도 뺄지..!
+	if (cmd[1] == NULL)
 		return (to_directory("HOME", path, cmd, env));
 	else if (ft_memcmp("-", cmd[1], 2) == 0)
 		return (to_directory("OLDPWD", path, cmd, env));
@@ -85,27 +85,3 @@ int	exec_cd(char **cmd, t_list *env)
 	free(path);
 	return (0);
 }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	t_execdata	data;
-// 	t_list *cur;
-	
-// 	data.env = envp_to_lst(envp);
-
-// 	cur = data.env;
-// 	while (cur != NULL)
-// 	{
-// 		printf("%s\n", cur->content);
-// 		cur = cur->next;
-// 	}
-// 	exec_cd(&argv[1], data.env);
-	
-// 	cur = data.env;
-// 	while (cur != NULL)
-// 	{
-// 		printf("%s\n", cur->content);
-// 		cur = cur->next;
-// 	}
-// 	return (0);
-// }

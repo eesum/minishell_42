@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_token_flags.c                                 :+:      :+:    :+:   */
+/*   exec_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 12:51:25 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/15 14:54:40 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:21:01 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	flag_last_redirection(t_list *pipe)
 
 void	init_token_flags(t_execdata *data)
 {
-	t_list *pipe_cur;
+	t_list	*pipe_cur;
 
 	pipe_cur = data->pipe;
 	data->doc_cnt = 0;

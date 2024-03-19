@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:23:20 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/16 23:06:09 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:00:42 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static int	make_pipe_redirect_token(t_list **head, char *str, int *i, int *cnt)
 			(*i)++;
 			(*cnt)++;
 			if (ft_ispipe(str[*i]) || ft_isredirect(str[*i]) || !str[*i])
-				return (1);
+				return (SYNTAX_ERROR);
 		}
 		else if (ft_ispipe(str[*i]) || ft_isredirect(str[*i]) || !str[*i])
-			return (1);
+			return (SYNTAX_ERROR);
 	}
 	make_token(head, str, i, cnt);
 	return (0);
@@ -73,7 +73,7 @@ static int	count_quote(char *str, int *i, int *cnt)
 			(*cnt)++;
 		}
 		if (str[*i] == '\0')
-			return (1);
+			return (SYNTAX_ERROR);
 		else
 		{
 			(*i)++;
@@ -90,7 +90,7 @@ static int	split_loop(t_list **head, char *str, int *i, int *cnt)
 		if (make_pipe_redirect_token(head, str, i, cnt))
 		{
 			ft_tokenlst_free(head);
-			return (1);
+			return (SYNTAX_ERROR);
 		}
 	}	
 	else if (ft_isquote(str[*i]))
@@ -98,7 +98,7 @@ static int	split_loop(t_list **head, char *str, int *i, int *cnt)
 		if (count_quote(str, i, cnt))
 		{
 			ft_tokenlst_free(head);
-			return (1);
+			return (SYNTAX_ERROR);
 		}
 	}
 	return (0);

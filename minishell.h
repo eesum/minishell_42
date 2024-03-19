@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/16 23:25:48 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:06:40 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define TYPE_OUTPUT_T 3
 # define TYPE_OUTPUT_A 4
 # define TYPE_PIPE 5
+# define SYNTAX_ERROR 1
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -73,6 +74,7 @@ void	delete_quote(t_list **head);
 void	beautify_token(t_list **head, t_list **pipe);
 
 /*exec*/
+void	exec(t_execdata *data);
 void	init_token_flags(t_execdata *data);
 t_list	*envp_to_lst(char **envp);
 int		count_pipe(t_execdata *data);
@@ -104,7 +106,8 @@ void	exec_exit(char **cmd);
 /*free*/
 void	ft_token_free(t_list *node);
 void	ft_tokenlst_free(t_list **lst);
-void	ft_cmd_free(t_list **cmdlst);
+void    ft_free_p(t_list *p);
+void	free_arr(char **arr);
 
 /*error*/
 void	error_exit(char *msg, char *cmd, char *arg, int code);
@@ -121,7 +124,7 @@ char	*ft_strjoin_sep(char const *s1, char const *s2, char const *sep);
 char	*find_env(char *name, t_list *env);
 void	update_env(char *name, char *value, t_list *env);
 void	check_cmd_option(char **cmd);
-int		check_valid_name(char *arg, char sep);
+int		check_valid_name(char *cmd, char *arg, char sep);
 int		ft_ispipe(char c);
 int		ft_isspace(char c);
 int		ft_isredirect(char c);
