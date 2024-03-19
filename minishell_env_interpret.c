@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:34:51 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/19 17:32:56 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 02:54:06 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,52 @@ char	*get_env_name(char *str)
 	return (name);
 }
 
-static void	interpret_env(char *str, t_list *env, size_t *len, size_t *index)
+static size_t	interpret_default(char *s, t_list *env, size_t *len, size_t *i)
 {
 	char	*name;
-	char	*value;
+	char	*src;
 	size_t	meta;
-	size_t	i;
+	size_t	index;
 
-	name = get_env_name(str + (*index));
-	value = find_env(name, env);
+	name = get_env_name(s + *i);
+	src = find_env(name, env);
 	meta = 0;
-	i = 0;
-	while (value[i])
+	index = 0;
+	while (src[index])
 	{
-		if (ft_isquote(value[i]) || ft_ispipe(value[i])
-			|| ft_isredirect(value[i]))
+		if (ft_isquote(src[index]) || ft_ispipe(src[index])
+			|| ft_isredirect(src[index]))
 			meta++;
-		i++;
+		index++;
 	}
-	(*len) = (*len) - (ft_strlen(name) + 1) + ft_strlen(value) + (meta * 2);
+	(*len) = (*len) - (ft_strlen(name) + 1) + ft_strlen(src) + (meta * 2);
 	free(name);
-	free(value);
+	free(src);
+	return (meta);
+}
+
+static size_t	interpret_quote(char *str, t_list *env, size_t *len, size_t *i)
+{
+	char	*name;
+	char	*src;
+	size_t	meta;
+	size_t	index;
+
+	name = get_env_name(str + *i);
+	src = find_env(name, env);
+	meta = 0;
+	index = 0;
+	while (src[index])
+	{
+		if (ft_isquote(src[index]) || ft_ispipe(src[index])
+			|| ft_isredirect(src[index]) || ft_isspace(src[index]))
+			meta++;
+		index++;
+	}
+	(*len) = (*len) - (ft_strlen(name) + 1) + ft_strlen(src) + (meta * 2);
+	free(name);
+	free(src);
+	return (meta);
 }
 
 static void	count_quote_len(char *str, t_list *env, size_t *len, size_t *i)
@@ -71,8 +96,12 @@ static void	count_quote_len(char *str, t_list *env, size_t *len, size_t *i)
 	{
 		if (str[*i] == '$')
 		{
-			interpret_env(str, env, len, i);
-			(*len) += 2;
+			(*i)++;
+			if (ft_isalpha(str[*i]) || str[*i] == '_' || str[*i] == '?')
+			{
+				if (interpret_quote(str, env, len, i))
+					(*len) += 2;
+			}
 		}
 		(*i)++;
 	}
@@ -80,21 +109,21 @@ static void	count_quote_len(char *str, t_list *env, size_t *len, size_t *i)
 		(*i)++;
 }
 
-static void	count_total_len(char *str, t_list *env, size_t *len)
+void	count_total_len(char *str, t_list *env, size_t *len)
 {
 	size_t	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (ft_isquote(str[i]) == 2)
+			count_quote_len(str, env, len, &i);
+		else if (str[i] == '$')
 		{
 			i++;
 			if (ft_isalpha(str[i]) || str[i] == '_' || str[i] == '?')
-				interpret_env(str, env, len, &i);
+				interpret_default(str, env, len, &i);
 		}
-		else if (ft_isquote(str[i]) == 2)
-			count_quote_len(str, env, len, &i);
 		else if (ft_isquote(str[i]) == 1)
 		{
 			i++;
@@ -106,17 +135,4 @@ static void	count_total_len(char *str, t_list *env, size_t *len)
 		else
 			i++;
 	}
-}
-
-void	parsing_env(t_parsedata *data, t_list *env)
-{
-	size_t	total_len;
-
-	if (data->str == NULL)
-		return ;
-	total_len = ft_strlen(data->str);
-	count_total_len(data->str, env, &total_len);
-	data->env_str = (char *)ft_malloc_err(sizeof(char) * (total_len + 1));
-	data->env_str[total_len] = '\0';
-	change_env(data, env);
 }

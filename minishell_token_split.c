@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:23:20 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/19 18:02:26 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 03:28:41 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static int	split_loop(t_list **head, char *str, int *i, int *cnt)
 	return (0);
 }
 
-void	split_token(t_list **head, char *str)
+int	split_token(t_list **head, char *str)
 {
 	int		i;
 	int		cnt;
@@ -122,7 +122,7 @@ void	split_token(t_list **head, char *str)
 			|| ft_isredirect(str[i]))
 		{
 			if (split_loop(head, str, &i, &cnt))
-				return ;
+				return (1);
 		}
 		else
 		{
@@ -131,4 +131,5 @@ void	split_token(t_list **head, char *str)
 		}
 	}
 	make_token(head, str, &i, &cnt);
+	return (0);
 }

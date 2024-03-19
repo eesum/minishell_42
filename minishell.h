@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 18:21:37 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/20 03:35:11 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,14 @@ void	exec(t_execdata *data);
 
 /*parse*/
 char	*get_env_name(char *str);
-void	change_env(t_parsedata *data, t_list *env);
+void	count_total_len(char *str, t_list *env, size_t *len);
+void	change_default(t_parsedata *data, size_t *i, size_t *j, t_list *env);
+void	change_quote(t_parsedata *data, size_t *i, size_t *j, t_list *env);
 void	parsing_env(t_parsedata *data, t_list *env);
 int		check_token_type(char *str);
-void	split_token(t_list **head, char *str);
+int		split_token(t_list **head, char *str);
 void	delete_quote(t_list **head);
-void	beautify_token(t_list **head, t_list **pipe);
+int		beautify_token(t_list **head, t_list **pipe);
 
 /*exec*/
 void	exec(t_execdata *data);

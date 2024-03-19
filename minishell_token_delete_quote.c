@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:37:49 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/19 17:52:35 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:17:46 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	count_without_quote(char *str, size_t *len, int *flag)
 			*flag = 1;
 			while (str[i] != c && str[i])
 			{
-				len++;
+				(*len)++;
 				i++;
 			}
 			if (str[i])
@@ -35,7 +35,7 @@ static void	count_without_quote(char *str, size_t *len, int *flag)
 		else
 		{
 			i++;
-			len++;
+			(*len)++;
 		}
 	}
 }
@@ -57,9 +57,7 @@ static char	*realloc_without_quote(char *origin, size_t size)
 		{
 			c = origin[i++];
 			while (origin[i] != c)
-			{
 				new[j++] = origin[i++];
-			}
 			i++;
 		}
 		else

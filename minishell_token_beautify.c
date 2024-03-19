@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:51:53 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/19 17:53:06 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 03:35:38 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,22 @@ static void	split_pipe(t_list **head, t_list **pipe)
 	}
 }
 
-void	beautify_token(t_list **head, t_list **pipe)
+int	beautify_token(t_list **head, t_list **pipe)
 {
 	t_list	*node;
 
 	if (*head == NULL)
-		return ;
+		return (1);
 	node = *head;
 	if (((t_token *)node->content)->type == TYPE_PIPE
 		|| ((t_token *)ft_lstlast(node)->content)->type == TYPE_PIPE)
 	{
 		ft_tokenlst_free(head);
-		return ;
+		return (1);
 	}
 	delete_quote(head);
 	if (delete_redirection(head))
-		return ;
+		return (1);
 	split_pipe(head, pipe);
+	return (0);
 }
