@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:34:33 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 23:04:41 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/20 12:54:44 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,42 @@ void	exec_pathjoin(char **cmd, char **envp)
 		error_exit("exec failed.", 0, 0, 126);
 }
 
+int	is_with_path(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	exec_general_cmd(char **cmd, t_list *env)
 {
 	char	**envp;
+	DIR		*dir_p;
 
 	envp = lst_to_envp(env);
-	if (access(cmd[0], X_OK) == 0 && execve(cmd[0], cmd, envp) < 0)
-		error_exit("exec failed.", 0, 0, 126);
+	if (is_with_path(cmd[0]) > 0)
+	{
+		if (access(cmd[0], F_OK) != 0)
+			error_exit("No such file or directory", cmd[0], 0, 127);
+		dir_p = opendir(cmd[0]);
+		if (dir_p != NULL)
+		{
+			error_msg_only("is a directory", cmd[0], 0);
+			closedir(dir_p);
+			exit(126);
+		}
+		if (access(cmd[0], X_OK) != 0)
+			error_exit("Permission denied", cmd[0], 0, 126);
+		if (execve(cmd[0], cmd, envp) < 0)
+			error_exit("exec failed.", 0, 0, 126);
+	}
 	else
 		exec_pathjoin(cmd, envp);
 }
