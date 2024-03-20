@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:33:25 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/20 09:39:45 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:57:35 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int main(int argc, char **argv, char **envp)
 	t_execdata	data;
 	t_parsedata	parse;
 
-	if (argc != 1)
+	if (argc != 1 || argv[1] != NULL)
 		return (1);
 	data.env = envp_to_lst(envp);
 	signal(SIGINT, &par_sig);

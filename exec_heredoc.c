@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 09:24:46 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:56:47 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,20 @@ char	**parse_delimiter(t_list *pipe, int doc_cnt)
 
 char	*create_tmpname(int i)
 {
-	char	*path;
 	char	*name;
 	char	*tmp;
 	char	*num;
 
 	num = ft_itoa_err(i);
-	path = ft_strjoin_err("./.", num);
-	while (access(path, F_OK) == 0)
+	name = ft_strjoin_err("./.", num);
+	while (access(name, F_OK) == 0)
 	{
-		tmp = path;
-		path = ft_strjoin_err(tmp, num);
+		tmp = name;
+		name = ft_strjoin_err(tmp, num);
 		free(tmp);
 	}
 	free(num);
-	return (path);
+	return (name);
 }
 
 void	before_heredoc(t_execdata *data)

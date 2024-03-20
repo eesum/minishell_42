@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 19:40:13 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 15:27:47 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/20 12:55:49 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	exec_unset(char **cmd, t_list *env)
 	int		i;
 	int		name_len;
 	int		err_flag;
-	char	*name;
 
 	if (check_cmd_option(cmd) < 0)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:45:05 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 13:45:27 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/20 12:56:06 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	check_output_file(char *file, char mode)
 int	check_file_open(t_list *pipe_tokens)
 {
 	t_list	*cur;
-	int		fd;
 
 	cur = pipe_tokens;
 	while (cur != NULL)

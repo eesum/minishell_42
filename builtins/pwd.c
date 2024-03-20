@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:52:58 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 15:27:20 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/20 12:55:37 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	exec_pwd(char **cmd)
 {
 	char	*path;
-	char	tmp[3];
 
 	if (check_cmd_option(cmd) < 0)
 		return (-1);

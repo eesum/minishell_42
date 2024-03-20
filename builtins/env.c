@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 19:51:51 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 04:22:16 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:55:13 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int	exec_env(char **cmd, t_list *env)
 {
 	int		i;
-	int		name_len;
-	char	*name;
 	t_list	*cur;
 
 	if (check_cmd_option(cmd) < 0)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/17 18:38:57 by seohyeki          #+#    #+#              #
-#    Updated: 2024/03/20 08:58:23 by seohyeki         ###   ########.fr        #
+#    Updated: 2024/03/20 10:54:45 by sumilee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,10 +53,10 @@ all : $(NAME)
 $(NAME) : $(A_OBJS)
 	make -C $(LIBFT_DIR)
 	cp $(LIBFT_DIR)/$(LIBFT) ./
-	cc -lreadline $(LIBFT) -o $@ $^
+	cc -lreadline $(CFLAGS) $(LIBFT) -o $@ $^
 
 %.o : %.c
-	cc -I$(LIBFT_DIR) -c $< -o $@
+	cc -I$(LIBFT_DIR) $(CFLAGS) -c $< -o $@
 
 clean :
 	rm -f $(A_OBJS)
