@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/19 20:25:56 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/20 09:12:53 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <signal.h>
 
 int	count_pipe(t_execdata *data)
 {
@@ -90,10 +91,13 @@ void	exec_multiple_pipe(t_execdata *data)
 			error_exit("fork failed.", 0, 0, EXIT_FAILURE);
 		else if (data->pid == 0)
 		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			exec_in_child(data, data->index);
 		}
 		else
 		{
+			signal(SIGINT, SIG_IGN);
 			if (data->index < data->pipe_cnt - 1)
 				close(data->fd[data->index % 2][1]);
 			if (data->index > 0)

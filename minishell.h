@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 04:54:15 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 09:24:33 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include <signal.h>
+# include <termios.h>
 # include "libft/libft.h"
 
 typedef struct s_token
@@ -64,6 +65,12 @@ typedef struct s_execdata
 }				t_execdata;
 
 void	exec(t_execdata *data);
+
+/*signal*/
+void	set_terminal_print_off(void);
+void	set_terminal_print_on(void);
+void	par_sig(int signum);
+void	heredoc_sig(int signum);
 
 /*parse*/
 char	*get_env_name(char *str);

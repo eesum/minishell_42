@@ -6,7 +6,7 @@
 #    By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/17 18:38:57 by seohyeki          #+#    #+#              #
-#    Updated: 2024/03/20 04:19:03 by seohyeki         ###   ########.fr        #
+#    Updated: 2024/03/20 08:58:23 by seohyeki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,11 @@ E_SRCS = builtins/cd.c \
 		 exec_heredoc.c \
 		 exec_init.c \
 		 exec.c \
+		 signal.c \
 		 ft_itoa_err.c \
 		 utils.c \
 		 utils2.c \
-		 exec_test_main.c
+		 main.c
 P_OBJS = $(P_SRCS:.c=.o)
 E_OBJS = $(E_SRCS:.c=.o)
 A_OBJS = $(P_OBJS) $(E_OBJS)
