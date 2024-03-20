@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 12:48:13 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/20 20:48:34 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	exec(t_execdata *data);
 /*signal*/
 void	set_terminal_print_off(void);
 void	set_terminal_print_on(void);
-void	par_sig(int signum);
+void	parent_sig(int signum);
 void	heredoc_sig(int signum);
 
 /*parse*/
@@ -102,7 +102,7 @@ void	exec_general_cmd(char **cmd, t_list *env);
 int		exec_cmd(char **cmd, t_list *env);
 int		only_builtin(t_execdata *data);
 void	wait_and_update_exit_code(int wait_cnt, t_list *env);
-void	here_document(t_execdata *data);
+int		here_document(t_execdata *data);
 int		is_builtin(char *cmd);
 void	exec_in_child(t_execdata *data, int i);
 

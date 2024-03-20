@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:33:25 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/20 12:57:35 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/20 20:50:07 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int main(int argc, char **argv, char **envp)
 	if (argc != 1 || argv[1] != NULL)
 		return (1);
 	data.env = envp_to_lst(envp);
-	signal(SIGINT, &par_sig);
+	signal(SIGINT, &parent_sig);
 	signal(SIGQUIT, SIG_IGN);
 	set_terminal_print_off();
 	while (1)

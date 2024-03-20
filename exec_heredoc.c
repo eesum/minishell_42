@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 12:56:47 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/20 21:19:11 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,13 @@ void	input_to_heredoc(t_execdata *data, char *file_name, int i)
 		buff = NULL;
 	}
 	close(data->doc_fd[i]);
-	//시그널 받는거...
 }
 
-void	here_document(t_execdata *data)// 시그널 등 추후 고려 필요
+int	here_document(t_execdata *data)// 시그널 등 추후 고려 필요
 {
 	int		i;
 	pid_t	pid;
+	char	*exit_code;
 
 	i = 0;
 	before_heredoc(data);
@@ -124,6 +124,7 @@ void	here_document(t_execdata *data)// 시그널 등 추후 고려 필요
 		error_exit("fork failed", 0, 0, EXIT_FAILURE);
 	if (pid == 0)
 	{
+		signal(SIGINT, &heredoc_sig);
 		i = 0;
 		while (i < data->doc_cnt)
 		{
@@ -136,5 +137,10 @@ void	here_document(t_execdata *data)// 시그널 등 추후 고려 필요
 		free(data->doc_fd);
 		exit(EXIT_SUCCESS);
 	}
+	signal(SIGINT, SIG_IGN);
 	wait_and_update_exit_code(1, data->env);
+	exit_code = find_env("?", data->env);
+	if (ft_memcmp(exit_code, "100", 4) == 0)
+		return (-1);
+	return (0);
 }

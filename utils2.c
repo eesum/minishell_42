@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 08:50:11 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 21:19:00 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 			exit_code_char = ft_itoa_err(WEXITSTATUS(status));
 		else if (WIFSIGNALED(status))
 		{
+			printf("\n");
 			sig_code = 128 + WTERMSIG(status);
 			exit_code_char = ft_itoa_err(sig_code);
 		}
@@ -95,7 +96,8 @@ void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 		free(exit_code_char);
 		i++;
 	}
-	signal(SIGINT, &par_sig);
+	set_terminal_print_off();
+	signal(SIGINT, &parent_sig);
 }
 
 t_list	*ft_findlst_by_index(t_list *lst, int i)

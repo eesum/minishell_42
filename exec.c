@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 09:12:53 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/20 21:18:57 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <signal.h>
 
 int	count_pipe(t_execdata *data)
 {
@@ -72,7 +71,7 @@ void	delete_tmpfile(t_execdata *data)
 	i = 0;
 	while (data->file_arr && data->file_arr[i])
 	{
-		if (unlink(data->file_arr[i]) < 0)
+		if (access(data->file_arr[i], F_OK) == 0 && unlink(data->file_arr[i]) < 0)
 			error_msg_only("file unlink failed", data->file_arr[i], 0);
 		i++;
 	}
@@ -93,16 +92,14 @@ void	exec_multiple_pipe(t_execdata *data)
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
+			set_terminal_print_on();
 			exec_in_child(data, data->index);
 		}
-		else
-		{
-			signal(SIGINT, SIG_IGN);
-			if (data->index < data->pipe_cnt - 1)
-				close(data->fd[data->index % 2][1]);
-			if (data->index > 0)
-				close(data->fd[(data->index + 1) % 2][0]);
-		}
+		signal(SIGINT, SIG_IGN);
+		if (data->index < data->pipe_cnt - 1)
+			close(data->fd[data->index % 2][1]);
+		if (data->index > 0)
+			close(data->fd[(data->index + 1) % 2][0]);
 		data->index++;
 	}
 	wait_and_update_exit_code(data->pipe_cnt, data->env);
@@ -112,7 +109,16 @@ void	exec_multiple_pipe(t_execdata *data)
 void	exec(t_execdata *data)
 {
 	init_token_flags(data);
-	here_document(data);
+	if (here_document(data) < 0)
+	{
+		delete_tmpfile(data);
+		free_arr(data->eof_arr);
+		free_arr(data->file_arr);
+		if (data->doc_fd != NULL)
+			free(data->doc_fd);
+		update_env("?", "1", data->env);
+		return ;
+	}
 	if (count_pipe(data) == 1)
 	{
 		if (only_builtin(data) < 0)
@@ -120,6 +126,7 @@ void	exec(t_execdata *data)
 		else
 			update_env("?", "0", data->env);
 		delete_tmpfile(data);
+		//free ...
 		return ;
 	}
 	exec_multiple_pipe(data);
