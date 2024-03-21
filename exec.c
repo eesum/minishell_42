@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 21:18:57 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/21 20:25:35 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,15 @@ void	exec_multiple_pipe(t_execdata *data)
 		data->index++;
 	}
 	wait_and_update_exit_code(data->pipe_cnt, data->env);
+}
+
+void	end_exec(t_execdata *data)
+{
 	delete_tmpfile(data);
+	free_arr(data->eof_arr);
+	free_arr(data->file_arr);
+	if (data->doc_fd != NULL)
+		free(data->doc_fd);
 }
 
 void	exec(t_execdata *data)
@@ -111,11 +119,7 @@ void	exec(t_execdata *data)
 	init_token_flags(data);
 	if (here_document(data) < 0)
 	{
-		delete_tmpfile(data);
-		free_arr(data->eof_arr);
-		free_arr(data->file_arr);
-		if (data->doc_fd != NULL)
-			free(data->doc_fd);
+		end_exec(data);
 		update_env("?", "1", data->env);
 		return ;
 	}
@@ -125,13 +129,9 @@ void	exec(t_execdata *data)
 			update_env("?", "1", data->env);
 		else
 			update_env("?", "0", data->env);
-		delete_tmpfile(data);
-		//free ...
+		end_exec(data);
 		return ;
 	}
 	exec_multiple_pipe(data);
-	free_arr(data->eof_arr);
-	free_arr(data->file_arr);
-	if (data->doc_fd != NULL)
-		free(data->doc_fd);
+	end_exec(data);
 }

@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 21:19:00 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/21 20:27:17 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 	int		status;
 	pid_t	wait_pid;
 	char	*exit_code_char;
-	int		sig_code;
 
 	i = 0;
 	while (i < wait_cnt)
@@ -89,8 +88,7 @@ void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 		else if (WIFSIGNALED(status))
 		{
 			printf("\n");
-			sig_code = 128 + WTERMSIG(status);
-			exit_code_char = ft_itoa_err(sig_code);
+			exit_code_char = ft_itoa_err(128 + WTERMSIG(status));
 		}
 		update_env("?", exit_code_char, env);
 		free(exit_code_char);
