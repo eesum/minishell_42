@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:33:25 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/21 20:56:06 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/21 22:48:56 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,14 @@ int main(int argc, char **argv, char **envp)
 	{
 		parse.str = readline("minishell $ ");
 		if (parse.str == NULL)
-		{
-			printf("exit\n");
-			exit_with_code(EXIT_SUCCESS);
-		}
+			exec_exit(NULL, 0);
 		if(*parse.str)
 		{
 			add_history(parse.str);
 			if (parsing(&parse, &data) == 0)
 				exec(&data);
+			else
+			 	update_env("?", "2", data.env);
 		}
 		else
 			free(parse.str);
