@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 20:48:34 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/21 20:54:33 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,9 +145,6 @@ int		ft_isquote(char c);
 char	*ft_strndup(char *origin, int count);
 t_list	*ft_findlst_by_index(t_list *lst, int i);
 void	restore_fds(t_execdata *data, int input_fd, int output_fd);
-void	exit_after_print(int exit_code);
-
-/////////////////임시
-void	debug_print(char *file, int line, const char *func);
+void	exit_with_code(int exit_code);
 
 #endif

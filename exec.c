@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/21 20:25:35 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/21 20:56:11 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	end_exec(t_execdata *data)
 	free_arr(data->file_arr);
 	if (data->doc_fd != NULL)
 		free(data->doc_fd);
+	ft_lstclear(&data->pipe, free_tokens_in_pipe);
 }
 
 void	exec(t_execdata *data)
