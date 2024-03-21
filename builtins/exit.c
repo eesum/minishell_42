@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/21 20:59:40 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/21 22:37:16 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@ int	exit_atoi(char **cmd)
 	return (sign * result);
 }
 
-void	exec_exit(char **cmd)
+void	exec_exit(char **cmd, int pipe_flag)
 {
 	int	i;
 	int	exit_code;
 
-	printf("exit\n");
+	if (pipe_flag == 0)
+		printf("exit\n");
 	if (cmd == NULL || cmd[1] == NULL)
 		exit_with_code(EXIT_SUCCESS);
 	i = 0;

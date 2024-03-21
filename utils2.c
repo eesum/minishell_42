@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/21 20:27:17 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/21 22:35:38 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*ft_strjoin_sep(char const *s1, char const *s2, char const *sep)
 	return (arr);
 }
 
-void	wait_and_update_exit_code(int wait_cnt, t_list *env)
+void	wait_and_update_exit_code(pid_t *pid, t_list *env)
 {
 	int		i;
 	int		status;
@@ -78,9 +78,9 @@ void	wait_and_update_exit_code(int wait_cnt, t_list *env)
 	char	*exit_code_char;
 
 	i = 0;
-	while (i < wait_cnt)
+	while (pid && pid[i])
 	{
-		wait_pid = wait(&status);
+		wait_pid = waitpid(pid[i], &status, 0);
 		if (wait_pid < 0)
 			error_exit("wait error", 0, 0, EXIT_FAILURE);
 		else if (WIFEXITED(status))

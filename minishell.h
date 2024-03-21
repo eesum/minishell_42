@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/21 20:54:33 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/21 22:36:48 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_execdata
 	int		index;
 	int		fd[2][2];
 	int		tmp_fd[2];
-	pid_t	pid;
+	pid_t	*pid;
 	char	**path;
 	t_list	*pipe;
 	t_list	*env;
@@ -99,9 +99,9 @@ char	**lst_to_envp(t_list *env);
 char	**split_path(char **envp);
 char	*find_cmd(char **path, char *cmd);
 void	exec_general_cmd(char **cmd, t_list *env);
-int		exec_cmd(char **cmd, t_list *env);
+int		exec_cmd(char **cmd, t_list *env, int pipe_flag);
 int		only_builtin(t_execdata *data);
-void	wait_and_update_exit_code(int wait_cnt, t_list *env);
+void	wait_and_update_exit_code(pid_t *pid, t_list *env);
 int		here_document(t_execdata *data);
 int		is_builtin(char *cmd);
 void	exec_in_child(t_execdata *data, int i);
@@ -113,7 +113,7 @@ int		exec_pwd(char **cmd);
 int		exec_export(char **cmd, t_list *env);
 int		exec_unset(char **cmd, t_list *env);
 int		exec_env(char **cmd, t_list *env);
-void	exec_exit(char **cmd);
+void	exec_exit(char **cmd, int pipe_flag);
 
 /*free*/
 void	free_token(void *token);

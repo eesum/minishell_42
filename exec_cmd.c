@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:40:55 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:18:18 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/21 21:52:56 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-int	exec_cmd(char **cmd, t_list *env)
+int	exec_cmd(char **cmd, t_list *env, int pipe_flag)
 {
 	if (cmd == NULL)
 		return (0);
@@ -79,7 +79,7 @@ int	exec_cmd(char **cmd, t_list *env)
 	else if (is_builtin(cmd[0]) == 6)
 		return (exec_env(cmd, env));
 	else if (is_builtin(cmd[0]) == 7)
-		exec_exit(cmd);
+		exec_exit(cmd, pipe_flag);
 	else
 		exec_general_cmd(cmd, env);
 	return (0);

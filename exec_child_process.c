@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 13:32:08 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/18 14:17:43 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/21 22:09:39 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ void	exec_in_child(t_execdata *data, int i)
 	input = input_fd(data, cur_pipe, i);
 	output = output_fd(data, cur_pipe, i);
 	dup_fds(data, input, output);
-	exec_cmd(cmd, data->env);
+	exec_cmd(cmd, data->env, 1);
 	exit(EXIT_SUCCESS);
 }

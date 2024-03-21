@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/21 20:56:11 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/21 22:34:33 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	only_builtin(t_execdata *data)
 	input = open_last_input(data->pipe, data->file_arr);
 	output = open_last_output(data->pipe);
 	dup_fds(data, input, output);
-	if (exec_cmd(cmd, data->env) < 0)
+	if (exec_cmd(cmd, data->env, 0) < 0)
 	{
 		restore_fds(data, input, output);
 		free_arr(cmd);
@@ -85,10 +85,10 @@ void	exec_multiple_pipe(t_execdata *data)
 		if (data->index < data->pipe_cnt - 1)
 			if (pipe(data->fd[data->index % 2]) < 0)
 				error_exit("pipe failed.", 0, 0, EXIT_FAILURE);
-		data->pid = fork();
-		if (data->pid < 0)
+		data->pid[data->index] = fork();
+		if (data->pid[data->index] < 0)
 			error_exit("fork failed.", 0, 0, EXIT_FAILURE);
-		else if (data->pid == 0)
+		else if (data->pid[data->index] == 0)
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
@@ -102,7 +102,7 @@ void	exec_multiple_pipe(t_execdata *data)
 			close(data->fd[(data->index + 1) % 2][0]);
 		data->index++;
 	}
-	wait_and_update_exit_code(data->pipe_cnt, data->env);
+	wait_and_update_exit_code(data->pid, data->env);
 }
 
 void	end_exec(t_execdata *data)
@@ -112,12 +112,16 @@ void	end_exec(t_execdata *data)
 	free_arr(data->file_arr);
 	if (data->doc_fd != NULL)
 		free(data->doc_fd);
+	if (data->pid != NULL)
+		free(data->pid);
 	ft_lstclear(&data->pipe, free_tokens_in_pipe);
 }
 
 void	exec(t_execdata *data)
 {
 	init_token_flags(data);
+	data->pid = ft_malloc_err(sizeof(pid_t) * 2);
+	data->pid[1] = 0;
 	if (here_document(data) < 0)
 	{
 		end_exec(data);
@@ -133,6 +137,9 @@ void	exec(t_execdata *data)
 		end_exec(data);
 		return ;
 	}
+	free(data->pid);
+	data->pid = ft_malloc_err(sizeof(pid_t) * (data->pipe_cnt + 1));
+	data->pid[data->pipe_cnt] = 0;
 	exec_multiple_pipe(data);
 	end_exec(data);
 }

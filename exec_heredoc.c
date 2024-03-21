@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/21 20:36:11 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/21 22:34:57 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,13 @@ int	is_heredoc_signaled(t_list *env)
 int	here_document(t_execdata *data)
 {
 	int		i;
-	pid_t	pid;
 
 	i = 0;
 	before_heredoc(data);
-	pid = fork();
-	if (pid < 0)
+	data->pid[0] = fork();
+	if (data->pid[0] < 0)
 		error_exit("fork failed", 0, 0, EXIT_FAILURE);
-	if (pid == 0)
+	if (data->pid[0] == 0)
 	{
 		signal(SIGINT, &heredoc_sig);
 		i = 0;
@@ -147,7 +146,7 @@ int	here_document(t_execdata *data)
 		exit(EXIT_SUCCESS);
 	}
 	signal(SIGINT, SIG_IGN);
-	wait_and_update_exit_code(1, data->env);
+	wait_and_update_exit_code(data->pid, data->env);
 	if(is_heredoc_signaled(data->env) == 1)
 		return (-1);
 	return (0);
