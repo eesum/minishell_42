@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:37:19 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 01:32:54 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,5 @@ int		ft_isquote(char c);
 char	*ft_strndup(char *origin, int count);
 t_list	*ft_findlst_by_index(t_list *lst, int i);
 void	restore_fds(t_execdata *data, int input_fd, int output_fd);
-void	exit_with_code(int exit_code);
 
 #endif

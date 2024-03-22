@@ -6,26 +6,17 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 01:15:32 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 01:32:48 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	exit_with_code(int exit_code)
+long long	exit_atol(char **cmd)
 {
-	if (exit_code < 0)
-		exit_code = 256 + (exit_code % 256);
-	else if (exit_code > 255)
-		exit_code = exit_code % 256;
-	exit(exit_code);
-}
-
-int	exit_atoi(char **cmd)
-{
-	int	i;
+	long long	i;
 	int	sign;
-	int	result;
+	long long	result;
 
 	i = 0;
 	sign = 1;
@@ -45,24 +36,24 @@ int	exit_atoi(char **cmd)
 	if (cmd[1][i] != '\0')
 	{
 		error_msg_only("numeric argument required", cmd[0], cmd[1]);
-		exit_with_code(255);
+		exit(255);
 	}
 	return (sign * result);
 }
 
 void	exec_exit(char **cmd, int pipe_flag)
 {
-	int	exit_code;
+	long long	exit_code;
 
 	if (pipe_flag == 0)
 		printf("exit\n");
 	if (cmd == NULL || cmd[1] == NULL)
-		exit_with_code(EXIT_SUCCESS);
-	exit_code = exit_atoi(cmd);
+		exit(EXIT_SUCCESS);
+	exit_code = exit_atol(cmd);
 	if (cmd[2] != NULL)
 	{
 		error_msg_only("too many arguments", cmd[0], 0);
 		exit_code = 1;
 	}
-	exit_with_code(exit_code);
+	exit((unsigned char)exit_code);
 }
