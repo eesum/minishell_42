@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 20:14:04 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 04:51:07 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:49:40 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	change_dir(char *dest_path, char *arg, t_list *env)
 			error_msg_only("Not a directory", "cd", arg);
 		else
 			error_msg_only("Error occured", "cd", arg);
+		free(current_path);
 		return (-1);
 	}
 	update_env("OLDPWD", current_path, env);
@@ -69,8 +70,6 @@ int	to_directory(char *path, char **cmd, t_list *env)
 		free(dest_path);
 		return (-1);
 	}
-	if (ft_memcmp(path, "OLDPWD", 7) == 0)
-		printf("%s\n", dest_path);
 	free(dest_path);
 	return (0);
 }

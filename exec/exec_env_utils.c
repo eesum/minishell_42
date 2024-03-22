@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_env_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:21:29 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 13:38:59 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:43:41 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_list	*envp_to_lst(char **envp)
 	int		i;
 
 	i = 0;
+	if (envp == NULL)
+		return (NULL);
 	env = ft_lstnew(ft_strdup_err("?=0"));
 	if (env == NULL)
 		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
@@ -41,7 +43,7 @@ char	*find_env(char *name, t_list *env)
 
 	value = NULL;
 	cur = env;
-	if (name == NULL)
+	if (name == NULL || env == NULL)
 		return (NULL);
 	name_len = ft_strlen(name);
 	while (cur != NULL)
@@ -68,7 +70,7 @@ void	update_env(char *name, char *value, t_list *env)
 	t_list	*new;
 
 	cur = env;
-	if (name == NULL)
+	if (name == NULL || env == NULL)
 		return ;
 	name_len = ft_strlen(name);
 	while (cur != NULL)
