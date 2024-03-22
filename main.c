@@ -3,42 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:33:25 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/21 22:48:56 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/22 15:39:23 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parsing(t_parsedata *parse, t_execdata *exec)
-{
-	parse->token_head = NULL;
-	parsing_env(parse, exec->env);
-
-	if (split_token(&(parse->token_head), parse->env_str))
-	{
-		error_msg_only("syntax error", 0, 0);
-		free(parse->str);
-		free(parse->env_str);
-		return (1);
-	}
-	free(parse->str);
-	free(parse->env_str);
-	exec->pipe = NULL;
-	if (parse->token_head != NULL)
-	{
-		if (beautify_token(&(parse->token_head), &(exec->pipe)))
-		{
-			error_msg_only("syntax error", 0, 0);
-			return (1);
-		}
-	}
-	return (0);
-}
-
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_execdata	data;
 	t_parsedata	parse;
@@ -54,13 +28,11 @@ int main(int argc, char **argv, char **envp)
 		parse.str = readline("minishell $ ");
 		if (parse.str == NULL)
 			exec_exit(NULL, 0);
-		if(*parse.str)
+		if (*parse.str)
 		{
 			add_history(parse.str);
 			if (parsing(&parse, &data) == 0)
 				exec(&data);
-			else
-			 	update_env("?", "2", data.env);
 		}
 		else
 			free(parse.str);

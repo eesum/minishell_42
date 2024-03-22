@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_env_parsing.c                            :+:      :+:    :+:   */
+/*   parse_env_parsing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:06:09 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/20 03:56:02 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/22 13:23:39 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static void	env_in_quote(t_parsedata *data, size_t *i, size_t *j, t_list *env)
 {

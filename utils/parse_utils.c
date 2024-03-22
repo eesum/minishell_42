@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_utils3.c                                 :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:43:31 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/20 04:54:29 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:37:54 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	ft_ispipe(char c)
 {
@@ -56,22 +56,4 @@ int	check_token_type(char *str)
 		return (TYPE_PIPE);
 	else
 		return (TYPE_DEFAULT);
-}
-
-char	*ft_strndup(char *origin, int count)
-{
-	char	*str;
-	size_t	i;
-
-	str = (char *)ft_malloc_err(sizeof(char) + (count + 1));
-	str[count] = '\0';
-	i = 0;
-	while (count)
-	{
-			str[i] = *origin;
-			i++;
-			origin++;
-			count--;
-	}
-	return (str);
 }

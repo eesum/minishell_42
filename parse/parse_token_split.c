@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_token_split.c                            :+:      :+:    :+:   */
+/*   parse_token_split.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:23:20 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/20 04:54:12 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/22 13:27:53 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static void	make_token(t_list **head, char *str, int *i, int *cnt)
 {
@@ -89,7 +89,7 @@ static int	split_loop(t_list **head, char *str, int *i, int *cnt)
 	{
 		if (make_pipe_redirect_token(head, str, i, cnt))
 		{
-			ft_tokenlst_free(head);
+			ft_lstclear(head, free_token);
 			return (SYNTAX_ERROR);
 		}
 	}	
@@ -97,7 +97,7 @@ static int	split_loop(t_list **head, char *str, int *i, int *cnt)
 	{
 		if (count_quote(str, i, cnt))
 		{
-			ft_tokenlst_free(head);
+			ft_lstclear(head, free_token);
 			return (SYNTAX_ERROR);
 		}
 	}

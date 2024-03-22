@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/21 22:34:33 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/22 15:40:23 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	count_pipe(t_execdata *data)
 {
@@ -71,7 +71,8 @@ void	delete_tmpfile(t_execdata *data)
 	i = 0;
 	while (data->file_arr && data->file_arr[i])
 	{
-		if (access(data->file_arr[i], F_OK) == 0 && unlink(data->file_arr[i]) < 0)
+		if (access(data->file_arr[i], F_OK) == 0
+			&& unlink(data->file_arr[i]) < 0)
 			error_msg_only("file unlink failed", data->file_arr[i], 0);
 		i++;
 	}

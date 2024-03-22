@@ -6,11 +6,11 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:16 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/13 17:14:09 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:36:41 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	error_exit(char *msg, char *cmd, char *arg, int code)
 {
@@ -63,7 +63,7 @@ void	*ft_malloc_err(size_t size)
 	return ((void *)ptr);
 }
 
-void	ft_strcpy(char *dest, const char *src)
+static void	ft_strcpy(char *dest, const char *src)
 {
 	size_t	i;
 	size_t	src_len;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/21 22:36:48 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/22 15:37:19 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ typedef struct s_execdata
 	char	**file_arr;
 }				t_execdata;
 
-void	exec(t_execdata *data);
-
 /*signal*/
 void	set_terminal_print_off(void);
 void	set_terminal_print_on(void);
@@ -84,6 +82,7 @@ int		check_token_type(char *str);
 int		split_token(t_list **head, char *str);
 void	delete_quote(t_list **head);
 int		beautify_token(t_list **head, t_list **pipe);
+int		parsing(t_parsedata *parse, t_execdata *exec);
 
 /*exec*/
 void	exec(t_execdata *data);
@@ -119,8 +118,6 @@ void	exec_exit(char **cmd, int pipe_flag);
 void	free_token(void *token);
 void	free_tokens_in_pipe(void *node);
 void	free_arr(char **arr);
-void	ft_token_free(t_list *node);
-void	ft_tokenlst_free(t_list **lst);
 
 /*error*/
 void	error_exit(char *msg, char *cmd, char *arg, int code);
@@ -132,7 +129,6 @@ char	*ft_itoa_err(int n);
 char	*ft_strjoin_err(char const *s1, char const *s2);
 
 /*utils*/
-void	ft_strcpy(char *dest, const char *src);
 char	*ft_strjoin_sep(char const *s1, char const *s2, char const *sep);
 char	*find_env(char *name, t_list *env);
 void	update_env(char *name, char *value, t_list *env);

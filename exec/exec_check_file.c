@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_check_file.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:45:05 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 12:56:06 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/22 13:38:45 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	check_input_file(char *file)
 {
