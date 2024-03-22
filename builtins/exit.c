@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 13:17:57 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 00:40:45 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,12 @@ int	exit_atoi(char **cmd)
 
 void	exec_exit(char **cmd, int pipe_flag)
 {
-	int	i;
 	int	exit_code;
 
 	if (pipe_flag == 0)
 		printf("exit\n");
 	if (cmd == NULL || cmd[1] == NULL)
 		exit_with_code(EXIT_SUCCESS);
-	i = 0;
 	exit_code = exit_atoi(cmd);
 	if (cmd[2] != NULL)
 	{

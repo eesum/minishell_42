@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_fd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:36:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 13:39:05 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 00:41:01 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ int	open_last_input(t_list *pipe, char **file_arr)
 	t_list	*cur;
 	char	*in;
 	char	fd;
-	int		hd_flag;
 
 	in = NULL;
-	hd_flag = 0;
 	cur = pipe->content;
 	while (cur != NULL)
 	{
