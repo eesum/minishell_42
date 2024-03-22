@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 00:40:45 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 01:15:32 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	exit_atoi(char **cmd)
 	i = 0;
 	sign = 1;
 	result = 0;
+	while (cmd[1][i] && (cmd[1][i] == 32 || (cmd[1][i] >= 9 && cmd[1][i] <= 13)))
+		i++;
 	if (cmd[1][i] && (cmd[1][i] == '-' || cmd[1][i] == '+'))
 	{
 		if (cmd[1][i] == '-')
@@ -38,7 +40,9 @@ int	exit_atoi(char **cmd)
 	}
 	while (cmd[1][i] && (cmd[1][i] >= '0' && cmd[1][i] <= '9'))
 		result = result * 10 + (cmd[1][i++] - '0');
-	if (cmd[1][i] != '\0' && (cmd[1][i] < '0' || cmd[1][i] > '9'))
+	while (cmd[1][i] && (cmd[1][i] == 32 || (cmd[1][i] >= 9 && cmd[1][i] <= 13)))
+			i++;
+	if (cmd[1][i] != '\0')
 	{
 		error_msg_only("numeric argument required", cmd[0], cmd[1]);
 		exit_with_code(255);
