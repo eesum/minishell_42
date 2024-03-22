@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_general_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:34:33 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 13:39:10 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 01:41:35 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ void	exec_pathjoin(char **cmd, char **envp)
 
 	path_join = NULL;
 	path = split_path(envp);
-	if (cmd[0] != NULL && path != NULL)
+	if (cmd[0] != NULL && cmd[0][0] != '\0' && path != NULL)
 		path_join = find_cmd(path, cmd[0]);
 	if (cmd[0] == NULL)
 		error_exit("command not found", 0, 0, 127);
-	if (path_join == NULL)
+	if (cmd[0][0] == '\0' || path_join == NULL)
 		error_exit("command not found", cmd[0], 0, 127);
 	i = 0;
 	while (path[i])
