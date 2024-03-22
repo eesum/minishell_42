@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:34:52 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/22 15:38:29 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:16:36 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	parsing(t_parsedata *parse, t_execdata *exec)
 	if (split_token(&(parse->token_head), parse->env_str))
 	{
 		error_msg_only("syntax error", 0, 0);
-		update_env("?", "2", exec->env);
+		update_env("?", "258", exec->env);
 		free(parse->str);
 		free(parse->env_str);
 		return (1);
@@ -32,7 +32,7 @@ int	parsing(t_parsedata *parse, t_execdata *exec)
 		if (beautify_token(&(parse->token_head), &(exec->pipe)))
 		{
 			error_msg_only("syntax error", 0, 0);
-			update_env("?", "2", exec->env);
+			update_env("?", "258", exec->env);
 			return (1);
 		}
 	}
