@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:12:42 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:42:56 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 19:12:29 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int		exec_pwd(char **cmd);
 int		exec_env(char **cmd, t_list *env);
 int		exec_export(char **cmd, t_list *env);
 int		exec_unset(char **cmd, t_list *env);
-void	exec_exit(char **cmd, int pipe_flag);
+void	exec_exit(char **cmd, int pipe_flag, t_list *env);
 
 #endif

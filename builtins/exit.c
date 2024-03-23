@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:45:08 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 19:10:50 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,20 @@ static long long	exit_atol(char **cmd)
 	return (sign * result);
 }
 
-void	exec_exit(char **cmd, int pipe_flag)
+void	exec_exit(char **cmd, int pipe_flag, t_list *env)
 {
 	long long	exit_code;
+	char		*code;
 
 	if (pipe_flag == 0)
 		printf("exit\n");
 	if (cmd == NULL || cmd[1] == NULL)
-		exit(EXIT_SUCCESS);
+	{
+		code = find_env("?", env);
+		exit_code = ft_atoi(code);
+		free(code);
+		exit(exit_code);
+	}
 	exit_code = exit_atol(cmd);
 	if (cmd[2] != NULL)
 	{

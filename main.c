@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:33:25 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 18:28:59 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 19:12:05 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **envp)
 		if (parse.str == NULL)
 		{
 			printf("\033[u");
-			exec_exit(NULL, 0);
+			exec_exit(NULL, 0, data.env);
 		}
 		if (*parse.str)
 		{
