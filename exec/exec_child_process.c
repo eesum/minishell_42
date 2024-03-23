@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_child_process.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 13:32:08 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 13:38:50 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 14:54:05 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	input_fd(t_execdata *data, t_list *cur_pipe, int i)
+static int	input_fd(t_execdata *data, t_list *cur_pipe, int i)
 {
 	int	file_fd;
 
@@ -29,7 +29,7 @@ int	input_fd(t_execdata *data, t_list *cur_pipe, int i)
 	return (file_fd);
 }
 
-int	output_fd(t_execdata *data, t_list *cur_pipe, int i)
+static int	output_fd(t_execdata *data, t_list *cur_pipe, int i)
 {
 	int	file_fd;
 

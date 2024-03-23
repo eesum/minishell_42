@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_fd.c                                          :+:      :+:    :+:   */
+/*   exec_fd_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:36:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 00:41:01 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 15:14:28 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ int	open_last_output(t_list *pipe)
 {
 	t_list	*cur;
 	char	*out;
-	char	append_flag;
 	char	fd;
 
-	append_flag = 0;
 	out = NULL;
 	cur = pipe->content;
 	while (cur != NULL)
@@ -54,14 +52,13 @@ int	open_last_output(t_list *pipe)
 		if (((t_token *)cur->content)->redirect_flag == 2)
 		{
 			out = ((t_token *)cur->content)->str;
-			if (((t_token *)cur->content)->type == TYPE_OUTPUT_A)
-				append_flag = 1;
+			break ;
 		}
 		cur = cur->next;
 	}
 	if (out == NULL)
 		return (-1);
-	if (append_flag == 0)
+	if (((t_token *)cur->content)->type == TYPE_OUTPUT_T)
 		fd = open(out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
 		fd = open(out, O_WRONLY | O_CREAT | O_APPEND, 0644);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_check_file.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:45:05 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 13:38:45 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 14:46:53 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_input_file(char *file)
+static int	check_input_file(char *file)
 {
 	if (access(file, F_OK) != 0)
 	{
@@ -27,7 +27,7 @@ int	check_input_file(char *file)
 	return (0);
 }
 
-int	check_output_file(char *file, char mode)
+static int	check_output_file(char *file, char mode)
 {
 	int	fd;
 

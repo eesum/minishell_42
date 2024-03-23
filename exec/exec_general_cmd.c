@@ -6,39 +6,27 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:34:33 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 01:41:35 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 15:25:17 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**lst_to_envp(t_list *env)
+static int	is_with_path(char *cmd)
 {
-	t_list	*cur;
-	int		cnt;
-	char	**envp;
+	int	i;
 
-	cnt = 0;
-	cur = env;
-	while (cur != NULL)
+	i = 0;
+	while (cmd[i])
 	{
-		cnt++;
-		cur = cur->next;
+		if (cmd[i] == '/')
+			return (1);
+		i++;
 	}
-	envp = ft_malloc_err(sizeof(char *) * (cnt + 1));
-	envp[cnt] = NULL;
-	cnt = 0;
-	cur = env;
-	while (cur != NULL)
-	{
-		envp[cnt] = ft_strdup_err((char *)cur->content);
-		cnt++;
-		cur = cur->next;
-	}
-	return (envp);
+	return (0);
 }
 
-char	**split_path(char **envp)
+static char	**split_path(char **envp)
 {
 	int		i;
 	char	**path;
@@ -59,7 +47,7 @@ char	**split_path(char **envp)
 	return (path);
 }
 
-char	*find_cmd(char **path, char *cmd)
+static char	*find_cmd(char **path, char *cmd)
 {
 	char	*path_join;
 	int		i;
@@ -81,7 +69,7 @@ char	*find_cmd(char **path, char *cmd)
 	return (path_join);
 }
 
-void	exec_pathjoin(char **cmd, char **envp)
+static void	exec_pathjoin(char **cmd, char **envp)
 {
 	char	**path;
 	char	*path_join;
@@ -104,20 +92,6 @@ void	exec_pathjoin(char **cmd, char **envp)
 	}
 	if (execve(path_join, cmd, envp) < 0)
 		error_exit("exec failed.", 0, 0, 126);
-}
-
-int	is_with_path(char *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i] == '/')
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 void	exec_general_cmd(char **cmd, t_list *env)

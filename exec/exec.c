@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 14:41:47 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 15:18:45 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,6 @@ int	only_builtin(t_execdata *data)
 	return (0);
 }
 
-void	delete_tmpfile(t_execdata *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->file_arr && data->file_arr[i])
-	{
-		if (access(data->file_arr[i], F_OK) == 0
-			&& unlink(data->file_arr[i]) < 0)
-			error_msg_only("file unlink failed", data->file_arr[i], 0);
-		i++;
-	}
-}
-
 void	exec_multiple_pipe(t_execdata *data)
 {
 	data->index = 0;
@@ -102,18 +88,6 @@ void	exec_multiple_pipe(t_execdata *data)
 		data->index++;
 	}
 	wait_and_update_exit_code(data->pid, data->env);
-}
-
-void	end_exec(t_execdata *data)
-{
-	delete_tmpfile(data);
-	free_arr(data->eof_arr);
-	free_arr(data->file_arr);
-	if (data->doc_fd != NULL)
-		free(data->doc_fd);
-	if (data->pid != NULL)
-		free(data->pid);
-	ft_lstclear(&data->pipe, free_tokens_in_pipe);
 }
 
 void	exec(t_execdata *data)

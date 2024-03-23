@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:21:29 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 16:43:41 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 15:25:04 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,32 @@ t_list	*envp_to_lst(char **envp)
 		i++;
 	}
 	return (env);
+}
+
+char	**lst_to_envp(t_list *env)
+{
+	t_list	*cur;
+	int		cnt;
+	char	**envp;
+
+	cnt = 0;
+	cur = env;
+	while (cur != NULL)
+	{
+		cnt++;
+		cur = cur->next;
+	}
+	envp = ft_malloc_err(sizeof(char *) * (cnt + 1));
+	envp[cnt] = NULL;
+	cnt = 0;
+	cur = env;
+	while (cur != NULL)
+	{
+		envp[cnt] = ft_strdup_err((char *)cur->content);
+		cnt++;
+		cur = cur->next;
+	}
+	return (envp);
 }
 
 char	*find_env(char *name, t_list *env)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 12:51:25 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 13:39:22 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:02:18 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	count_heredoc(t_list *pipe)
+static int	count_heredoc(t_list *pipe)
 {
 	t_list	*cur;
 	int		doc_cnt;
@@ -32,7 +32,7 @@ int	count_heredoc(t_list *pipe)
 	return (doc_cnt);
 }
 
-void	flag_last_redirection(t_list *pipe)
+static void	flag_last_redirection(t_list *pipe)
 {
 	t_list	*cur;
 	t_list	*last_input;
