@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:34:52 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 15:03:14 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:44:56 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parse.h"
+#include "../include/parse.h"
 
 int	parsing(t_parsedata *parse, t_execdata *exec)
 {

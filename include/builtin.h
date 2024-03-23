@@ -6,14 +6,14 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:12:42 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:28:47 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:42:56 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 int		check_cmd_option(char **cmd);
 int		exec_echo(char **cmd);

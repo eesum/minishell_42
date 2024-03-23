@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_token_beautify.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:51:53 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 15:02:01 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:44:56 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parse.h"
+#include "../include/parse.h"
 
 static int	delete_redirection_node(t_list **head, t_list **cur, t_list **pre)
 {

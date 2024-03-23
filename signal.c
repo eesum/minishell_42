@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:34:57 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 17:25:28 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 18:29:51 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "include/minishell.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <signal.h>

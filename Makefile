@@ -6,13 +6,14 @@
 #    By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/17 18:38:57 by seohyeki          #+#    #+#              #
-#    Updated: 2024/03/23 17:37:08 by sumilee          ###   ########.fr        #
+#    Updated: 2024/03/23 17:42:30 by sumilee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 LIBFT = libft.a
 LIBFT_DIR = libft
+INC_DIR = include
 P_SRCS = parse/parse_env_change.c \
 		 parse/parse_env_interpret.c \
 		 parse/parse_env_parsing.c \
@@ -62,7 +63,7 @@ $(NAME) : $(A_OBJS)
 	cc -lreadline $(CFLAGS) $(LIBFT) -o $@ $^
 
 %.o : %.c
-	cc -I$(LIBFT_DIR) $(CFLAGS) -c $< -o $@
+	cc -I$(LIBFT_DIR) -I$(INC_DIR) $(CFLAGS) -c $< -o $@
 
 clean :
 	rm -f $(A_OBJS)

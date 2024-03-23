@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:44:34 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:19:19 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:45:08 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtin.h"
+#include "../include/builtin.h"
 #include <stdio.h>
 
 static int	flag_echo_option(char *cmd)

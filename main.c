@@ -6,13 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:33:25 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 17:24:59 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 18:28:59 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
-#include "builtin.h"
-#include "exec.h"
+#include "include/parse.h"
+#include "include/builtin.h"
+#include "include/exec.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>

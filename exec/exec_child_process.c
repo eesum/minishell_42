@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 13:32:08 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 16:42:34 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:44:32 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../exec.h"
+#include "../include/exec.h"
 
 static t_list	*ft_findlst_by_index(t_list *lst, int i)
 {

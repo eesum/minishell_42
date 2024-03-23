@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env_interpret.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:34:51 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 15:01:18 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:44:56 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parse.h"
+#include "../include/parse.h"
 
 char	*get_env_name(char *str)
 {

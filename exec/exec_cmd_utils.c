@@ -6,12 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:40:55 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 16:41:14 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:45:08 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../exec.h"
-#include "../builtin.h"
+#include "../include/exec.h"
+#include "../include/builtin.h"
 
 char	**cmd_to_arr(t_list *pipe_tokens)
 {

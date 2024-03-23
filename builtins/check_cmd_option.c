@@ -6,12 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:56:19 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 16:24:35 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:45:08 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtin.h"
-#include "../minishell.h"
+#include "../include/builtin.h"
+#include "../include/minishell.h"
 
 int	check_cmd_option(char **cmd)
 {

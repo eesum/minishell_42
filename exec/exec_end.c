@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:03:50 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 16:42:42 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:44:32 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../exec.h"
+#include "../include/exec.h"
 #include <unistd.h>
 
 static void	delete_tmpfile(t_execdata *data)

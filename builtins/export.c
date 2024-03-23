@@ -6,12 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 16:56:42 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:45:08 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtin.h"
-#include "../exec.h"
+#include "../include/builtin.h"
+#include "../include/exec.h"
 #include <stdio.h>
 
 static char	*ft_substr_err(char const *s, unsigned int start, size_t len)

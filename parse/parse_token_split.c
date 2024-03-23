@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_token_split.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:23:20 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 15:02:48 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:44:56 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parse.h"
+#include "../include/parse.h"
 
 static void	make_token(t_list **head, char *str, int *i, int *cnt)
 {

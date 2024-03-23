@@ -6,12 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 19:51:51 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:19:34 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:45:08 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtin.h"
-#include "../minishell.h"
+#include "../include/builtin.h"
+#include "../include/minishell.h"
 #include <stdio.h>
 
 int	exec_env(char **cmd, t_list *env)

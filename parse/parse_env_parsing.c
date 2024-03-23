@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env_parsing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:06:09 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 15:01:44 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:44:56 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parse.h"
+#include "../include/parse.h"
 
 static void	env_in_quote(t_parsedata *data, size_t *i, size_t *j, t_list *env)
 {
