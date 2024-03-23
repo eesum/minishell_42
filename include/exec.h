@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:00:52 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:31:01 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 21:27:43 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	init_token_flags(t_execdata *data);
 void	before_heredoc(t_execdata *data);
 int		here_document(t_execdata *data);
 int		check_file_open(t_list *pipe_tokens);
-void	wait_and_update_exit_code(pid_t *pid, t_list *env);
 
 /*command*/
 char	**cmd_to_arr(t_list *pipe_tokens);
@@ -37,9 +36,9 @@ void	dup_fds(t_execdata *data, int input_fd, int output_fd);
 void	restore_fds(t_execdata *data, int input_fd, int output_fd);
 
 /*etc utils*/
+void	wait_and_update_exit_code(pid_t *pid, t_list *env);
 char	**lst_to_envp(t_list *env);
-void	update_env(char *name, char *value, t_list *env);
 int		check_valid_name(char *cmd, char *arg, char sep);
-char	*ft_itoa_err(int n);;
+char	*ft_itoa_err(int n);
 
 #endif

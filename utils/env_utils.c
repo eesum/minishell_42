@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:21:29 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:45 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 21:16:25 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ char	*find_env(char *name, t_list *env)
 	while (cur != NULL)
 	{
 		if (ft_strncmp((char *)cur->content, name, name_len) == 0 \
-			&& ((char *)cur->content)[name_len] == '=' \
-			&& ((char *)cur->content)[name_len] != '\0')
+			&& ((char *)cur->content)[name_len] == '=')
 		{
 			value = ft_strdup_err(&((char *)cur->content)[name_len + 1]);
 			return (value);
@@ -61,6 +60,30 @@ char	*find_env(char *name, t_list *env)
 		value = ft_malloc_err(1);
 	value[0] = '\0';
 	return (value);
+}
+
+void	no_value_update_env(char *name, t_list *env)
+{
+	t_list	*cur;
+	size_t	name_len;
+	t_list	*new;
+
+	cur = env;
+	if (name == NULL || env == NULL)
+		return ;
+	name_len = ft_strlen(name);
+	while (cur != NULL)
+	{
+		if (ft_memcmp((char *)cur->content, name, name_len + 1) == 0 \
+			|| (ft_memcmp((char *)cur->content, name, name_len) == 0 \
+			&& ((char *)cur->content)[name_len] == '='))
+			return ;
+		cur = cur->next;
+	}
+	new = ft_lstnew(ft_strdup_err(name));
+	if (new == NULL)
+		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
+	ft_lstadd_back(&env, new);
 }
 
 void	update_env(char *name, char *value, t_list *env)
@@ -75,9 +98,9 @@ void	update_env(char *name, char *value, t_list *env)
 	name_len = ft_strlen(name);
 	while (cur != NULL)
 	{
-		if (ft_memcmp((char *)cur->content, name, name_len) == 0 \
-			&& ((char *)cur->content)[name_len] == '=' \
-			&& ((char *)cur->content)[name_len] != '\0')
+		if (ft_memcmp((char *)cur->content, name, name_len + 1) == 0 \
+			|| (ft_memcmp((char *)cur->content, name, name_len) == 0 \
+			&& ((char *)cur->content)[name_len] == '='))
 		{
 			free(cur->content);
 			cur->content = ft_strjoin_sep(name, value, "=");

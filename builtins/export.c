@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:45:08 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 21:27:23 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ static char	*ft_substr_err(char const *s, unsigned int start, size_t len)
 	return (sub);
 }
 
+static int	is_with_value(char *content)
+{
+	int	i;
+
+	i = 0;
+	while (content[i])
+	{
+		if (content[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 static int	export_no_arg(t_list *env)
 {
 	t_list	*cur;
@@ -49,14 +63,16 @@ static int	export_no_arg(t_list *env)
 	{
 		if (((char *)cur->content)[0] != '?')
 		{
-			printf("declare -x ");
 			name_len = 0;
-			while (((char *)cur->content)[name_len] != '=')
+			while (((char *)cur->content)[name_len] && \
+					((char *)cur->content)[name_len] != '=')
 				name_len++;
-			name = ft_substr((char *)cur->content, 0, name_len);
-			if (name == NULL)
-				return (-1);
-			printf("%s=\"%s\"\n", name, &((char *)cur->content)[name_len + 1]);
+			name = ft_substr_err((char *)cur->content, 0, name_len);
+			if (is_with_value((char *)cur->content) == 1)
+				printf("declare -x %s=\"%s\"\n", name, \
+						&((char *)cur->content)[name_len + 1]);
+			else
+				printf("declare -x %s\n", (char *)cur->content);
 			free(name);
 		}
 		cur = cur->next;
@@ -81,7 +97,10 @@ static void	export_with_arg(char **cmd, t_list *env, int *err_flag)
 			continue ;
 		}
 		name = ft_substr_err(cmd[i], 0, name_len);
-		update_env(name, &cmd[i][name_len + 1], env);
+		if (cmd[i][name_len] == '=')
+			update_env(name, &cmd[i][name_len + 1], env);
+		else
+			no_value_update_env(name, env);
 		free(name);
 		i++;
 	}

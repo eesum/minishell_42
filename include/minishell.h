@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:43:35 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 21:03:15 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	*ft_strdup_err(const char *s1);
 int		ft_isspace(char c);
 t_list	*envp_to_lst(char **envp);
 char	*find_env(char *name, t_list *env);
+void	no_value_update_env(char *name, t_list *env);
 void	update_env(char *name, char *value, t_list *env);
 
 #endif
