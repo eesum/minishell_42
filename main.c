@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:33:25 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/22 15:39:23 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 13:55:38 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ int	main(int argc, char **argv, char **envp)
 	set_terminal_print_off();
 	while (1)
 	{
-		parse.str = readline("minishell $ ");
+		parse.str = readline("minishell $ \033[s");
 		if (parse.str == NULL)
+		{
+			printf("\033[u");
 			exec_exit(NULL, 0);
+		}
 		if (*parse.str)
 		{
 			add_history(parse.str);

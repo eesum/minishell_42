@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 13:26:57 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 13:55:40 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,12 @@ void	input_to_heredoc(t_execdata *data, char *file_name, int i)
 		error_exit("file open failed", 0, 0, EXIT_FAILURE);
 	while (1)
 	{
-		buff = readline("> ");
+		buff = readline("> \033[s");
 		if (buff == NULL)
+		{
+			printf("\033[u");
 			break ;
+		}
 		if (buff != NULL)
 		{
 			if (ft_memcmp(data->eof_arr[i], buff, \
