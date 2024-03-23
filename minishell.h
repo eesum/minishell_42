@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 15:46:30 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:50:31 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ typedef struct s_execdata
 }				t_execdata;
 
 /*signal*/
-void	set_terminal_print_off(void);
-void	set_terminal_print_on(void);
+void	set_sig_term(void sigint(int), void sigquit(int), int term);
 void	parent_sig(int signum);
 void	heredoc_sig(int signum);
 
