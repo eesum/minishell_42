@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 15:41:17 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:46:30 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,18 @@ void	set_terminal_print_off(void);
 void	set_terminal_print_on(void);
 void	parent_sig(int signum);
 void	heredoc_sig(int signum);
+
+/*parse*/
+char	*get_env_name(char *str);
+void	count_total_len(char *str, t_list *env, size_t *len);
+void	change_default(t_parsedata *data, size_t *i, size_t *j, t_list *env);
+void	change_quote(t_parsedata *data, size_t *i, size_t *j, t_list *env);
+void	parsing_env(t_parsedata *data, t_list *env);
+int		check_token_type(char *str);
+int		split_token(t_list **head, char *str);
+void	delete_quote(t_list **head);
+int		beautify_token(t_list **head, t_list **pipe);
+int		parsing(t_parsedata *parse, t_execdata *exec);
 
 /*exec*/
 void	exec(t_execdata *data);

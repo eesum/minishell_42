@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:33:25 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 15:44:04 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:46:49 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 1 || argv[1] != NULL)
 		return (1);
 	data.env = envp_to_lst(envp);
-	signal(SIGINT, &parent_sig);
-	signal(SIGQUIT, SIG_IGN);
-	set_terminal_print_off();
+	set_sig_term(parent_sig, SIG_IGN, 0);
 	while (1)
 	{
 		parse.str = readline("minishell $ \033[s");

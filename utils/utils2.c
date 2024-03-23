@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:36:45 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 14:42:30 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,7 @@ void	wait_and_update_exit_code(pid_t *pid, t_list *env)
 		free(exit_code_char);
 		i++;
 	}
-	set_terminal_print_off();
-	signal(SIGINT, &parent_sig);
+	set_sig_term(parent_sig, SIG_IGN, 0);
 }
 
 t_list	*ft_findlst_by_index(t_list *lst, int i)

@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:34:57 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/20 21:18:56 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 14:39:08 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,14 @@ void	heredoc_sig(int signum)
 		rl_replace_line("", 1);
 		exit(100);
 	}
+}
+
+void	set_sig_term(void sigint(int), void sigquit(int), int term)
+{
+	signal(SIGINT, sigint);
+	signal(SIGQUIT, sigquit);
+	if (term == 1)
+		set_terminal_print_on();
+	else if (term == 0)
+		set_terminal_print_off();
 }
