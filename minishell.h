@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 01:32:54 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 14:36:13 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	set_terminal_print_off(void);
 void	set_terminal_print_on(void);
 void	parent_sig(int signum);
 void	heredoc_sig(int signum);
+void	set_sig_term(void sigint(int), void sigquit(int), int term);
 
 /*parse*/
 char	*get_env_name(char *str);

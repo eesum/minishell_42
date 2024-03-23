@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:40:23 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 14:41:47 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,7 @@ void	exec_multiple_pipe(t_execdata *data)
 			error_exit("fork failed.", 0, 0, EXIT_FAILURE);
 		else if (data->pid[data->index] == 0)
 		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
-			set_terminal_print_on();
+			set_sig_term(SIG_DFL, SIG_DFL, 1);
 			exec_in_child(data, data->index);
 		}
 		signal(SIGINT, SIG_IGN);
