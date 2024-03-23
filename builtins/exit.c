@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 01:32:48 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 13:24:14 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 long long	exit_atol(char **cmd)
 {
 	long long	i;
-	int	sign;
+	int			sign;
 	long long	result;
 
 	i = 0;
 	sign = 1;
 	result = 0;
-	while (cmd[1][i] && (cmd[1][i] == 32 || (cmd[1][i] >= 9 && cmd[1][i] <= 13)))
+	while (cmd[1][i] && ft_isspace(cmd[1][i]))
 		i++;
 	if (cmd[1][i] && (cmd[1][i] == '-' || cmd[1][i] == '+'))
 	{
@@ -31,7 +31,7 @@ long long	exit_atol(char **cmd)
 	}
 	while (cmd[1][i] && (cmd[1][i] >= '0' && cmd[1][i] <= '9'))
 		result = result * 10 + (cmd[1][i++] - '0');
-	while (cmd[1][i] && (cmd[1][i] == 32 || (cmd[1][i] >= 9 && cmd[1][i] <= 13)))
+	while (cmd[1][i] && ft_isspace(cmd[1][i]))
 			i++;
 	if (cmd[1][i] != '\0')
 	{

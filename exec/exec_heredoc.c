@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 13:39:15 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 13:26:57 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int	here_document(t_execdata *data)
 	}
 	signal(SIGINT, SIG_IGN);
 	wait_and_update_exit_code(data->pid, data->env);
-	if(is_heredoc_signaled(data->env) == 1)
+	if (is_heredoc_signaled(data->env) == 1)
 		return (-1);
 	return (0);
 }
