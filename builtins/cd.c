@@ -6,13 +6,15 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 20:14:04 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 16:49:40 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:15:31 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../exec.h"
+#include "../builtin.h"
+#include <errno.h>
 
-char	*get_current_path(void)
+static char	*get_current_path(void)
 {
 	char	*path;
 
@@ -22,7 +24,7 @@ char	*get_current_path(void)
 	return (path);
 }
 
-int	change_dir(char *dest_path, char *arg, t_list *env)
+static int	change_dir(char *dest_path, char *arg, t_list *env)
 {
 	char	*current_path;
 	char	*new_pwd;
@@ -49,7 +51,7 @@ int	change_dir(char *dest_path, char *arg, t_list *env)
 	return (0);
 }
 
-int	to_directory(char *path, char **cmd, t_list *env)
+static int	to_directory(char *path, char **cmd, t_list *env)
 {
 	char	*dest_path;
 
@@ -74,7 +76,7 @@ int	to_directory(char *path, char **cmd, t_list *env)
 	return (0);
 }
 
-int	relative_change_dir(char *arg, t_list *env)
+static int	relative_change_dir(char *arg, t_list *env)
 {
 	char	*dest_path;
 	char	*current_path;

@@ -6,13 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 15:18:45 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 16:33:45 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../exec.h"
 
-int	count_pipe(t_execdata *data)
+static int	count_pipe(t_execdata *data)
 {
 	t_list	*cur;
 	t_list	*cur_token;
@@ -41,7 +41,7 @@ int	count_pipe(t_execdata *data)
 	return (0);
 }
 
-int	only_builtin(t_execdata *data)
+static int	only_builtin(t_execdata *data)
 {
 	int		input;
 	int		output;
@@ -64,7 +64,7 @@ int	only_builtin(t_execdata *data)
 	return (0);
 }
 
-void	exec_multiple_pipe(t_execdata *data)
+static void	exec_multiple_pipe(t_execdata *data)
 {
 	data->index = 0;
 	while (data->index < data->pipe_cnt)

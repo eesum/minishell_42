@@ -6,11 +6,26 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:00:32 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 15:00:57 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 16:58:47 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../exec.h"
+
+static char	*ft_strjoin_err(char const *s1, char const *s2)
+{
+	size_t	strlen;
+	char	*arr;
+
+	strlen = ft_strlen(s1) + ft_strlen(s2);
+	arr = (char *)malloc(sizeof(char) * (strlen + 1));
+	if (arr == NULL)
+		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
+	arr[0] = '\0';
+	ft_strcat(arr, s1);
+	ft_strcat(arr, s2);
+	return (arr);
+}
 
 static char	**parse_delimiter(t_list *pipe, int doc_cnt)
 {

@@ -6,11 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:45:05 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 14:46:53 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 16:42:25 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../exec.h"
+#include <unistd.h>
+#include <fcntl.h>
 
 static int	check_input_file(char *file)
 {

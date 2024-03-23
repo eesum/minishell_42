@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_cmd_option.c                                 :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 13:56:19 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 16:24:35 by sumilee          ###   ########.fr       */
+/*   Created: 2024/03/23 16:12:42 by sumilee           #+#    #+#             */
+/*   Updated: 2024/03/23 17:28:47 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtin.h"
-#include "../minishell.h"
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-int	check_cmd_option(char **cmd)
-{
-	char	tmp[3];
+# include "libft/libft.h"
 
-	if (cmd[1] && cmd[1][0] == '-' && cmd[1][1] != '\0')
-	{
-		tmp[0] = '-';
-		tmp[1] = cmd[1][1];
-		tmp[2] = '\0';
-		error_msg_only("invalid option", cmd[0], tmp);
-		return (-1);
-	}
-	return (0);
-}
+int		check_cmd_option(char **cmd);
+int		exec_echo(char **cmd);
+int		exec_cd(char **cmd, t_list *env);
+int		exec_pwd(char **cmd);
+int		exec_env(char **cmd, t_list *env);
+int		exec_export(char **cmd, t_list *env);
+int		exec_unset(char **cmd, t_list *env);
+void	exec_exit(char **cmd, int pipe_flag);
+
+#endif

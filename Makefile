@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/17 18:38:57 by seohyeki          #+#    #+#              #
-#    Updated: 2024/03/22 15:36:01 by seohyeki         ###   ########.fr        #
+#    Updated: 2024/03/23 17:37:08 by sumilee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,23 +28,26 @@ E_SRCS = builtins/cd.c \
 		 builtins/pwd.c \
 		 builtins/unset.c \
 		 builtins/check_cmd_option.c \
+		 exec/exec_before_heredoc.c \
 		 exec/exec_check_file.c \
 		 exec/exec_child_process.c \
-		 exec/exec_cmd.c \
-		 exec/exec_env_utils.c \
-		 exec/exec_fd.c \
+		 exec/exec_cmd_utils.c \
+		 exec/exec_end.c \
+		 exec/exec_fd_utils.c \
 		 exec/exec_general_cmd.c \
 		 exec/exec_heredoc.c \
 		 exec/exec_init.c \
 		 exec/exec.c \
 		 signal.c \
 		 main.c
-U_SRCS = utils/free.c \
+U_SRCS = utils/env_utils.c \
+		 utils/exec_utils.c \
+		 utils/free.c \
 		 utils/ft_itoa_err.c \
+		 utils/ft_strdup_err.c \
 		 utils/ft_strndup.c \
 		 utils/parse_utils.c \
-		 utils/utils.c \
-		 utils/utils2.c
+		 utils/utils.c
 P_OBJS = $(P_SRCS:.c=.o)
 E_OBJS = $(E_SRCS:.c=.o)
 U_OBJS = $(U_SRCS:.c=.o)

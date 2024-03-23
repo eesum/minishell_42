@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:16 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:36:41 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:17:31 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,21 @@ void	*ft_malloc_err(size_t size)
 	return ((void *)ptr);
 }
 
-static void	ft_strcpy(char *dest, const char *src)
+char	*ft_strjoin_sep(char const *s1, char const *s2, char const *sep)
 {
-	size_t	i;
-	size_t	src_len;
+	size_t	strlen;
+	char	*arr;
 
-	i = 0;
-	src_len = 0;
-	if (src != NULL)
-		src_len = ft_strlen(src);
-	while (dest != NULL && src != NULL && i < src_len + 1)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-}
-
-char	*ft_strdup_err(const char *s1)
-{
-	char	*dest;
-
-	dest = NULL;
-	if (s1 != NULL)
-		dest = (char *)ft_malloc_err(sizeof(char) * (ft_strlen(s1) + 1));
-	ft_strcpy(dest, s1);
-	return (dest);
+	strlen = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	strlen = ft_strlen(s1) + ft_strlen(s2) + 1;
+	arr = (char *)malloc(sizeof(char) * (strlen + 1));
+	if (arr == NULL)
+		error_exit("malloc failed.", 0, 0, EXIT_FAILURE);
+	arr[0] = '\0';
+	ft_strcat(arr, s1);
+	ft_strcat(arr, sep);
+	ft_strcat(arr, s2);
+	return (arr);
 }

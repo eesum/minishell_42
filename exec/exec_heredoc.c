@@ -6,11 +6,15 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 15:18:24 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:25:20 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../exec.h"
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <fcntl.h>
 
 static void	input_to_heredoc(t_execdata *data, int i)
 {

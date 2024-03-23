@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 12:51:25 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 15:02:18 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 16:34:16 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../exec.h"
 
 static int	count_heredoc(t_list *pipe)
 {

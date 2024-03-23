@@ -6,11 +6,26 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 13:32:08 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 14:54:05 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 16:42:34 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../exec.h"
+
+static t_list	*ft_findlst_by_index(t_list *lst, int i)
+{
+	t_list	*cur;
+	int		index;
+
+	index = 0;
+	cur = lst;
+	while (index < i && cur->next != NULL)
+	{
+		index ++;
+		cur = cur->next;
+	}
+	return (cur);
+}
 
 static int	input_fd(t_execdata *data, t_list *cur_pipe, int i)
 {

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:44:34 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 04:50:18 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:19:19 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../builtin.h"
+#include <stdio.h>
 
-int	flag_echo_option(char *cmd)
+static int	flag_echo_option(char *cmd)
 {
 	int	i;
 	int	flag;
@@ -36,7 +37,7 @@ int	flag_echo_option(char *cmd)
 	return (flag);
 }
 
-int	check_echo_option(char **cmd, int *n_flag)
+static int	check_echo_option(char **cmd, int *n_flag)
 {
 	int	i;
 

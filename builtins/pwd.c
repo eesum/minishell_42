@@ -6,11 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:52:58 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 12:55:37 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:20:05 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../builtin.h"
 #include "../minishell.h"
+#include <stdio.h>
 
 int	exec_pwd(char **cmd)
 {

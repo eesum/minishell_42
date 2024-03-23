@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_err.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 17:24:58 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/22 15:37:57 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:11:28 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../exec.h"
 
 char	*pos(int n, int cnt)
 {
 	char	*arr;
 
-	arr = (char *)malloc(sizeof(char) * (cnt + 1));
-	if (arr == NULL)
-		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
+	arr = (char *)ft_malloc_err(sizeof(char) * (cnt + 1));
 	arr[cnt] = '\0';
 	while (--cnt >= 0)
 	{
@@ -32,9 +30,7 @@ static char	*neg(int n, int cnt)
 {
 	char	*arr;
 
-	arr = (char *)malloc(sizeof(char) * (cnt + 1));
-	if (arr == NULL)
-		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
+	arr = (char *)ft_malloc_err(sizeof(char) * (cnt + 1));
 	arr[cnt] = '\0';
 	while (--cnt >= 1)
 	{

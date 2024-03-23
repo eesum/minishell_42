@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_env_utils.c                                   :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:21:29 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 15:25:04 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:18:19 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,6 @@ t_list	*envp_to_lst(char **envp)
 		i++;
 	}
 	return (env);
-}
-
-char	**lst_to_envp(t_list *env)
-{
-	t_list	*cur;
-	int		cnt;
-	char	**envp;
-
-	cnt = 0;
-	cur = env;
-	while (cur != NULL)
-	{
-		cnt++;
-		cur = cur->next;
-	}
-	envp = ft_malloc_err(sizeof(char *) * (cnt + 1));
-	envp[cnt] = NULL;
-	cnt = 0;
-	cur = env;
-	while (cur != NULL)
-	{
-		envp[cnt] = ft_strdup_err((char *)cur->content);
-		cnt++;
-		cur = cur->next;
-	}
-	return (envp);
 }
 
 char	*find_env(char *name, t_list *env)
@@ -115,29 +89,4 @@ void	update_env(char *name, char *value, t_list *env)
 	if (new == NULL)
 		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
 	ft_lstadd_back(&env, new);
-}
-
-int	check_valid_name(char *cmd, char *arg, char sep)
-{
-	int	i;
-
-	if (arg && arg[0] != 95 && \
-		(arg[0] < 65 || (arg[0] > 90 && arg[0] < 97) || arg[0] > 122))
-	{
-		error_msg_only("not a valid identifier", cmd, arg);
-		return (-1);
-	}
-	i = 1;
-	while (arg && arg[i] && arg[i] != sep)
-	{
-		if (arg[i] != 95 && \
-			(arg[i] < 48 || (arg[i] > 57 && arg[i] < 65) || \
-			(arg[i] > 90 && arg[i] < 97) || arg[i] > 122))
-		{
-			error_msg_only("not a valid identifier", cmd, arg);
-			return (-1);
-		}
-		i++;
-	}
-	return (i);
 }

@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 13:24:14 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:19:50 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../builtin.h"
 #include "../minishell.h"
+#include <stdio.h>
 
-long long	exit_atol(char **cmd)
+static long long	exit_atol(char **cmd)
 {
 	long long	i;
 	int			sign;

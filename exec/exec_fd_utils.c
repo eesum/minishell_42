@@ -6,11 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:36:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 15:14:28 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 16:39:07 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../exec.h"
+#include <fcntl.h>
 
 int	open_last_input(t_list *pipe, char **file_arr)
 {

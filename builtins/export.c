@@ -6,13 +6,39 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:03:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 12:55:25 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 16:56:42 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../builtin.h"
+#include "../exec.h"
+#include <stdio.h>
 
-int	export_no_arg(t_list *env)
+static char	*ft_substr_err(char const *s, unsigned int start, size_t len)
+{
+	char			*sub;
+	unsigned int	i;
+	size_t			s_len;
+
+	i = 0;
+	s_len = ft_strlen(s);
+	if (s_len <= start)
+		len = 0;
+	else if (s_len < start + len)
+		len = s_len - start;
+	sub = (char *)malloc(sizeof(char) * (len + 1));
+	if (sub == NULL)
+		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
+	while (i < len && s[start + i])
+	{
+		sub[i] = s[start + i];
+		i++;
+	}
+	sub[i] = '\0';
+	return (sub);
+}
+
+static int	export_no_arg(t_list *env)
 {
 	t_list	*cur;
 	size_t	name_len;
@@ -38,7 +64,7 @@ int	export_no_arg(t_list *env)
 	return (0);
 }
 
-void	export_with_arg(char **cmd, t_list *env, int *err_flag)
+static void	export_with_arg(char **cmd, t_list *env, int *err_flag)
 {
 	int		i;
 	int		name_len;

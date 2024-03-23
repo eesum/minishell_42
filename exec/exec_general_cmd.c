@@ -6,11 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:34:33 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 15:25:17 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 16:42:47 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../exec.h"
+#include <dirent.h>
 
 static int	is_with_path(char *cmd)
 {

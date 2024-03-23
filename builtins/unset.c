@@ -6,13 +6,14 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 19:40:13 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/20 12:55:49 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 17:20:21 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../builtin.h"
+#include "../exec.h"
 
-void	remove_env(char *name, t_list *env)
+static void	remove_env(char *name, t_list *env)
 {
 	t_list	*cur;
 	t_list	*tmp;
