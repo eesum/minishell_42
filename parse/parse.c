@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:34:52 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/22 17:16:36 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 15:03:14 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../parse.h"
 
 int	parsing(t_parsedata *parse, t_execdata *exec)
 {

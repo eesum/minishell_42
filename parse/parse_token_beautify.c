@@ -6,11 +6,11 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:51:53 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/22 13:27:34 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:02:01 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../parse.h"
 
 static int	delete_redirection_node(t_list **head, t_list **cur, t_list **pre)
 {

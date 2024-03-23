@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 01:32:54 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/23 15:41:17 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # define TYPE_OUTPUT_T 3
 # define TYPE_OUTPUT_A 4
 # define TYPE_PIPE 5
-# define SYNTAX_ERROR 1
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -72,18 +71,6 @@ void	set_terminal_print_on(void);
 void	parent_sig(int signum);
 void	heredoc_sig(int signum);
 
-/*parse*/
-char	*get_env_name(char *str);
-void	count_total_len(char *str, t_list *env, size_t *len);
-void	change_default(t_parsedata *data, size_t *i, size_t *j, t_list *env);
-void	change_quote(t_parsedata *data, size_t *i, size_t *j, t_list *env);
-void	parsing_env(t_parsedata *data, t_list *env);
-int		check_token_type(char *str);
-int		split_token(t_list **head, char *str);
-void	delete_quote(t_list **head);
-int		beautify_token(t_list **head, t_list **pipe);
-int		parsing(t_parsedata *parse, t_execdata *exec);
-
 /*exec*/
 void	exec(t_execdata *data);
 void	init_token_flags(t_execdata *data);
@@ -134,11 +121,7 @@ char	*find_env(char *name, t_list *env);
 void	update_env(char *name, char *value, t_list *env);
 int		check_cmd_option(char **cmd);
 int		check_valid_name(char *cmd, char *arg, char sep);
-int		ft_ispipe(char c);
 int		ft_isspace(char c);
-int		ft_isredi(char c);
-int		ft_isquote(char c);
-char	*ft_strndup(char *origin, int count);
 t_list	*ft_findlst_by_index(t_list *lst, int i);
 void	restore_fds(t_execdata *data, int input_fd, int output_fd);
 

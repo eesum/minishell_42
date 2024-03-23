@@ -6,11 +6,11 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:23:20 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/22 13:27:53 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:02:48 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../parse.h"
 
 static void	make_token(t_list **head, char *str, int *i, int *cnt)
 {

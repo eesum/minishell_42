@@ -6,11 +6,11 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:06:09 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/22 13:23:39 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:01:44 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../parse.h"
 
 static void	env_in_quote(t_parsedata *data, size_t *i, size_t *j, t_list *env)
 {
