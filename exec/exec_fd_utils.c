@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:36:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 01:20:13 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:19:51 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,19 @@ int	open_last_input(t_list *pipe, char **file_arr)
 	t_list	*cur;
 	char	*in;
 	char	fd;
+	t_token	*token;
 
 	in = NULL;
 	cur = pipe->content;
 	while (cur != NULL)
 	{
-		if (((t_token *)cur->content)->redirect_flag == 1)
+		token = cur->content;
+		if (token->redirect_flag == 1)
 		{
-			if (((t_token *)cur->content)->type == TYPE_INPUT)
-				in = ((t_token *)cur->content)->str;
+			if (token->type == TYPE_INPUT)
+				in = token->str;
 			else
-				in = file_arr[((t_token *)cur->content)->hd_index];
+				in = file_arr[token->hd_index];
 		}
 		cur = cur->next;
 	}
