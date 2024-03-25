@@ -6,12 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 19:51:51 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:17:09 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:38:36 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include "minishell.h"
+#include "util.h"
 #include <stdio.h>
 
 static int	is_with_value(char *content)

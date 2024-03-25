@@ -6,11 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 12:51:25 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:06:22 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:44:20 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "parse.h"
 
 static int	count_heredoc(t_list *pipe)
 {

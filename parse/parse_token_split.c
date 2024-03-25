@@ -6,11 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:23:20 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/26 01:23:02 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:46:29 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "util.h"
 
 static void	make_token(t_list **head, char *str, int *i, int *cnt)
 {

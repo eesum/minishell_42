@@ -6,11 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:45:05 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:15:50 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:41:51 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "parse.h"
+#include "util.h"
 #include <unistd.h>
 #include <fcntl.h>
 

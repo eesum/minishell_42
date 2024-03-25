@@ -6,14 +6,35 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:00:52 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 01:48:49 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:34:57 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
+# define TYPE_DEFAULT 0
+# define TYPE_HEREDOC 1
+# define TYPE_INPUT 2
+# define TYPE_OUTPUT_T 3
+# define TYPE_OUTPUT_A 4
+# define TYPE_PIPE 5
 
-# include "minishell.h"
+# include "libft.h"
+
+typedef struct s_execdata
+{
+	int		pipe_cnt;
+	int		index;
+	int		fd[2][2];
+	int		tmp_fd[2];
+	pid_t	*pid;
+	char	**path;
+	t_list	*pipe;
+	t_list	*env;
+	int		doc_cnt;
+	char	**eof_arr;
+	char	**file_arr;
+}				t_execdata;
 
 int		exec(t_execdata *data);
 void	init_exec_data(t_execdata *data);

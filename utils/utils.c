@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:16 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 01:23:02 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:48:33 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "util.h"
 
 void	error_exit(char *msg, char *cmd, char *arg, int code)
 {

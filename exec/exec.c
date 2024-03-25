@@ -6,11 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 01:51:08 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:50:31 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "parse.h"
+#include "util.h"
 
 static int	count_pipe(t_execdata *data)
 {

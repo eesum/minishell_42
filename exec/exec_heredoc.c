@@ -6,11 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:01:58 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:43:52 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "util.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>

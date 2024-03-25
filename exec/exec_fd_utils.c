@@ -6,11 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:36:20 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:19:51 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:43:25 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "parse.h"
+#include "util.h"
 #include <fcntl.h>
 
 int	open_last_input(t_list *pipe, char **file_arr)
