@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:34:52 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:56 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/25 21:07:45 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@ int	parsing(t_parsedata *parse, t_execdata *exec)
 	{
 		error_msg_only("syntax error", 0, 0);
 		update_env("?", "258", exec->env);
-		free(parse->str);
-		free(parse->env_str);
 		return (1);
 	}
-	free(parse->str);
-	free(parse->env_str);
 	exec->pipe = NULL;
 	if (parse->token_head != NULL)
 	{
