@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:32 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/25 22:07:42 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@
 static void	input_to_heredoc(t_execdata *data, int i)
 {
 	char	*buff;
+	int		fd;
 
+	fd = open(data->file_arr[i], O_RDWR | O_CREAT, 0644);
+	if (fd < 0)
+		error_exit("file open failed", 0, 0, EXIT_FAILURE);
 	while (1)
 	{
 		buff = readline("> \033[s");
@@ -28,20 +32,17 @@ static void	input_to_heredoc(t_execdata *data, int i)
 			printf("\033[u");
 			break ;
 		}
-		if (buff != NULL)
+		if (ft_memcmp(data->eof_arr[i], buff, \
+			ft_strlen(data->eof_arr[i]) + 1) == 0)
 		{
-			if (ft_memcmp(data->eof_arr[i], buff, \
-				ft_strlen(data->eof_arr[i]) + 1) == 0)
-			{
-				free(buff);
-				break ;
-			}
-			write(data->doc_fd[i], buff, ft_strlen(buff));
-			write(data->doc_fd[i], "\n", 1);
+			free(buff);
+			break ;
 		}
+		write(fd, buff, ft_strlen(buff));
+		write(fd, "\n", 1);
 		free(buff);
 	}
-	close(data->doc_fd[i]);
+	close(fd);
 }
 
 static int	is_heredoc_signaled(t_list *env)
@@ -70,19 +71,11 @@ int	here_document(t_execdata *data)
 	if (data->pid[0] == 0)
 	{
 		signal(SIGINT, &heredoc_sig);
-		i = 0;
 		while (i < data->doc_cnt)
-		{
-			data->doc_fd[i] = open(data->file_arr[i], O_RDWR | O_CREAT, 0644);
-			if (data->doc_fd[i] < 0)
-				error_exit("file open failed", 0, 0, EXIT_FAILURE);
 			input_to_heredoc(data, i++);
-		}
 		exit(EXIT_SUCCESS);
 	}
 	signal(SIGINT, SIG_IGN);
 	wait_and_update_exit_code(data->pid, data->env);
-	if (is_heredoc_signaled(data->env) == 1)
-		return (-1);
-	return (0);
+	return (is_heredoc_signaled(data->env));
 }

@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 12:51:25 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:32 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/25 22:26:21 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,14 @@ static void	flag_last_redirection(t_list *pipe)
 		((t_token *)last_output->content)->redirect_flag = 2;
 }
 
-void	init_token_flags(t_execdata *data)
+void	init_exec_data(t_execdata *data)
 {
 	t_list	*pipe_cur;
 
 	pipe_cur = data->pipe;
 	data->doc_cnt = 0;
+	data->file_arr = NULL;
+	data->eof_arr = NULL;
 	while (pipe_cur != NULL)
 	{
 		data->doc_cnt += count_heredoc(pipe_cur->content);

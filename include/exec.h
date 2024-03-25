@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:00:52 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 21:27:43 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/25 22:10:39 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "minishell.h"
 
 void	exec(t_execdata *data);
-void	init_token_flags(t_execdata *data);
+void	init_exec_data(t_execdata *data);
 void	before_heredoc(t_execdata *data);
 int		here_document(t_execdata *data);
 int		check_file_open(t_list *pipe_tokens);

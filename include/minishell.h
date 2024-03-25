@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 21:03:15 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/25 22:07:23 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_execdata
 	t_list	*pipe;
 	t_list	*env;
 	int		doc_cnt;
-	int		*doc_fd;
 	char	**eof_arr;
 	char	**file_arr;
 }				t_execdata;

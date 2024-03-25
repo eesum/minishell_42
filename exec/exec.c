@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/25 18:02:09 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/25 22:25:39 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ static void	exec_multiple_pipe(t_execdata *data)
 
 void	exec(t_execdata *data)
 {
-	init_token_flags(data);
+	init_exec_data(data);
 	data->pid = ft_malloc_err(sizeof(pid_t) * 2);
 	data->pid[1] = 0;
-	if (here_document(data) < 0)
+	if (data->doc_cnt > 0 && here_document(data) > 0)
 	{
 		update_env("?", "1", data->env);
 		end_exec(data);

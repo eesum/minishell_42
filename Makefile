@@ -6,7 +6,7 @@
 #    By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/17 18:38:57 by seohyeki          #+#    #+#              #
-#    Updated: 2024/03/23 17:42:30 by sumilee          ###   ########.fr        #
+#    Updated: 2024/03/25 22:07:07 by sumilee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,8 +59,7 @@ all : $(NAME)
 
 $(NAME) : $(A_OBJS)
 	make -C $(LIBFT_DIR)
-	cp $(LIBFT_DIR)/$(LIBFT) ./
-	cc -lreadline $(CFLAGS) $(LIBFT) -o $@ $^
+	cc $(CFLAGS) -lreadline -lft -Llibft -o $@ $^
 
 %.o : %.c
 	cc -I$(LIBFT_DIR) -I$(INC_DIR) $(CFLAGS) -c $< -o $@

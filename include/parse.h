@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:28:14 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 15:40:08 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:34:52 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		split_token(t_list **head, char *str);
 int		check_token_type(char *str);
 void	delete_quote(t_list **head);
 int		beautify_token(t_list **head, t_list **pipe);
-int		parsing(t_parsedata *parse, t_execdata *exec);
+int		parsing(t_parsedata *parse, t_list **pipe, t_list *env);
 
 /*parse utils*/
 int		ft_ispipe(char c);
