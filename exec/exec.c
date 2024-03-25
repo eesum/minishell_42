@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:32 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/25 18:02:09 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int	only_builtin(t_execdata *data)
 	int		input;
 	int		output;
 	char	**cmd;
+	int		exec_result;
 
 	cmd = cmd_to_arr(data->pipe->content);
 	if (check_file_open(data->pipe->content) < 0 || cmd == NULL)
@@ -53,14 +54,11 @@ static int	only_builtin(t_execdata *data)
 	input = open_last_input(data->pipe, data->file_arr);
 	output = open_last_output(data->pipe);
 	dup_fds(data, input, output);
-	if (exec_cmd(cmd, data->env, 0) < 0)
-	{
-		restore_fds(data, input, output);
-		free_arr(cmd);
-		return (-1);
-	}
+	exec_result = exec_cmd(cmd, data->env, 0);
 	restore_fds(data, input, output);
 	free_arr(cmd);
+	if (exec_result < 0)
+		return (-1);
 	return (0);
 }
 
@@ -97,8 +95,8 @@ void	exec(t_execdata *data)
 	data->pid[1] = 0;
 	if (here_document(data) < 0)
 	{
-		end_exec(data);
 		update_env("?", "1", data->env);
+		end_exec(data);
 		return ;
 	}
 	if (count_pipe(data) == 1)
