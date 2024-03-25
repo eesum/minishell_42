@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 19:18:56 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:45 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 01:23:02 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 void	free_token(void *token)
 {

@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:02:59 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:32 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 01:23:02 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/exec.h"
+#include "exec.h"
 
 static void	ft_strcpy(char *dest, const char *src)
 {

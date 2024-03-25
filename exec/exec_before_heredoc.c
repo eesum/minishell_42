@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:00:32 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/25 21:55:15 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 01:23:02 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/exec.h"
+#include "exec.h"
 
 static char	*ft_strjoin_err(char const *s1, char const *s2)
 {

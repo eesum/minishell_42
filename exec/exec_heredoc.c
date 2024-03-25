@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/25 22:07:42 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:01:58 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/exec.h"
+#include "exec.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -76,6 +76,6 @@ int	here_document(t_execdata *data)
 		exit(EXIT_SUCCESS);
 	}
 	signal(SIGINT, SIG_IGN);
-	wait_and_update_exit_code(data->pid, data->env);
+	wait_and_update_exit_code(data->pid);
 	return (is_heredoc_signaled(data->env));
 }

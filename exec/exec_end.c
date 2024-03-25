@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:03:50 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/25 21:55:12 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 01:32:14 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/exec.h"
+#include "exec.h"
 #include <unistd.h>
 
 static void	delete_tmpfile(t_execdata *data)
@@ -27,8 +27,12 @@ static void	delete_tmpfile(t_execdata *data)
 	}
 }
 
-void	end_exec(t_execdata *data)
+void	end_exec(t_execdata *data, int exit_code)
 {
+	char	*code;
+
+	code = ft_itoa_err(exit_code);
+	update_env("?", code, data->env);
 	delete_tmpfile(data);
 	free_arr(data->eof_arr);
 	free_arr(data->file_arr);

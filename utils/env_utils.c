@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:21:29 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/25 21:24:03 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 01:23:02 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 static int	find_env_name(char *content, char *name, int only_with_eq_flag)
 {

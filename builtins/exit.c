@@ -6,12 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 19:10:50 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 01:23:02 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/builtin.h"
-#include "../include/minishell.h"
+#include "builtin.h"
+#include "minishell.h"
 #include <stdio.h>
 
 static long long	exit_atol(char **cmd)

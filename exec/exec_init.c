@@ -6,25 +6,27 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 12:51:25 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/25 22:26:21 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:06:22 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/exec.h"
+#include "exec.h"
 
 static int	count_heredoc(t_list *pipe)
 {
 	t_list	*cur;
 	int		doc_cnt;
+	t_token	*token;
 
 	doc_cnt = 0;
 	cur = pipe;
 	while (cur != NULL)
 	{
-		((t_token *)cur->content)->hd_index = -1;
-		if (((t_token *)cur->content)->type == TYPE_HEREDOC)
+		token = cur->content;
+		token->hd_index = -1;
+		if (token->type == TYPE_HEREDOC)
 		{
-			((t_token *)cur->content)->hd_index = doc_cnt;
+			token->hd_index = doc_cnt;
 			doc_cnt++;
 		}
 		cur = cur->next;
@@ -37,18 +39,20 @@ static void	flag_last_redirection(t_list *pipe)
 	t_list	*cur;
 	t_list	*last_input;
 	t_list	*last_output;
+	t_token	*token;
 
 	cur = pipe;
 	last_input = NULL;
 	last_output = NULL;
 	while (cur != NULL)
 	{
-		((t_token *)cur->content)->redirect_flag = 0;
-		if (((t_token *)cur->content)->type == TYPE_INPUT || \
-			((t_token *)cur->content)->type == TYPE_HEREDOC)
+		token = cur->content;
+		token->redirect_flag = 0;
+		if (token->type == TYPE_INPUT || \
+			token->type == TYPE_HEREDOC)
 			last_input = cur;
-		else if (((t_token *)cur->content)->type == TYPE_OUTPUT_T || \
-			((t_token *)cur->content)->type == TYPE_OUTPUT_A)
+		else if (token->type == TYPE_OUTPUT_T || \
+			token->type == TYPE_OUTPUT_A)
 			last_output = cur;
 		cur = cur->next;
 	}

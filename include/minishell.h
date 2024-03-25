@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/25 22:07:23 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 01:23:17 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define TYPE_OUTPUT_A 4
 # define TYPE_PIPE 5
 
-# include "../libft/libft.h"
+# include "libft.h"
 
 typedef struct s_token
 {

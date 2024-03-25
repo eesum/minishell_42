@@ -6,20 +6,20 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:29:18 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:32 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:01:38 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/exec.h"
+#include "exec.h"
 #include <stdio.h>
 #include <sys/wait.h>
 
-void	wait_and_update_exit_code(pid_t *pid, t_list *env)
+int	wait_and_update_exit_code(pid_t *pid)
 {
 	int		i;
 	int		status;
 	pid_t	wait_pid;
-	char	*exit_code_char;
+	int		exit_code;
 
 	i = 0;
 	while (pid && pid[i])
@@ -28,17 +28,17 @@ void	wait_and_update_exit_code(pid_t *pid, t_list *env)
 		if (wait_pid < 0)
 			error_exit("wait error", 0, 0, EXIT_FAILURE);
 		else if (WIFEXITED(status))
-			exit_code_char = ft_itoa_err(WEXITSTATUS(status));
+			exit_code = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 		{
 			printf("\n");
-			exit_code_char = ft_itoa_err(128 + WTERMSIG(status));
+			exit_code = 128 + WTERMSIG(status);
 		}
-		update_env("?", exit_code_char, env);
-		free(exit_code_char);
 		i++;
 	}
+	printf("%d\n", exit_code);
 	set_sig_term(parent_sig, SIG_IGN, 0);
+	return (exit_code);
 }
 
 char	**lst_to_envp(t_list *env)

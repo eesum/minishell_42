@@ -6,12 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 20:14:04 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:45:08 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:08:18 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/exec.h"
-#include "../include/builtin.h"
+#include "exec.h"
+#include "builtin.h"
 #include <errno.h>
 
 static char	*get_current_path(void)
