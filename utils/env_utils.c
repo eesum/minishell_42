@@ -6,11 +6,32 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:21:29 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 21:16:25 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 17:48:41 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "util.h"
+
+int	find_env_name(char *content, char *name, int only_with_eq_flag)
+{
+	int	name_len;
+
+	name_len = ft_strlen(name);
+	if (only_with_eq_flag == 1)
+	{
+		if (ft_strncmp(content, name, name_len) == 0 \
+			&& (content)[name_len] == '=')
+			return (1);
+	}
+	else
+	{
+		if (ft_memcmp(content, name, name_len + 1) == 0 \
+			|| (ft_memcmp(content, name, name_len) == 0 \
+			&& content[name_len] == '='))
+			return (1);
+	}
+	return (0);
+}
 
 t_list	*envp_to_lst(char **envp)
 {
@@ -24,7 +45,7 @@ t_list	*envp_to_lst(char **envp)
 	env = ft_lstnew(ft_strdup_err("?=0"));
 	if (env == NULL)
 		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
-	while (envp && envp[i])
+	while (envp[i])
 	{
 		new = ft_lstnew(ft_strdup_err(envp[i]));
 		if (env == NULL)
@@ -48,8 +69,7 @@ char	*find_env(char *name, t_list *env)
 	name_len = ft_strlen(name);
 	while (cur != NULL)
 	{
-		if (ft_strncmp((char *)cur->content, name, name_len) == 0 \
-			&& ((char *)cur->content)[name_len] == '=')
+		if (find_env_name((char *)cur->content, name, 1))
 		{
 			value = ft_strdup_err(&((char *)cur->content)[name_len + 1]);
 			return (value);
@@ -65,18 +85,14 @@ char	*find_env(char *name, t_list *env)
 void	no_value_update_env(char *name, t_list *env)
 {
 	t_list	*cur;
-	size_t	name_len;
 	t_list	*new;
 
 	cur = env;
 	if (name == NULL || env == NULL)
 		return ;
-	name_len = ft_strlen(name);
 	while (cur != NULL)
 	{
-		if (ft_memcmp((char *)cur->content, name, name_len + 1) == 0 \
-			|| (ft_memcmp((char *)cur->content, name, name_len) == 0 \
-			&& ((char *)cur->content)[name_len] == '='))
+		if (find_env_name((char *)cur->content, name, 0))
 			return ;
 		cur = cur->next;
 	}
@@ -89,18 +105,14 @@ void	no_value_update_env(char *name, t_list *env)
 void	update_env(char *name, char *value, t_list *env)
 {
 	t_list	*cur;
-	size_t	name_len;
 	t_list	*new;
 
 	cur = env;
 	if (name == NULL || env == NULL)
 		return ;
-	name_len = ft_strlen(name);
 	while (cur != NULL)
 	{
-		if (ft_memcmp((char *)cur->content, name, name_len + 1) == 0 \
-			|| (ft_memcmp((char *)cur->content, name, name_len) == 0 \
-			&& ((char *)cur->content)[name_len] == '='))
+		if (find_env_name((char *)cur->content, name, 0))
 		{
 			free(cur->content);
 			cur->content = ft_strjoin_sep(name, value, "=");

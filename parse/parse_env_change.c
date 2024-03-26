@@ -6,11 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:34:51 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:56 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:49:16 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/parse.h"
+#include "parse.h"
+#include "util.h"
 
 static void	change_loop(t_parsedata *data, char *src, size_t *j)
 {

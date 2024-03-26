@@ -6,11 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:00:32 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:32 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:41:14 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/exec.h"
+#include "exec.h"
+#include "parse.h"
+#include "util.h"
 
 static char	*ft_strjoin_err(char const *s1, char const *s2)
 {
@@ -81,13 +83,10 @@ void	before_heredoc(t_execdata *data)
 	if (data->doc_cnt == 0)
 	{
 		data->eof_arr = NULL;
-		data->doc_fd = NULL;
 		data->file_arr = NULL;
 		return ;
 	}
 	data->eof_arr = parse_delimiter(data->pipe, data->doc_cnt);
-	data->doc_fd = ft_malloc_err(sizeof(int *) * data->doc_cnt + 1);
-	data->doc_fd[data->doc_cnt] = 0;
 	data->file_arr = ft_malloc_err(sizeof(char *) * data->doc_cnt + 1);
 	data->file_arr[data->doc_cnt] = 0;
 	while (i < data->doc_cnt)

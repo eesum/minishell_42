@@ -6,11 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/25 18:02:09 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:50:31 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/exec.h"
+#include "exec.h"
+#include "parse.h"
+#include "util.h"
 
 static int	count_pipe(t_execdata *data)
 {
@@ -50,7 +52,7 @@ static int	only_builtin(t_execdata *data)
 
 	cmd = cmd_to_arr(data->pipe->content);
 	if (check_file_open(data->pipe->content) < 0 || cmd == NULL)
-		return (-1);
+		return (1);
 	input = open_last_input(data->pipe, data->file_arr);
 	output = open_last_output(data->pipe);
 	dup_fds(data, input, output);
@@ -58,11 +60,11 @@ static int	only_builtin(t_execdata *data)
 	restore_fds(data, input, output);
 	free_arr(cmd);
 	if (exec_result < 0)
-		return (-1);
+		return (1);
 	return (0);
 }
 
-static void	exec_multiple_pipe(t_execdata *data)
+static int	exec_multiple_pipe(t_execdata *data)
 {
 	data->index = 0;
 	while (data->index < data->pipe_cnt)
@@ -85,32 +87,20 @@ static void	exec_multiple_pipe(t_execdata *data)
 			close(data->fd[(data->index + 1) % 2][0]);
 		data->index++;
 	}
-	wait_and_update_exit_code(data->pid, data->env);
+	return (wait_and_update_exit_code(data->pid));
 }
 
-void	exec(t_execdata *data)
+int	exec(t_execdata *data)
 {
-	init_token_flags(data);
+	init_exec_data(data);
 	data->pid = ft_malloc_err(sizeof(pid_t) * 2);
 	data->pid[1] = 0;
-	if (here_document(data) < 0)
-	{
-		update_env("?", "1", data->env);
-		end_exec(data);
-		return ;
-	}
+	if (data->doc_cnt > 0 && here_document(data) > 0)
+		return (1);
 	if (count_pipe(data) == 1)
-	{
-		if (only_builtin(data) < 0)
-			update_env("?", "1", data->env);
-		else
-			update_env("?", "0", data->env);
-		end_exec(data);
-		return ;
-	}
+		return (only_builtin(data));
 	free(data->pid);
 	data->pid = ft_malloc_err(sizeof(pid_t) * (data->pipe_cnt + 1));
 	data->pid[data->pipe_cnt] = 0;
-	exec_multiple_pipe(data);
-	end_exec(data);
+	return (exec_multiple_pipe(data));
 }

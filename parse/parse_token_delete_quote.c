@@ -6,11 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:37:49 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:56 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:46:20 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/parse.h"
+#include "parse.h"
+#include "util.h"
 
 static void	count_without_quote(char *str, size_t *len, int *flag)
 {

@@ -6,17 +6,20 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:23:20 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:56 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:38:02 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/parse.h"
+#include "parse.h"
+#include "util.h"
+#include <stdlib.h>
 
 static void	make_token(t_list **head, char *str, int *i, int *cnt)
 {
 	int		type;
 	char	*token_str;
 	t_token	*token;
+	t_list	*new;
 
 	if (*cnt == 0)
 		return ;
@@ -25,7 +28,10 @@ static void	make_token(t_list **head, char *str, int *i, int *cnt)
 	token = (t_token *)ft_malloc_err(sizeof(t_token));
 	token->str = token_str;
 	token->type = type;
-	ft_lstadd_back(head, ft_lstnew(token));
+	new = ft_lstnew(token);
+	if (new == NULL)
+		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
+	ft_lstadd_back(head, new);
 	(*cnt) = 0;
 }
 

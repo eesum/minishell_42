@@ -6,13 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:33:25 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 19:12:05 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:45:59 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/parse.h"
-#include "include/builtin.h"
-#include "include/exec.h"
+#include "minishell.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -37,11 +35,11 @@ int	main(int argc, char **argv, char **envp)
 		if (*parse.str)
 		{
 			add_history(parse.str);
-			if (parsing(&parse, &data) == 0)
-				exec(&data);
+			if (parsing(&parse, &(data.pipe), data.env) == 0)
+				end_exec(&data, exec(&data));
+			free(parse.env_str);
 		}
-		else
-			free(parse.str);
+		free(parse.str);
 	}
 	return (0);
 }

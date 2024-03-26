@@ -6,11 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:33:41 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/23 17:44:45 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 02:48:00 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "util.h"
 
 char	*ft_strndup(char *origin, int count)
 {
