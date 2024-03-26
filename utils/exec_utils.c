@@ -6,12 +6,11 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:29:18 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 17:55:44 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 18:20:20 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-#include "libft.h"
 #include "util.h"
 #include <stdio.h>
 #include <sys/wait.h>

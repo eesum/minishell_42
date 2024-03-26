@@ -6,11 +6,10 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 20:14:04 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:38:10 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 18:32:40 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
 #include "builtin.h"
 #include "util.h"
 #include <errno.h>
