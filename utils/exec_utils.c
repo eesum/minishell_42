@@ -6,11 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:29:18 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:51:21 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 17:55:44 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "libft.h"
 #include "util.h"
 #include <stdio.h>
 #include <sys/wait.h>
@@ -71,8 +72,7 @@ int	check_valid_name(char *cmd, char *arg, char sep)
 {
 	int	i;
 
-	if (arg && arg[0] != 95 && \
-		(arg[0] < 65 || (arg[0] > 90 && arg[0] < 97) || arg[0] > 122))
+	if (arg && arg[0] != '_' && ft_isalpha(arg[0]) == 0)
 	{
 		error_msg_only("not a valid identifier", cmd, arg);
 		return (-1);
@@ -80,9 +80,7 @@ int	check_valid_name(char *cmd, char *arg, char sep)
 	i = 1;
 	while (arg && arg[i] && arg[i] != sep)
 	{
-		if (arg[i] != 95 && \
-			(arg[i] < 48 || (arg[i] > 57 && arg[i] < 65) || \
-			(arg[i] > 90 && arg[i] < 97) || arg[i] > 122))
+		if (arg[i] != '_' && ft_isalnum(arg[i]) == 0)
 		{
 			error_msg_only("not a valid identifier", cmd, arg);
 			return (-1);
