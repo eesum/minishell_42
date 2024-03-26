@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:51:53 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/26 02:46:09 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:52:47 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,16 @@ static int	delete_redirection(t_list **head)
 	return (0);
 }
 
+static void	ft_lstaddnew_back(t_list **head, t_list *cur)
+{
+	t_list	*new;
+
+	new = ft_lstnew(cur);
+	if (new == NULL)
+		error_exit("malloc failed", 0, 0, EXIT_FAILURE);
+	ft_lstadd_back(head, new);
+}
+
 static void	split_pipe(t_list **head, t_list **pipe)
 {
 	t_list	*cur;
@@ -64,12 +74,12 @@ static void	split_pipe(t_list **head, t_list **pipe)
 
 	cur = *head;
 	pre = NULL;
-	ft_lstadd_back(pipe, ft_lstnew(cur));
+	ft_lstaddnew_back(pipe, cur);
 	while (cur)
 	{
 		if (((t_token *)cur->content)->type == TYPE_PIPE)
 		{
-			ft_lstadd_back(pipe, ft_lstnew(cur->next));
+			ft_lstaddnew_back(pipe, cur->next);
 			tmp = cur;
 			pre->next = NULL;
 			pre = NULL;

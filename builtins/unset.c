@@ -6,12 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 19:40:13 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:39:47 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 17:51:27 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "exec.h"
+#include "util.h"
 
 static void	remove_env(char *name, t_list *env)
 {
@@ -25,7 +26,7 @@ static void	remove_env(char *name, t_list *env)
 	name_len = ft_strlen(name);
 	while (cur->next != NULL)
 	{
-		if (ft_memcmp((char *)cur->next->content, name, name_len) == 0)
+		if (find_env_name((char *)cur->next->content, name, 0))
 		{
 			tmp = cur->next;
 			cur->next = cur->next->next;

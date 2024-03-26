@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:34:52 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/26 02:46:34 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:46:17 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int	parsing(t_parsedata *parse, t_list **pipe, t_list *env)
 {
 	parse->token_head = NULL;
+	*pipe = NULL;
 	parsing_env(parse, env);
 	if (split_token(&(parse->token_head), parse->env_str))
 	{

@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:03:50 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:43:16 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 15:44:20 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	end_exec(t_execdata *data, int exit_code)
 
 	code = ft_itoa_err(exit_code);
 	update_env("?", code, data->env);
+	free (code);
 	delete_tmpfile(data);
 	free_arr(data->eof_arr);
 	free_arr(data->file_arr);

@@ -6,13 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:21:29 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:46:54 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 17:48:41 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "util.h"
 
-static int	find_env_name(char *content, char *name, int only_with_eq_flag)
+int	find_env_name(char *content, char *name, int only_with_eq_flag)
 {
 	int	name_len;
 

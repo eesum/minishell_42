@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 02:32:44 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:50:46 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 17:49:06 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	*ft_malloc_err(size_t size);
 char	*ft_strjoin_sep(char const *s1, char const *s2, char const *sep);
 char	*ft_strdup_err(const char *s1);
 int		ft_isspace(char c);
+int		find_env_name(char *content, char *name, int only_with_eq_flag);
 t_list	*envp_to_lst(char **envp);
 char	*find_env(char *name, t_list *env);
 void	no_value_update_env(char *name, t_list *env);

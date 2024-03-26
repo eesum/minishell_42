@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:34:51 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/26 02:45:33 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 14:51:31 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*get_env_name(char *str)
 	return (name);
 }
 
-static size_t	interpret_default(char *s, t_list *env, size_t *len, size_t *i)
+static void	interpret_default(char *s, t_list *env, size_t *len, size_t *i)
 {
 	char	*name;
 	char	*src;
@@ -63,7 +63,6 @@ static size_t	interpret_default(char *s, t_list *env, size_t *len, size_t *i)
 	(*len) = (*len) - (ft_strlen(name) + 1) + ft_strlen(src) + (meta * 2);
 	free(name);
 	free(src);
-	return (meta);
 }
 
 static size_t	interpret_quote(char *str, t_list *env, size_t *len, size_t *i)

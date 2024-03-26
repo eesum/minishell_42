@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:43:52 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 16:18:02 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <fcntl.h>
+#include <sys/fcntl.h>
 
 static void	input_to_heredoc(t_execdata *data, int i)
 {
 	char	*buff;
 	int		fd;
 
-	fd = open(data->file_arr[i], O_RDWR | O_CREAT, 0644);
+	fd = open(data->file_arr[i], O_WRONLY | O_CREAT, 0644);
 	if (fd < 0)
 		error_exit("file open failed", 0, 0, EXIT_FAILURE);
 	while (1)
@@ -63,6 +64,8 @@ static int	is_heredoc_signaled(t_list *env)
 int	here_document(t_execdata *data)
 {
 	int		i;
+	int		exit_num;
+	char	*exit_code;
 
 	i = 0;
 	before_heredoc(data);
@@ -77,6 +80,8 @@ int	here_document(t_execdata *data)
 		exit(EXIT_SUCCESS);
 	}
 	signal(SIGINT, SIG_IGN);
-	wait_and_update_exit_code(data->pid);
+	exit_num = wait_and_update_exit_code(data->pid);
+	exit_code = ft_itoa_err(exit_num);
+	update_env("?", exit_code, data->env);
 	return (is_heredoc_signaled(data->env));
 }
