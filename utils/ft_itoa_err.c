@@ -6,11 +6,10 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 17:24:58 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:47:41 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/26 18:19:40 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
 #include "util.h"
 
 char	*pos(int n, int cnt)
