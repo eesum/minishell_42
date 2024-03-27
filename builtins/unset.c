@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 19:40:13 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 17:51:27 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/27 22:42:06 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ static void	remove_env(char *name, t_list *env)
 {
 	t_list	*cur;
 	t_list	*tmp;
-	int		name_len;
 
 	cur = env;
 	if (name == NULL)
 		return ;
-	name_len = ft_strlen(name);
 	while (cur->next != NULL)
 	{
 		if (find_env_name((char *)cur->next->content, name, 0))
