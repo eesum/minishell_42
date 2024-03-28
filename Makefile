@@ -6,7 +6,7 @@
 #    By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/17 18:38:57 by seohyeki          #+#    #+#              #
-#    Updated: 2024/03/28 14:53:25 by seohyeki         ###   ########.fr        #
+#    Updated: 2024/03/28 16:56:34 by seohyeki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ E_SRCS = builtins/cd.c \
 		 exec/exec_end.c \
 		 exec/exec_fd_utils.c \
 		 exec/exec_general_cmd.c \
+		 exec/exec_heredoc_chk_buff.c \
 		 exec/exec_heredoc.c \
 		 exec/exec_init.c \
 		 exec/exec.c \

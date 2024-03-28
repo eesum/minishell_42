@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:00:52 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:34:57 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/28 16:47:10 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_exec_data(t_execdata *data);
 void	before_heredoc(t_execdata *data);
 int		here_document(t_execdata *data);
 int		check_file_open(t_list *pipe_tokens);
+char	*chk_buff(char *buff, t_list *env);
 
 /*command*/
 char	**cmd_to_arr(t_list *pipe_tokens);

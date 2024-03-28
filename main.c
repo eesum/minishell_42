@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:33:25 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/28 14:56:15 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:49:55 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 		parse.str = readline("minishell $ \001\033[s\002");
 		if (parse.str == NULL)
 		{
-			printf("\033[u\033[1B\033[1A");
+			printf("\033[u");
 			exec_exit(NULL, 0, data.env);
 		}
 		if (*parse.str)

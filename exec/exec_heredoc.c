@@ -6,12 +6,13 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/28 14:55:38 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:46:06 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "util.h"
+#include <stddef.h>
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -40,6 +41,7 @@ static void	input_to_heredoc(t_execdata *data, int i)
 			free(buff);
 			break ;
 		}
+		buff = chk_buff(buff, data->env);
 		write(fd, buff, ft_strlen(buff));
 		write(fd, "\n", 1);
 		free(buff);

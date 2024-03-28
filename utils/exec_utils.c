@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:29:18 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 18:20:20 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:58:59 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "util.h"
 #include <stdio.h>
+#include <sys/signal.h>
 #include <sys/wait.h>
 
 int	wait_and_update_exit_code(pid_t *pid)
@@ -32,6 +33,8 @@ int	wait_and_update_exit_code(pid_t *pid)
 			exit_code = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 		{
+			if (WTERMSIG(status) == SIGQUIT)
+				printf("Quit: 3");
 			printf("\n");
 			exit_code = 128 + WTERMSIG(status);
 		}
