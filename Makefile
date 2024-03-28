@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/17 18:38:57 by seohyeki          #+#    #+#              #
-#    Updated: 2024/03/28 16:56:34 by seohyeki         ###   ########.fr        #
+#    Updated: 2024/03/28 17:58:31 by sumilee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,9 +40,10 @@ E_SRCS = builtins/cd.c \
 		 exec/exec_heredoc.c \
 		 exec/exec_init.c \
 		 exec/exec.c \
-		 signal.c \
 		 main.c
-U_SRCS = utils/env_utils.c \
+U_SRCS = utils/signal.c \
+		 utils/terminal.c \
+		 utils/env_utils.c \
 		 utils/exec_utils.c \
 		 utils/free.c \
 		 utils/ft_itoa_err.c \

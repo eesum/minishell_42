@@ -3,21 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/28 16:46:06 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:36:10 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "util.h"
-#include <stddef.h>
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <fcntl.h>
-#include <sys/fcntl.h>
+
+static int	is_eof(char *eof, char *buff)
+{
+	if (ft_memcmp(eof, buff, ft_strlen(eof) + 1) == 0)
+		return (1);
+	return (0);
+}
 
 static void	input_to_heredoc(t_execdata *data, int i)
 {
@@ -35,8 +40,7 @@ static void	input_to_heredoc(t_execdata *data, int i)
 			printf("\033[u\033[1B\033[1A");
 			break ;
 		}
-		if (ft_memcmp(data->eof_arr[i], buff, \
-			ft_strlen(data->eof_arr[i]) + 1) == 0)
+		if (is_eof(data->eof_arr[i], buff) == 1)
 		{
 			free(buff);
 			break ;
@@ -85,5 +89,6 @@ int	here_document(t_execdata *data)
 	exit_num = wait_and_update_exit_code(data->pid);
 	exit_code = ft_itoa_err(exit_num);
 	update_env("?", exit_code, data->env);
+	free(exit_code);
 	return (is_heredoc_signaled(data->env));
 }
