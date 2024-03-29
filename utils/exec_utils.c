@@ -6,14 +6,13 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:29:18 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/29 17:34:51 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/29 17:57:35 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "util.h"
 #include <stdio.h>
-#include <sys/signal.h>
 #include <sys/wait.h>
 
 int	wait_and_update_exit_code(pid_t *pid)
@@ -40,7 +39,6 @@ int	wait_and_update_exit_code(pid_t *pid)
 		}
 		i++;
 	}
-	// set_sig_term(sig_handler, SIG_IGN, 0);
 	return (exit_code);
 }
 

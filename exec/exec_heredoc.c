@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/29 17:36:30 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/29 17:57:48 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <fcntl.h>
-
-#include "minishell.h"
 
 static int	is_eof(char *eof, char *buff)
 {
@@ -79,13 +77,10 @@ int	here_document(t_execdata *data)
 		error_exit("fork failed", 0, 0, EXIT_FAILURE);
 	if (data->pid[0] == 0)
 	{
-		// signal(SIGINT, sig_handler);
-		// rl_event_hook = ctrl_c_heredoc;
 		while (i < data->doc_cnt)
 			input_to_heredoc(data, i++);
 		exit(EXIT_SUCCESS);
 	}
-	// signal(SIGINT, SIG_IGN);
 	exit_num = wait_and_update_exit_code(data->pid);
 	exit_code = ft_itoa_err(exit_num);
 	update_env("?", exit_code, data->env);

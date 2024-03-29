@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 02:32:44 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/29 17:30:21 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/29 17:55:21 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 
 # include "libft.h"
 
+/*prompt*/
+char	*prompt_shell(t_list *env);
+char	*prompt_heredoc(void);
+
 /*signal*/
 void	sig_update(t_list *env);
-void	set_sig_term(void sigint(int), void sigquit(int), int term);
 void	sig_handler(int signum);
-// void	parent_sig(int signum);
-// void	heredoc_sig(int signum);
+int		ctrl_c_new_prompt(void);
+int		ctrl_c_heredoc(void);
+void	set_sig_term(void sigint(int), void sigquit(int), int term);
+void	set_terminal_echo_on(void);
 
 /*free*/
 void	free_token(void *token);
