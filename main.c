@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:33:25 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/28 17:42:57 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/28 21:46:03 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char **argv, char **envp)
 	set_sig_term(parent_sig, SIG_IGN, 0);
 	while (1)
 	{
+		rl_event_hook = ctrl_c_new_prompt;
 		parse.str = readline("minishell $ \001\033[s\002");
 		sig_update(data.env);
 		if (parse.str == NULL)
