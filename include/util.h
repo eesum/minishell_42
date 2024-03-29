@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 02:32:44 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/28 17:13:05 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/29 17:30:21 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 /*signal*/
 void	sig_update(t_list *env);
 void	set_sig_term(void sigint(int), void sigquit(int), int term);
-void	parent_sig(int signum);
-void	heredoc_sig(int signum);
+void	sig_handler(int signum);
+// void	parent_sig(int signum);
+// void	heredoc_sig(int signum);
 
 /*free*/
 void	free_token(void *token);

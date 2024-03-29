@@ -6,7 +6,7 @@
 #    By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/17 18:38:57 by seohyeki          #+#    #+#              #
-#    Updated: 2024/03/28 17:58:31 by sumilee          ###   ########.fr        #
+#    Updated: 2024/03/29 17:23:59 by sumilee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ E_SRCS = builtins/cd.c \
 		 exec/exec_heredoc.c \
 		 exec/exec_init.c \
 		 exec/exec.c \
-		 main.c
+		 main.c \
+		 prompt.c
 U_SRCS = utils/signal.c \
 		 utils/terminal.c \
 		 utils/env_utils.c \

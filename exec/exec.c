@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:50:31 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/29 17:35:47 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	exec_multiple_pipe(t_execdata *data)
 			set_sig_term(SIG_DFL, SIG_DFL, 1);
 			exec_in_child(data, data->index);
 		}
-		signal(SIGINT, SIG_IGN);
+		// signal(SIGINT, SIG_IGN);
 		if (data->index < data->pipe_cnt - 1)
 			close(data->fd[data->index % 2][1]);
 		if (data->index > 0)
