@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 20:09:37 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/28 21:46:24 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/29 16:52:20 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@
 
 int	ctrl_c_new_prompt(void);
 int	ctrl_c_heredoc(void);
+void	set_terminal_echo_on(void);
 
 #endif

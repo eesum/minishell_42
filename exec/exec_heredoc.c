@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:02 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/29 16:15:30 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/29 16:50:53 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int	here_document(t_execdata *data)
 		error_exit("fork failed", 0, 0, EXIT_FAILURE);
 	if (data->pid[0] == 0)
 	{
-		// rl_event_hook = ctrl_c_heredoc;
 		signal(SIGINT, heredoc_sig);
+		rl_event_hook = ctrl_c_heredoc;
 		while (i < data->doc_cnt)
 			input_to_heredoc(data, i++);
 		exit(EXIT_SUCCESS);

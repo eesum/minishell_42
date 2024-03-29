@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:55:01 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/28 17:56:17 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/29 16:52:16 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ static void	set_terminal_print_on(void)
 
 	tcgetattr(1, &term);
 	term.c_lflag |= (ECHOCTL);
+	tcsetattr(1, 0, &term);
+}
+
+void	set_terminal_echo_on(void)
+{
+	struct termios	term;
+
+	tcgetattr(1, &term);
+	term.c_lflag |= (ECHO);
 	tcsetattr(1, 0, &term);
 }
 
