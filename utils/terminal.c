@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:55:01 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/29 17:51:13 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/31 01:53:28 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ static void	set_terminal_print_on(void)
 
 void	set_sig_term(void sigint(int), void sigquit(int), int term)
 {
-	if (sigint != NULL)
-		signal(SIGINT, sigint);
-	if (sigquit != NULL)
-		signal(SIGQUIT, sigquit);
+	signal(SIGINT, sigint);
+	signal(SIGQUIT, sigquit);
 	if (term == 1)
 		set_terminal_print_on();
 	else if (term == 0)

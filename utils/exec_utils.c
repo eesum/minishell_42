@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:29:18 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/29 17:57:35 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/31 02:17:13 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ int	wait_and_update_exit_code(pid_t *pid)
 		else if (WIFSIGNALED(status))
 		{
 			if (WTERMSIG(status) == SIGQUIT)
-				printf("Quit: 3");
-			printf("\n");
+				printf("Quit: 3\n");
+			if (WTERMSIG(status) == SIGINT)
+				printf("\n");
 			exit_code = 128 + WTERMSIG(status);
 		}
 		i++;
