@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 17:24:58 by sumilee           #+#    #+#             */
-/*   Updated: 2024/01/08 21:02:28 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/30 16:23:47 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-char	*pos(int n, int cnt)
+char	*ft_pos(int n, int cnt)
 {
 	char	*arr;
 
@@ -64,6 +64,6 @@ char	*ft_itoa(int n)
 	if (n < 0)
 		arr = neg(n, cnt + 1);
 	else
-		arr = pos(n, cnt);
+		arr = ft_pos(n, cnt);
 	return (arr);
 }

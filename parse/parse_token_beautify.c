@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_token_beautify.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:51:53 by seohyeki          #+#    #+#             */
-/*   Updated: 2024/03/26 15:52:47 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/30 15:50:11 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	delete_redirection_node(t_list **head, t_list **cur, t_list **pre)
 	t_list	*tmp;
 
 	token = (t_token *)(*cur)->content;
-	if (((t_token *)(*cur)->next->content)->type != 0)
+	if ((*cur)->next == NULL || ((t_token *)(*cur)->next->content)->type != 0)
 	{
 		ft_lstclear(head, free_token);
 		return (SYNTAX_ERROR);

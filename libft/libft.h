@@ -6,7 +6,7 @@
 /*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 16:05:14 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/13 17:19:00 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/03/30 16:24:07 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_data
 	int		n;
 }				t_data;
 
-char	*pos(int n, int cnt);
+char	*ft_pos(int n, int cnt);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);

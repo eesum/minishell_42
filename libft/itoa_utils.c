@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   itoa_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:55:57 by sumilee           #+#    #+#             */
-/*   Updated: 2024/02/01 22:39:07 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/03/30 16:24:00 by seohyeki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ char	*ft_unsigned_itoa(unsigned int n)
 		temp = temp / 10;
 		cnt++;
 	}
-	arr = pos(n, cnt);
+	arr = ft_pos(n, cnt);
 	return (arr);
 }
