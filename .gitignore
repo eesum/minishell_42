@@ -4,4 +4,4 @@ a.out.dSYM
 *.o
 *.a
 minishell
-submit
+submit*
