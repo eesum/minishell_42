@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 02:38:45 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/04/02 16:12:56 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	exec_exit(char **cmd, int pipe_flag, t_list *env)
 	if (cmd[2] != NULL)
 	{
 		error_msg_only("too many arguments", cmd[0], 0);
-		exit_code = 1;
+		update_env("?", "1", env);
+		return ;
 	}
 	exit((unsigned char)exit_code);
 }
