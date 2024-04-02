@@ -6,13 +6,19 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:15:12 by sumilee           #+#    #+#             */
-/*   Updated: 2024/04/02 16:12:56 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/04/02 16:22:56 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #include "util.h"
 #include <stdio.h>
+
+static void	exit_numeric_arg(char **cmd)
+{
+	error_msg_only("numeric argument required", cmd[0], cmd[1]);
+	exit(255);
+}
 
 static long long	exit_atol(char **cmd)
 {
@@ -30,16 +36,15 @@ static long long	exit_atol(char **cmd)
 		if (cmd[1][i] == '-')
 			sign = -1;
 		i++;
+		if (cmd[1][i] == 0)
+			exit_numeric_arg(cmd);
 	}
 	while (cmd[1][i] && (cmd[1][i] >= '0' && cmd[1][i] <= '9'))
 		result = result * 10 + (cmd[1][i++] - '0');
 	while (cmd[1][i] && ft_isspace(cmd[1][i]))
 			i++;
-	if (cmd[1][i] != '\0')
-	{
-		error_msg_only("numeric argument required", cmd[0], cmd[1]);
-		exit(255);
-	}
+	if (cmd[1][i] && (cmd[1][i] < '0' || cmd[1][i] > '9'))
+		exit_numeric_arg(cmd);
 	return (sign * result);
 }
 
