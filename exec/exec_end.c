@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:03:50 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 15:44:20 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/04/02 16:41:38 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "util.h"
 #include <unistd.h>
 
-static void	delete_tmpfile(t_execdata *data)
+void	delete_tmpfile(t_execdata *data)
 {
 	int	i;
 

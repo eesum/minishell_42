@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seohyeki <seohyeki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:00:52 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/28 16:47:10 by seohyeki         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:41:36 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	restore_fds(t_execdata *data, int input_fd, int output_fd);
 
 /*etc utils*/
 int		wait_and_update_exit_code(pid_t *pid);
+void	delete_tmpfile(t_execdata *data);
 char	**lst_to_envp(t_list *env);
 int		check_valid_name(char *cmd, char *arg, char sep);
 char	*ft_itoa_err(int n);

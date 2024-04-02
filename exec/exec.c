@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/04/02 16:01:46 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/04/02 17:17:43 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ static int	only_builtin(t_execdata *data)
 	input = open_last_input(data->pipe, data->file_arr);
 	output = open_last_output(data->pipe);
 	dup_fds(data, input, output);
+	if (is_builtin(cmd[0]) == 7)
+		delete_tmpfile(data);
 	exec_result = exec_cmd(cmd, data->env, 0);
 	restore_fds(data, input, output);
 	free_arr(cmd);
