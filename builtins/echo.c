@@ -6,11 +6,12 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 17:44:34 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/26 01:23:02 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/04/02 16:05:08 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include "libft.h"
 #include <stdio.h>
 
 static int	flag_echo_option(char *cmd)
@@ -65,10 +66,10 @@ int	exec_echo(char **cmd)
 		content_index = check_echo_option(cmd, &n_flag);
 		while (cmd[content_index])
 		{
-			printf("%s", cmd[content_index]);
+			ft_putstr_fd(cmd[content_index], 1);
 			content_index++;
 			if (cmd[content_index])
-				printf(" ");
+				write(1, " ", 1);
 		}
 	}
 	if (n_flag == 0)
