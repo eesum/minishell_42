@@ -6,7 +6,7 @@
 /*   By: sumilee <sumilee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:38:45 by sumilee           #+#    #+#             */
-/*   Updated: 2024/03/29 17:47:12 by sumilee          ###   ########.fr       */
+/*   Updated: 2024/04/02 16:01:46 by sumilee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ static int	only_builtin(t_execdata *data)
 
 	cmd = cmd_to_arr(data->pipe->content);
 	if (check_file_open(data->pipe->content) < 0 || cmd == NULL)
+	{
+		free_arr(cmd);
 		return (1);
+	}
 	input = open_last_input(data->pipe, data->file_arr);
 	output = open_last_output(data->pipe);
 	dup_fds(data, input, output);
